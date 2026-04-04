@@ -40,6 +40,41 @@ new #[Layout('layouts.base')] class extends Component
         .animation-delay-4000 { animation-delay: 4s; }
         .animation-delay-6000 { animation-delay: 6s; }
         
+        @keyframes shine {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+        .animate-shine {
+            background: linear-gradient(
+                120deg,
+                rgba(255, 255, 255, 1) 30%,
+                rgba(96, 165, 250, 1) 45%,
+                rgba(168, 85, 247, 1) 50%,
+                rgba(255, 255, 255, 1) 55%
+            );
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 5s ease-in-out infinite;
+        }
+        
+        @keyframes scrollGrid {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(24px); }
+        }
+        .bg-dot-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .mask-radial-faded {
+            mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+        }
+        .animate-scroll-grid {
+            animation: scrollGrid 1.5s linear infinite;
+        }
+
         .glass-panel {
             background: rgba(15, 23, 42, 0.4);
             backdrop-filter: blur(24px);
@@ -51,7 +86,10 @@ new #[Layout('layouts.base')] class extends Component
     </style>
 
     
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#020617]">
+        <!-- Moving Pixular Dot Grid -->
+        <div class="absolute inset-[-10%] z-0 bg-dot-pattern mask-radial-faded opacity-50 animate-scroll-grid pointer-events-none"></div>
+
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
         <div class="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-70 animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-[-10%] left-1/3 w-[700px] h-[700px] bg-purple-600/20 rounded-full mix-blend-screen filter blur-[150px] opacity-60 animate-blob animation-delay-4000"></div>
@@ -129,7 +167,7 @@ new #[Layout('layouts.base')] class extends Component
             </div>
             
            
-            <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.1] mb-8 max-w-5xl transition-all duration-1000 delay-500 ease-out drop-shadow-2xl">
+            <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] mb-8 max-w-5xl transition-all duration-1000 delay-500 ease-out drop-shadow-2xl animate-shine pb-2">
                 The best way to learn <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Laravel</span><br class="hidden md:block" /> and modern PHP.
             </h1>
             
