@@ -36,6 +36,7 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => $input['password'],
+                'role' => 'student',
             ]);
 
             $this->createTeam->handle($user, $user->name."'s Team", isPersonal: true);
