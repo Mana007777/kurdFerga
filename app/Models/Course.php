@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
@@ -23,5 +24,20 @@ class Course extends Model
     public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class)->orderBy('sort_order');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
+
+    public function stars(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'course_stars')->withTimestamps();
+    }
+
+    public function saves(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'saved_courses')->withTimestamps();
     }
 }
