@@ -63,11 +63,14 @@
 
                 <flux:sidebar.nav>
                     <flux:sidebar.group :heading="__('Platform')" class="grid w-full">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
-            </flux:sidebar.nav>
+                        <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->requestUri === '/profile'" wire:navigate>
+                            {{ __('My Profile') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                </flux:sidebar.nav>
 
             <flux:spacer />
 
@@ -81,7 +84,34 @@
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
-            <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
+            <flux:dropdown position="top" align="start">
+                <flux:profile
+                    :name="auth()->user()->name"
+                    :initials="auth()->user()->initials()"
+                    icon-trailing="chevron-up"
+                    class="cursor-pointer hover:bg-white/5 rounded-xl transition-colors"
+                />
+
+                <flux:menu>
+                    <flux:menu.item :href="route('profile.edit')" icon="user" wire:navigate>
+                        {{ __('My Profile') }}
+                    </flux:menu.item>
+
+                    <flux:menu.separator />
+
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <flux:menu.item
+                            as="button"
+                            type="submit"
+                            icon="arrow-right-start-on-rectangle"
+                            class="w-full cursor-pointer text-red-500 hover:bg-red-500/10"
+                        >
+                            {{ __('Log out') }}
+                        </flux:menu.item>
+                    </form>
+                </flux:menu>
+            </flux:dropdown>
         </flux:sidebar>
 
         <!-- Mobile User Menu -->

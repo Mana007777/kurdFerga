@@ -87,7 +87,7 @@ new #[Layout('layouts.base')] class extends Component
 
     
     <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#020617]">
-        <!-- Moving Pixular Dot Grid -->
+       
         <div class="absolute inset-[-10%] z-0 bg-dot-pattern mask-radial-faded opacity-50 animate-scroll-grid pointer-events-none"></div>
 
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
