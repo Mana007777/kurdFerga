@@ -66,6 +66,9 @@
                         <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                             {{ __('Dashboard') }}
                         </flux:sidebar.item>
+                        <flux:sidebar.item icon="chart-bar" :href="route('activity')" :current="request()->routeIs('activity')" wire:navigate>
+                            {{ __('Activity') }}
+                        </flux:sidebar.item>
                         <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->requestUri === '/profile'" wire:navigate>
                             {{ __('My Profile') }}
                         </flux:sidebar.item>
