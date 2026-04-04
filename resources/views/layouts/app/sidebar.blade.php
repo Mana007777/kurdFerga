@@ -3,17 +3,59 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                <flux:sidebar.collapse class="lg:hidden" />
-            </flux:sidebar.header>
+    <body class="min-h-screen bg-[#050B14] text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-blue-500 selection:text-white dark">
+        <style>
+            @keyframes blob {
+                0% { transform: translate(0px, 0px) scale(1); }
+                33% { transform: translate(40px, -60px) scale(1.2); }
+                66% { transform: translate(-30px, 40px) scale(0.8); }
+                100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob { animation: blob 10s infinite alternate; }
+            .animation-delay-2000 { animation-delay: 2s; }
+            .animation-delay-4000 { animation-delay: 4s; }
 
-            <livewire:team-switcher />
+            @keyframes scrollGrid {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(24px); }
+            }
+            .bg-dot-pattern {
+                background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+                background-size: 24px 24px;
+            }
+            .mask-radial-faded {
+                mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+                -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+            }
+            .animate-scroll-grid {
+                animation: scrollGrid 1.5s linear infinite;
+            }
+            .glass-panel {
+                background: rgba(15, 23, 42, 0.4);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+        </style>
 
-            <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
+        <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#020617]">
+            <div class="absolute inset-[-10%] z-0 bg-dot-pattern mask-radial-faded opacity-50 animate-scroll-grid pointer-events-none"></div>
+            <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
+            <div class="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-[-10%] left-1/3 w-[700px] h-[700px] bg-purple-600/20 rounded-full mix-blend-screen filter blur-[150px] opacity-60 animate-blob animation-delay-4000"></div>
+            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+        </div>
+
+        <div class="relative z-10 flex min-h-screen">
+            <flux:sidebar sticky stashable collapsible class="border-e border-white/5 bg-[#050B14]/90 backdrop-blur-3xl transition-all duration-500 ease-in-out overflow-hidden">
+                <flux:sidebar.header class="flex items-center justify-between transition-opacity duration-300">
+                    <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                    <flux:sidebar.toggle class="hidden lg:flex transition duration-300 pointer-cursor" icon="chevron-left" />
+                    <flux:sidebar.collapse class="lg:hidden" />
+                </flux:sidebar.header>
+
+                <flux:sidebar.nav>
+                    <flux:sidebar.group :heading="__('Platform')" class="grid transition-all duration-300">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
@@ -90,7 +132,9 @@
             </flux:dropdown>
         </flux:header>
 
-        {{ $slot }}
+        <div class="flex-1 flex flex-col min-h-screen">
+            {{ $slot }}
+        </div>
 
         @fluxScripts
     </body>
