@@ -14,6 +14,13 @@ Route::prefix('{current_team}')
 
 Route::middleware(['auth'])->group(function () {
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
+    
+    // Admin Course Management routes
+    Route::prefix('admin/courses')->name('admin.courses.')->group(function () {
+        Route::livewire('/', 'admin.courses.index')->name('index');
+        Route::livewire('/create', 'admin.courses.create')->name('create');
+        Route::livewire('/{course}/edit', 'admin.courses.edit')->name('edit');
+    });
 });
 
 require __DIR__.'/settings.php';

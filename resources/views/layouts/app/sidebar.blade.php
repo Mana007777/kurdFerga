@@ -80,6 +80,14 @@
                             {{ __('My Profile') }}
                         </flux:sidebar.item>
                     </flux:sidebar.group>
+
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                        <flux:sidebar.group :heading="__('Administration')" class="grid w-full mt-4">
+                            <flux:sidebar.item icon="academic-cap" :href="route('admin.courses.index')" :current="request()->routeIs('admin.courses.*')" wire:navigate>
+                                {{ __('Course Management') }}
+                            </flux:sidebar.item>
+                        </flux:sidebar.group>
+                    @endif
                 </flux:sidebar.nav>
 
             <flux:spacer />
