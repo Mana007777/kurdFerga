@@ -14,6 +14,7 @@ class LessonFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence(rand(3, 8));
+
         return [
             'course_id' => Course::factory(),
             'title' => $title,

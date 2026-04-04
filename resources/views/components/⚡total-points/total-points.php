@@ -1,7 +1,7 @@
 <?php
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 new class extends Component
 {
@@ -13,9 +13,9 @@ new class extends Component
 
         if ($user) {
             $this->totalPoints = $user->pts ?? 0;
-            
+
             // Dummy data fallback for stunning UI animation testing
-            if($this->totalPoints == 0) {
+            if ($this->totalPoints == 0) {
                 $this->totalPoints = rand(150, 450);
             }
         }

@@ -47,6 +47,7 @@
                         </flux:table.cell>
                         <flux:table.cell>
                             <div class="flex gap-2 justify-end">
+                                <flux:button size="sm" variant="subtle" icon="list-bullet" href="{{ route('admin.courses.playlist', $course) }}" wire:navigate>Playlist</flux:button>
                                 <flux:button size="sm" variant="ghost" icon="pencil-square" href="{{ route('admin.courses.edit', $course) }}" wire:navigate />
                                 <flux:button size="sm" variant="danger" icon="trash" wire:click="delete({{ $course->id }})" wire:confirm="Are you sure you want to delete this completely?" />
                             </div>

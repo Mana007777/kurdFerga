@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Comment;
 use App\Models\Course;
 use App\Models\User;
-use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -27,7 +27,7 @@ it('can add comments, star, and save a course', function () {
     expect($course->comments)->toHaveCount(1);
     expect($course->comments->first()->body)->toBe('Great course!');
     expect($user->comments)->toHaveCount(1);
-    
+
     // Test stars
     $user->starredCourses()->attach($course);
     // Refresh relationships
@@ -35,7 +35,7 @@ it('can add comments, star, and save a course', function () {
     $course->load('stars');
     expect($user->starredCourses)->toHaveCount(1);
     expect($course->stars)->toHaveCount(1);
-    
+
     // Test saves
     $user->savedCourses()->attach($course);
     // Refresh relationships

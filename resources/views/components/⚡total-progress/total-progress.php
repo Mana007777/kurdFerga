@@ -1,12 +1,13 @@
 <?php
 
-use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 new class extends Component
 {
     public ?int $selectedCourseId = null;
+
     public int $percentage = 0;
 
     public function mount()
@@ -36,12 +37,12 @@ new class extends Component
             if ($selectedCourse) {
                 // Count published lessons in this course
                 $totalLessons = $selectedCourse->lessons()->where('is_published', true)->count();
-                
+
                 if ($totalLessons > 0) {
                     $completedLessons = $user->completedLessons()
                         ->where('course_id', $selectedCourse->id)
                         ->count();
-                        
+
                     $this->percentage = min(100, round(($completedLessons / $totalLessons) * 100));
                 }
             }

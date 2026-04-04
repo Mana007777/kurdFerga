@@ -13,6 +13,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence(rand(3, 6));
+
         return [
             'title' => $title,
             'slug' => Str::slug($title),

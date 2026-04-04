@@ -1,9 +1,9 @@
 <?php
 
-use Livewire\Component;
 use App\Models\Course;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 new class extends Component
 {
@@ -22,7 +22,7 @@ new class extends Component
 
     public function mount(Course $course)
     {
-        abort_if(!auth()->check() || !auth()->user()->isAdmin(), 403);
+        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
         $this->course = $course;
         $this->title = $course->title;
         $this->thumbnail = $course->thumbnail;

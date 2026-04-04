@@ -1,7 +1,7 @@
 <?php
 
-use Livewire\Component;
 use App\Models\Course;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 new class extends Component
@@ -10,19 +10,19 @@ new class extends Component
 
     public function mount()
     {
-        abort_if(!auth()->check() || !auth()->user()->isAdmin(), 403);
+        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
     }
 
     public function delete(Course $course)
     {
-        abort_if(!auth()->check() || !auth()->user()->isAdmin(), 403);
+        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
         $course->delete();
     }
 
     public function with(): array
     {
         return [
-            'courses' => Course::withCount('lessons')->latest()->paginate(10)
+            'courses' => Course::withCount('lessons')->latest()->paginate(10),
         ];
     }
 };
