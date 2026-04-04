@@ -2,22 +2,30 @@
      x-data="{
          current: 0,
          target: @entangle('percentage'),
+         animationId: null,
          init() {
             setTimeout(() => this.animateTo(this.target), 100);
             $watch('target', value => this.animateTo(value));
          },
          animateTo(val) {
+            if(this.animationId) clearInterval(this.animationId);
             let start = this.current;
-            let duration = 2500; // Slower duration
-            let startTime = performance.now();
-            let step = (currentTime) => {
-                let p = Math.min((currentTime - startTime) / duration, 1);
-                // easeOutCubic for a softer, slower stop
+            let duration = 2000;
+            let totalSteps = Math.round(duration / 16); // roughly 60fps
+            let currentStep = 0;
+            
+            this.animationId = setInterval(() => {
+                currentStep++;
+                let p = Math.min(currentStep / totalSteps, 1);
+                // easeOutCubic
                 let ease = 1 - Math.pow(1 - p, 3);
                 this.current = Math.round(start + (val - start) * ease);
-                if (p < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
+                
+                if (p >= 1) {
+                    this.current = val;
+                    clearInterval(this.animationId);
+                }
+            }, 16);
          }
      }"
 >
@@ -48,9 +56,9 @@
                     <!-- Foreground Progress Circle -->
                     <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" fill="transparent"
                         stroke-dasharray="263.89"
-                        :stroke-dashoffset="263.89 - (263.89 * current) / 100"
+                        :stroke-dashoffset="263.89 - (263.89 * target) / 100"
                         stroke-linecap="round"
-                        class="text-blue-500 dark:text-indigo-400" 
+                        class="text-blue-500 dark:text-indigo-400 transition-all duration-[2000ms] ease-out" 
                     />
                 </svg>
                 
