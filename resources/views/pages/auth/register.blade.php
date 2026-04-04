@@ -4,7 +4,7 @@
         <span class="absolute inset-[-200%] bg-[conic-gradient(from_90deg_at_50%_50%,#00000000_50%,#3b82f6_100%)] opacity-0 group-hover:opacity-100 group-hover:animate-[spin_2s_linear_infinite] transition-all duration-500"></span>
         <span class="absolute inset-[-200%] bg-[conic-gradient(from_270deg_at_50%_50%,#00000000_50%,#a855f7_100%)] opacity-0 group-hover:opacity-100 group-hover:animate-[spin_2s_linear_infinite] transition-all duration-500"></span>
         
-        <div class="relative z-10 bg-white dark:bg-[#050B14]/90 backdrop-blur-xl flex flex-col gap-6 rounded-[22px] p-8 border border-white/5">
+        <div class="relative z-10 bg-white dark:bg-[#050B14]/90 backdrop-blur-xl flex flex-col gap-6 rounded-[22px] p-8 border border-zinc-200 dark:border-white/5">
             <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
 
             <!-- Session Status -->
