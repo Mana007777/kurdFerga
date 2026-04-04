@@ -1,44 +1,21 @@
 <?php
 
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
+use App\Models\Course;
 
 new #[Layout('layouts.base')] class extends Component
 {
-    public array $latestSeries = [
-        [
-            'title' => 'Build a Livewire 4 Masterpiece',
-            'description' => 'Discover the reactive power of Livewire 4. Build single-page apps without a line of custom JS.',
-            'episodes' => 12,
-            'color' => 'from-blue-600 to-indigo-600',
-            'icon' => 'M13 10V3L4 14h7v7l9-11h-7z',
-            'delay' => '100'
-        ],
-        [
-            'title' => 'Laravel 11 Deep Dive',
-            'description' => 'A complete guide to the latest version of Laravel and its heavily streamlined core.',
-            'episodes' => 34,
-            'color' => 'from-rose-600 to-orange-500',
-            'icon' => 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
-            'delay' => '200'
-        ],
-        [
-            'title' => 'Modern CSS with Tailwind v4',
-            'description' => 'Unlock the future of styling. The blazing fast Rust-based CSS engine has arrived.',
-            'episodes' => 8,
-            'color' => 'from-cyan-500 to-teal-500',
-            'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
-            'delay' => '300'
-        ],
-        [
-            'title' => 'Architectural Patterns',
-            'description' => 'Level up your software design. Take your codebase from messy to beautifully structured.',
-            'episodes' => 15,
-            'color' => 'from-emerald-500 to-green-600',
-            'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
-            'delay' => '400'
-        ],
-    ];
+    #[Computed]
+    public function latestSeries()
+    {
+        return Course::withCount('lessons')
+            ->where('is_published', true)
+            ->latest()
+            ->take(4)
+            ->get();
+    }
 
     public function getStarted()
     {
@@ -62,14 +39,6 @@ new #[Layout('layouts.base')] class extends Component
         .animation-delay-2000 { animation-delay: 2s; }
         .animation-delay-4000 { animation-delay: 4s; }
         .animation-delay-6000 { animation-delay: 6s; }
-        
-        .bg-gradient-text {
-            background-size: 200% auto;
-            animation: textGradient 5s linear infinite;
-        }
-        @keyframes textGradient {
-            to { background-position: 200% center; }
-        }
         
         .glass-panel {
             background: rgba(15, 23, 42, 0.4);
@@ -157,11 +126,7 @@ new #[Layout('layouts.base')] class extends Component
             
             <!-- Epic Headline -->
             <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.1] mb-8 max-w-5xl transition-all duration-1000 delay-500 ease-out drop-shadow-2xl">
-                Elevate your skills to the <br class="hidden md:block" />
-                <span class="bg-gradient-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 relative inline-block">
-                    absolute peak.
-                    <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-sm opacity-50"></div>
-                </span>
+                The best way to learn <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Laravel</span><br class="hidden md:block" /> and modern PHP.
             </h1>
             
             <p :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="text-lg md:text-2xl text-slate-400 max-w-2xl mb-14 font-medium transition-all duration-1000 delay-700 ease-out leading-relaxed">
@@ -214,22 +179,33 @@ new #[Layout('layouts.base')] class extends Component
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($latestSeries as $series)
+                @php
+                    $colors = ['from-blue-600 to-indigo-600', 'from-rose-600 to-orange-500', 'from-cyan-500 to-teal-500', 'from-emerald-500 to-green-600'];
+                    $icons = [
+                        'M13 10V3L4 14h7v7l9-11h-7z',
+                        'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+                        'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
+                        'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'
+                    ];
+                    $delays = [100, 200, 300, 400];
+                @endphp
+                
+                @foreach($this->latestSeries as $index => $series)
                 <div x-data="{ isHovered: false }" 
                      class="group relative transform-style-3d cursor-pointer w-full h-[400px]"
                      @mouseenter="isHovered = true" @mouseleave="isHovered = false"
-                     x-intersect="setTimeout(() => $el.classList.add('translate-y-0', 'opacity-100'), {{ $series['delay'] }})"
+                     x-intersect="setTimeout(() => $el.classList.add('translate-y-0', 'opacity-100'), {{ $delays[$index % 4] }})"
                      class="translate-y-24 opacity-0 transition-all duration-1000 ease-out">
                     
                     <!-- Glow Behind Card -->
-                    <div class="absolute -inset-0.5 bg-gradient-to-br {{ $series['color'] }} rounded-[2rem] blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700 ease-out"></div>
+                    <div class="absolute -inset-0.5 bg-gradient-to-br {{ $colors[$index % 4] }} rounded-[2rem] blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700 ease-out"></div>
                     
                     <!-- Card Body -->
                     <div class="absolute inset-0 glass-panel border border-white/10 rounded-[2rem] overflow-hidden flex flex-col transform group-hover:-translate-y-5 group-hover:rotate-y-[5deg] group-hover:rotate-x-[2deg] transition-all duration-500 ease-out shadow-2xl">
                         
                         <!-- Top Art -->
                         <div class="relative h-48 w-full overflow-hidden shrink-0">
-                            <div class="absolute inset-0 bg-gradient-to-br {{ $series['color'] }} opacity-80 z-10 mix-blend-multiply group-hover:scale-110 group-hover:opacity-100 transition-all duration-700"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br {{ $colors[$index % 4] }} opacity-80 z-10 mix-blend-multiply group-hover:scale-110 group-hover:opacity-100 transition-all duration-700"></div>
                             
                             <!-- Dynamic Pattern -->
                             <div class="absolute inset-0 z-0 opacity-30 group-hover:scale-125 group-hover:rotate-[15deg] transition-all duration-1000" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
@@ -237,7 +213,7 @@ new #[Layout('layouts.base')] class extends Component
                             <div class="absolute inset-0 flex items-center justify-center z-20">
                                 <div class="w-20 h-20 glass-panel rounded-2xl flex items-center justify-center border border-white/20 shadow-2xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
                                     <svg class="w-10 h-10 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $series['icon'] }}" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icons[$index % 4] }}" />
                                     </svg>
                                 </div>
                             </div>
@@ -251,11 +227,11 @@ new #[Layout('layouts.base')] class extends Component
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <span class="text-xs font-bold text-slate-300">{{ $series['episodes'] }} Eps</span>
+                                <span class="text-xs font-bold text-slate-300">{{ $series->lessons_count }} Eps</span>
                             </div>
 
-                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:{{ $series['color'] }} transition-all duration-300 leading-tight">{{ $series['title'] }}</h3>
-                            <p class="text-sm text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series['description'] }}</p>
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:{{ $colors[$index % 4] }} transition-all duration-300 leading-tight">{{ $series->title }}</h3>
+                            <p class="text-sm text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
                             
                             <!-- Watch Button indicator -->
                             <div class="mt-6 flex items-center text-sm font-bold text-slate-500 group-hover:text-white transition-colors">
