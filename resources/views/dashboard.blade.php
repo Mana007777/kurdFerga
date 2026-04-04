@@ -5,8 +5,8 @@
             <livewire:completed-courses />
             <livewire:total-points />
         </div>
-        <div class="glass-panel relative h-full flex-1 overflow-hidden rounded-2xl flex items-center justify-center">
-            <h2 class="text-2xl font-medium text-slate-500 dark:text-slate-400">Continue Your Learning...</h2>
+        <div class="mt-4">
+            <livewire:continue-learning />
         </div>
     </div>
 </x-layouts::app>
