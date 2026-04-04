@@ -59,7 +59,11 @@ new #[Layout('layouts.base')] class extends Component
     </div>
 
     
-    <header :class="mounted ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'" class="fixed w-full top-0 z-50 transition-all duration-1000 ease-out">
+    <header 
+        x-data="{ lastScrollY: 0, isHidden: false }"
+        @scroll.window="isHidden = window.scrollY > lastScrollY && window.scrollY > 80; lastScrollY = window.scrollY"
+        :class="(!mounted || isHidden) ? '-translate-y-[150%] opacity-0' : 'translate-y-0 opacity-100'" 
+        class="fixed w-full top-0 z-50 transition-all duration-700 ease-in-out">
         <div class="glass-panel mx-4 mt-4 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16 sm:h-20">
