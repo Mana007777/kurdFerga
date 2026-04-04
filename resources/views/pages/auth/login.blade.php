@@ -26,7 +26,7 @@
                 />
 
                 <!-- Password -->
-                <div class="relative">
+                <div class="flex flex-col gap-2">
                     <flux:input
                         name="password"
                         :label="__('Password')"
@@ -38,9 +38,11 @@
                     />
 
                     @if (Route::has('password.request'))
-                        <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
-                            {{ __('Forgot your password?') }}
-                        </flux:link>
+                        <div class="flex justify-end">
+                            <flux:link class="text-sm text-blue-500 hover:text-blue-400" :href="route('password.request')" wire:navigate>
+                                {{ __('Forgot your password?') }}
+                            </flux:link>
+                        </div>
                     @endif
                 </div>
 

@@ -50,7 +50,7 @@ new #[Layout('layouts.base')] class extends Component
         .transform-style-3d { transform-style: preserve-3d; }
     </style>
 
-    <!-- Animated Background Orbs -->
+    
     <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
         <div class="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[120px] opacity-70 animate-blob animation-delay-2000"></div>
@@ -58,7 +58,7 @@ new #[Layout('layouts.base')] class extends Component
         <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
     </div>
 
-    <!-- Header -->
+    
     <header :class="mounted ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'" class="fixed w-full top-0 z-50 transition-all duration-1000 ease-out">
         <div class="glass-panel mx-4 mt-4 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,7 +73,7 @@ new #[Layout('layouts.base')] class extends Component
                             </div>
                             <span class="text-2xl tracking-tight text-white font-black z-10 drop-shadow-sm">Lara<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Casts</span></span>
                         </a>
-                        <!-- Navigation Links -->
+                        
                         <nav class="hidden md:flex gap-8">
                             <a href="#" class="text-sm font-semibold text-slate-300 hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
                                 Topics
@@ -104,11 +104,11 @@ new #[Layout('layouts.base')] class extends Component
         </div>
     </header>
 
-    <!-- Main Content -->
+    
     <main class="relative z-10 pt-48 pb-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
             
-            <!-- Floating Badge -->
+           
             <div :class="mounted ? 'scale-100 opacity-100' : 'scale-50 opacity-0'" class="transition-all duration-1000 delay-300 ease-out mb-10">
                 <div class="relative group cursor-pointer inline-flex">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-40 group-hover:opacity-80 transition duration-500"></div>
@@ -124,7 +124,7 @@ new #[Layout('layouts.base')] class extends Component
                 </div>
             </div>
             
-            <!-- Epic Headline -->
+           
             <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.1] mb-8 max-w-5xl transition-all duration-1000 delay-500 ease-out drop-shadow-2xl">
                 The best way to learn <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Laravel</span><br class="hidden md:block" /> and modern PHP.
             </h1>
@@ -133,7 +133,7 @@ new #[Layout('layouts.base')] class extends Component
                 The most entertaining, comprehensive, and cinematic training for modern web artisans.
             </p>
             
-            <!-- Call to Actions -->
+           
             <div :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="flex flex-col sm:flex-row gap-6 items-center justify-center transition-all duration-1000 delay-1000 ease-out w-full sm:w-auto">
                 <button wire:click="getStarted" class="relative w-full sm:w-auto group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur-lg opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"></div>
@@ -155,9 +155,9 @@ new #[Layout('layouts.base')] class extends Component
             </div>
         </div>
 
-        <!-- Dynamic Grid Section -->
+        
         <section id="latest" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 perspective-1000 z-20 pt-10">
-            <!-- Awesome Divider -->
+            
             <div class="absolute top-0 inset-x-0 flex items-center justify-center opacity-50">
                 <div class="h-px bg-gradient-to-r from-transparent via-white to-transparent w-full max-w-3xl"></div>
                 <div class="absolute bg-white text-slate-900 rounded-full p-2 shadow-[0_0_20px_rgba(255,255,255,0.8)]">
@@ -197,17 +197,17 @@ new #[Layout('layouts.base')] class extends Component
                      x-intersect="setTimeout(() => $el.classList.add('translate-y-0', 'opacity-100'), {{ $delays[$index % 4] }})"
                      class="translate-y-24 opacity-0 transition-all duration-1000 ease-out">
                     
-                    <!-- Glow Behind Card -->
+                    
                     <div class="absolute -inset-0.5 bg-gradient-to-br {{ $colors[$index % 4] }} rounded-[2rem] blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700 ease-out"></div>
                     
-                    <!-- Card Body -->
+                    
                     <div class="absolute inset-0 glass-panel border border-white/10 rounded-[2rem] overflow-hidden flex flex-col transform group-hover:-translate-y-5 group-hover:rotate-y-[5deg] group-hover:rotate-x-[2deg] transition-all duration-500 ease-out shadow-2xl">
                         
-                        <!-- Top Art -->
+                        
                         <div class="relative h-48 w-full overflow-hidden shrink-0">
                             <div class="absolute inset-0 bg-gradient-to-br {{ $colors[$index % 4] }} opacity-80 z-10 mix-blend-multiply group-hover:scale-110 group-hover:opacity-100 transition-all duration-700"></div>
                             
-                            <!-- Dynamic Pattern -->
+                           
                             <div class="absolute inset-0 z-0 opacity-30 group-hover:scale-125 group-hover:rotate-[15deg] transition-all duration-1000" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
                             
                             <div class="absolute inset-0 flex items-center justify-center z-20">
@@ -219,9 +219,9 @@ new #[Layout('layouts.base')] class extends Component
                             </div>
                         </div>
 
-                        <!-- Card Content -->
+                       
                         <div class="p-6 flex flex-col grow bg-[#0A101D]/80 backdrop-blur-md relative z-30">
-                            <!-- Floating Tag -->
+                           
                             <div class="absolute -top-4 right-6 bg-slate-900 px-3 py-1 rounded-lg border border-slate-700 shadow-xl flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -233,7 +233,7 @@ new #[Layout('layouts.base')] class extends Component
                             <h3 class="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:{{ $colors[$index % 4] }} transition-all duration-300 leading-tight">{{ $series->title }}</h3>
                             <p class="text-sm text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
                             
-                            <!-- Watch Button indicator -->
+                            
                             <div class="mt-6 flex items-center text-sm font-bold text-slate-500 group-hover:text-white transition-colors">
                                 <span class="group-hover:mr-2 transition-all">Start Series</span>
                                 <svg class="w-4 h-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -248,7 +248,7 @@ new #[Layout('layouts.base')] class extends Component
         </section>
     </main>
 
-    <!-- Animated Footer -->
+    
     <footer class="mt-32 border-t border-white/5 bg-[#03060c] py-16 relative overflow-hidden z-20">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/10 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -264,8 +264,8 @@ new #[Layout('layouts.base')] class extends Component
                     <a href="#" class="text-slate-400 hover:text-white hover:scale-110 transition-transform">GitHub</a>
                     <a href="#" class="text-slate-400 hover:text-white hover:scale-110 transition-transform">Discord</a>
                 </div>
-                <p class="text-slate-600 text-sm font-medium">© <?= date('Y') ?> Designed to impress. Engineered to scale.</p>
+                <p class="text-slate-600 text-sm font-medium">© <?= date('Y') ?> Eat , Sleep , Code , Repeat.</p>
             </div>
-        </div>
+        </div>  
     </footer>
 </div>
