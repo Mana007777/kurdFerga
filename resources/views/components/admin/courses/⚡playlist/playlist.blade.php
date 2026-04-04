@@ -7,12 +7,24 @@
         </div>
     </div>
 
-    <!-- Add Section Card -->
-    <div class="glass-panel p-6 rounded-2xl mb-8 flex gap-4 items-end bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md border border-slate-200 dark:border-white/5 shadow-sm">
-        <div class="flex-1">
-            <flux:input wire:model="newSectionTitle" label="New Section Title" placeholder="e.g. Chapter 1: Introduction to Java" />
+    <!-- Top Tools: Search and Add Section -->
+    <div class="glass-panel p-6 rounded-2xl mb-8 border border-slate-200 dark:border-white/5 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Search Database -->
+            <div class="flex items-end">
+                <div class="w-full">
+                    <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" clearable label="Search Lessons" placeholder="Search across all sections..." />
+                </div>
+            </div>
+            
+            <!-- Create Section -->
+            <div class="flex items-end gap-3 border-t md:border-t-0 md:border-l border-slate-200 dark:border-white/5 pt-4 md:pt-0 pl-0 md:pl-4">
+                <div class="flex-1">
+                    <flux:input wire:model="newSectionTitle" label="New Section Title" placeholder="e.g. Chapter 1" />
+                </div>
+                <flux:button variant="primary" wire:click="addSection" icon="folder-plus">Add Section</flux:button>
+            </div>
         </div>
-        <flux:button variant="primary" wire:click="addSection" icon="folder-plus">Add Section</flux:button>
     </div>
 
     <!-- Sections Loop -->
@@ -77,14 +89,27 @@
                 <flux:subheading>Attach a video to the selected section.</flux:subheading>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-4" x-data="{ uploading: false, progress: 0 }"
+                 x-on:livewire-upload-start="uploading = true"
+                 x-on:livewire-upload-finish="uploading = false; progress = 0"
+                 x-on:livewire-upload-error="uploading = false"
+                 x-on:livewire-upload-progress="progress = $event.detail.progress">
+                 
                 <flux:input wire:model="newLessonTitle" label="Lesson Title" placeholder="e.g. Installing Java JDK" />
-                <flux:input wire:model="newLessonVideoUrl" type="url" label="Video URL" placeholder="https://youtube.com/..." />
+                
+                <flux:input wire:model="newLessonVideo" type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime" label="Video File (Up to 100MB)" required />
+                
+                <!-- Upload Progress Bar -->
+                <div x-show="uploading" class="w-full bg-slate-200 dark:bg-zinc-800 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-150" x-bind:style="'width: ' + progress + '%'"></div>
+                </div>
+
                 <flux:switch wire:model="newLessonIsPreview" label="Free Preview" description="Allow non-enrolled students to watch." />
             </div>
 
             <div class="flex flex-row-reverse gap-3 mt-6">
-                <flux:button variant="primary" wire:click="addLesson">Save Lesson</flux:button>
+                <!-- Disable the submit button until upload completes natively through Livewire -->
+                <flux:button variant="primary" wire:click="addLesson" wire:loading.attr="disabled" wire:target="newLessonVideo, addLesson">Save Lesson</flux:button>
                 <flux:modal.close>
                     <flux:button variant="ghost">Cancel</flux:button>
                 </flux:modal.close>

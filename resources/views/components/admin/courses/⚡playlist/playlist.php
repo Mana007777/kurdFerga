@@ -6,9 +6,12 @@ use App\Models\Section;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component
 {
+    use WithFileUploads;
+
     public Course $course;
 
     #[Validate('required|min:2', as: 'section title')]
@@ -16,11 +19,13 @@ new class extends Component
 
     public $newLessonTitle = '';
 
-    public $newLessonVideoUrl = '';
+    public $newLessonVideo;
 
     public $newLessonIsPreview = false;
 
     public $activeSectionIdForLesson = null;
+
+    public $search = ''; // Realtime Filter Search
 
     public function mount(Course $course)
     {
@@ -48,7 +53,7 @@ new class extends Component
     {
         $this->activeSectionIdForLesson = $sectionId;
         $this->newLessonTitle = '';
-        $this->newLessonVideoUrl = '';
+        $this->newLessonVideo = null;
         $this->newLessonIsPreview = false;
     }
 
@@ -56,17 +61,20 @@ new class extends Component
     {
         $this->validate([
             'newLessonTitle' => 'required|min:2',
-            'newLessonVideoUrl' => 'required|url',
-        ], [], ['newLessonTitle' => 'lesson title', 'newLessonVideoUrl' => 'video URL']);
+            'newLessonVideo' => 'required|file|mimes:mp4,mov,avi,webm|max:102400', // 100MB Validation
+        ], [], ['newLessonTitle' => 'lesson title', 'newLessonVideo' => 'video file']);
 
         $section = Section::findOrFail($this->activeSectionIdForLesson);
         $maxSort = $section->lessons()->max('sort_order') ?? 0;
+
+        // Store the video physically on the drive
+        $path = $this->newLessonVideo->store('videos', 'public');
 
         $section->lessons()->create([
             'course_id' => $this->course->id,
             'title' => $this->newLessonTitle,
             'slug' => Str::slug($this->newLessonTitle),
-            'video_url' => $this->newLessonVideoUrl,
+            'video_url' => '/storage/'.$path, // Save relative mapped URL
             'is_preview' => $this->newLessonIsPreview,
             'is_published' => true,
             'sort_order' => $maxSort + 1,
@@ -86,6 +94,7 @@ new class extends Component
     public function deleteLesson($id)
     {
         Lesson::where('id', $id)->where('course_id', $this->course->id)->delete();
+        // The physical video is not cleared via filesystem here to ensure safe deletions for history mapping, unless explicit Storage::delete is favored!
         $this->course->refresh();
     }
 
@@ -93,6 +102,10 @@ new class extends Component
     {
         return [
             'sections' => $this->course->sections()->with(['lessons' => function ($query) {
+                // Incorporate dynamic search filter
+                if (! empty($this->search)) {
+                    $query->where('title', 'like', '%'.$this->search.'%');
+                }
                 $query->orderBy('sort_order');
             }])->orderBy('sort_order')->get(),
         ];
