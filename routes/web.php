@@ -2,11 +2,8 @@
 
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
-use App\Livewire\LandingPage;
-
-Route::livewire('/', LandingPage::class)->name('home');
+Route::livewire('/', 'landing-page')->name('home');
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
