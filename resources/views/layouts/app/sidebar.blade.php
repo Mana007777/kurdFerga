@@ -36,6 +36,13 @@
                 -webkit-backdrop-filter: blur(24px);
                 border: 1px solid rgba(255, 255, 255, 0.05);
             }
+
+            /* Force Smooth Flux Sidebar Transitions */
+            ui-sidebar, flux-sidebar, [data-flux-sidebar] {
+                transition-property: width, max-width, min-width, transform, opacity !important;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+                transition-duration: 400ms !important;
+            }
         </style>
 
         <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#020617]">
@@ -47,15 +54,15 @@
         </div>
 
         <div class="relative z-10 flex min-h-screen">
-            <flux:sidebar sticky stashable collapsible class="border-e border-white/5 bg-[#050B14]/90 backdrop-blur-3xl transition-all duration-500 ease-in-out overflow-hidden">
-                <flux:sidebar.header class="flex items-center justify-between transition-opacity duration-300">
+            <flux:sidebar sticky stashable collapsible class="border-e border-white/5 bg-[#050B14]/90 backdrop-blur-3xl">
+                <flux:sidebar.header class="flex items-center justify-between">
                     <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                    <flux:sidebar.toggle class="hidden lg:flex transition duration-300 pointer-cursor" icon="chevron-left" />
+                    <flux:sidebar.toggle class="hidden lg:flex" icon="chevron-left" />
                     <flux:sidebar.collapse class="lg:hidden" />
                 </flux:sidebar.header>
 
                 <flux:sidebar.nav>
-                    <flux:sidebar.group :heading="__('Platform')" class="grid transition-all duration-300">
+                    <flux:sidebar.group :heading="__('Platform')" class="grid w-full">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
