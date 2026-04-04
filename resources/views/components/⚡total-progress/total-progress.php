@@ -23,6 +23,10 @@ new class extends Component
 
     public function updatePercentage()
     {
+        // Using dummy numbers temporarily so the beautiful UI animations can be seen!
+        $this->percentage = rand(35, 95);
+
+        /*
         $this->percentage = 0;
         $user = Auth::user();
 
@@ -42,6 +46,7 @@ new class extends Component
                 }
             }
         }
+        */
     }
 
     public function with(): array
