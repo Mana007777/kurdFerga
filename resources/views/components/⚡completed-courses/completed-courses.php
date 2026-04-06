@@ -12,31 +12,33 @@ new class extends Component
     {
         $user = Auth::user();
 
-        if ($user) {
-            $completedCount = 0;
+        if (! $user) {
+            return;
+        }
 
-            $playlists = Playlist::where('is_published', true)
-                ->with(['sections.lessons' => fn ($q) => $q->where('is_published', true)])
-                ->get();
+        $completedCount = 0;
 
-            foreach ($playlists as $playlist) {
-                $lessonIds = $playlist->sections
-                    ->flatMap(fn ($s) => $s->lessons->pluck('id'));
+        $playlists = Playlist::where('is_published', true)
+            ->with('sections.lessons')
+            ->get();
 
-                $total = $lessonIds->count();
+        foreach ($playlists as $playlist) {
+            $lessonIds = $playlist->sections
+                ->flatMap(fn ($s) => $s->lessons->where('is_published', true)->pluck('id'));
 
-                if ($total > 0) {
-                    $completed = $user->completedLessons()
-                        ->whereIn('lesson_id', $lessonIds)
-                        ->count();
+            $total = $lessonIds->count();
 
-                    if ($completed >= $total) {
-                        $completedCount++;
-                    }
+            if ($total > 0) {
+                $completed = $user->completedLessons()
+                    ->whereIn('lesson_id', $lessonIds)
+                    ->count();
+
+                if ($completed >= $total) {
+                    $completedCount++;
                 }
             }
-
-            $this->completedCoursesCount = $completedCount;
         }
+
+        $this->completedCoursesCount = $completedCount;
     }
 };

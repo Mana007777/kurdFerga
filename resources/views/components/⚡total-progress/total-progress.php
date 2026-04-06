@@ -26,25 +26,27 @@ new class extends Component
         $this->percentage = 0;
         $user = Auth::user();
 
-        if ($user && $this->selectedPlaylistId) {
-            $playlist = Playlist::find($this->selectedPlaylistId);
+        if (! $user || ! $this->selectedPlaylistId) {
+            return;
+        }
 
-            if ($playlist) {
-                $lessonIds = $playlist->sections()
-                    ->with('lessons')
-                    ->get()
-                    ->flatMap(fn ($s) => $s->lessons->where('is_published', true)->pluck('id'));
+        $playlist = Playlist::with('sections.lessons')->find($this->selectedPlaylistId);
 
-                $total = $lessonIds->count();
+        if (! $playlist) {
+            return;
+        }
 
-                if ($total > 0) {
-                    $completed = $user->completedLessons()
-                        ->whereIn('lesson_id', $lessonIds)
-                        ->count();
+        $lessonIds = $playlist->sections
+            ->flatMap(fn ($s) => $s->lessons->where('is_published', true)->pluck('id'));
 
-                    $this->percentage = min(100, (int) round(($completed / $total) * 100));
-                }
-            }
+        $total = $lessonIds->count();
+
+        if ($total > 0) {
+            $completed = $user->completedLessons()
+                ->whereIn('lesson_id', $lessonIds)
+                ->count();
+
+            $this->percentage = min(100, (int) round(($completed / $total) * 100));
         }
     }
 
