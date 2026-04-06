@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Lesson extends Model
 {
     protected $fillable = [
+        'playlist_id',
         'course_id',
         'section_id',
         'title',

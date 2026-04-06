@@ -1,28 +1,27 @@
 <?php
 
 use App\Models\Playlist;
-use App\Models\Course;
+use App\Models\Section;
+use App\Models\Lesson;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 new class extends Component
 {
-    use WithPagination;
+    use WithFileUploads;
 
     public Playlist $playlist;
 
-    #[Validate('required|min:3')]
-    public $newTitle = '';
+    #[Validate('required|min:2', as: 'section title')]
+    public $newSectionTitle = '';
 
-    #[Validate('nullable|url')]
-    public $newThumbnail = '';
-
-    #[Validate('required')]
-    public $newDescription = '';
-
-    public $newIsPublished = false;
+    public $newLessonTitle = '';
+    public $newLessonVideo;
+    public $newLessonIsPreview = false;
+    public $activeSectionIdForLesson = null;
+    public $search = '';
 
     public function mount(Playlist $playlist)
     {
@@ -30,37 +29,78 @@ new class extends Component
         $this->playlist = $playlist;
     }
 
-    public function addCourse()
+    public function addSection()
     {
-        $this->validate();
+        $this->validateOnly('newSectionTitle');
 
-        $this->playlist->courses()->create([
-            'title' => $this->newTitle,
-            'slug' => Str::slug($this->newTitle),
-            'description' => $this->newDescription,
-            'thumbnail' => $this->newThumbnail,
-            'is_published' => $this->newIsPublished,
+        $maxSort = $this->playlist->sections()->max('sort_order') ?? 0;
+
+        $this->playlist->sections()->create([
+            'title' => $this->newSectionTitle,
+            'sort_order' => $maxSort + 1,
         ]);
 
-        $this->newTitle = '';
-        $this->newThumbnail = '';
-        $this->newDescription = '';
-        $this->newIsPublished = false;
-
-        $this->dispatch('course-added');
+        $this->newSectionTitle = '';
+        $this->dispatch('section-added');
         $this->playlist->refresh();
     }
 
-    public function delete(Course $course)
+    public function openAddLessonModal($sectionId)
     {
-        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
-        $course->delete();
+        $this->activeSectionIdForLesson = $sectionId;
+        $this->newLessonTitle = '';
+        $this->newLessonVideo = null;
+        $this->newLessonIsPreview = false;
+    }
+
+    public function addLesson()
+    {
+        $this->validate([
+            'newLessonTitle' => 'required|min:2',
+            'newLessonVideo' => 'required|file|mimes:mp4,mov,avi,webm|max:102400',
+        ], [], ['newLessonTitle' => 'lesson title', 'newLessonVideo' => 'video file']);
+
+        $section = Section::findOrFail($this->activeSectionIdForLesson);
+        $maxSort = $section->lessons()->max('sort_order') ?? 0;
+
+        $path = $this->newLessonVideo->store('videos', 'public');
+
+        $section->lessons()->create([
+            'playlist_id' => $this->playlist->id,
+            'title' => $this->newLessonTitle,
+            'slug' => Str::slug($this->newLessonTitle),
+            'video_url' => '/storage/' . $path,
+            'is_preview' => $this->newLessonIsPreview,
+            'is_published' => true,
+            'sort_order' => $maxSort + 1,
+        ]);
+
+        $this->activeSectionIdForLesson = null;
+        $this->dispatch('lesson-added');
+        $this->playlist->refresh();
+    }
+
+    public function deleteSection($id)
+    {
+        Section::where('id', $id)->where('playlist_id', $this->playlist->id)->delete();
+        $this->playlist->refresh();
+    }
+
+    public function deleteLesson($id)
+    {
+        Lesson::where('id', $id)->where('playlist_id', $this->playlist->id)->delete();
+        $this->playlist->refresh();
     }
 
     public function with(): array
     {
         return [
-            'courses' => $this->playlist->courses()->withCount('lessons')->latest()->paginate(10),
+            'sections' => $this->playlist->sections()->with(['lessons' => function ($query) {
+                if (! empty($this->search)) {
+                    $query->where('title', 'like', '%' . $this->search . '%');
+                }
+                $query->orderBy('sort_order');
+            }])->orderBy('sort_order')->get(),
         ];
     }
 };

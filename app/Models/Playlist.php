@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Playlist extends Model
 {
@@ -14,8 +15,13 @@ class Playlist extends Model
         'is_published',
     ];
 
-    public function courses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
+    }
+
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class)->orderBy('sort_order');
     }
 }
