@@ -39,31 +39,31 @@
                     </div>
 
                     <!-- Card Body -->
-                    <div class="flex-1 bg-[#1E293B]/80 dark:bg-[#0F172A]/80 backdrop-blur-3xl rounded-[2.5rem] border border-white/5 p-8 pt-14 shadow-2xl relative overflow-hidden group-hover:border-indigo-500/30 transition-colors duration-500">
-                        <!-- Subtle Glow Effect -->
-                        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-[60px] group-hover:bg-indigo-500/20 transition-all duration-500"></div>
+                    <div class="flex-1 bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-8 pt-14 shadow-xl dark:shadow-2xl relative overflow-hidden group-hover:border-indigo-500/30 transition-all duration-500">
+                        <!-- Subtle Glow Effect (Slightly more subtle in light mode) -->
+                        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[60px] group-hover:bg-indigo-500/20 transition-all duration-500"></div>
                         
                         <div class="relative z-10 flex flex-col h-full">
                             <div class="text-center mb-6">
-                                <h3 class="text-xl md:text-2xl font-black text-white leading-tight mb-2 group-hover:text-indigo-400 transition-colors duration-300">
+                                <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">
                                     {{ $playlist->title }}
                                 </h3>
-                                <p class="text-sm font-medium text-slate-400 truncate">
-                                    With <span class="text-slate-300">{{ $playlist->author_name ?? 'Team Ferga' }}</span>
+                                <p class="text-sm font-medium text-slate-500 dark:text-slate-400 truncate">
+                                    With <span class="text-slate-700 dark:text-slate-300">{{ $playlist->author_name ?? 'Team Ferga' }}</span>
                                 </p>
                             </div>
 
-                            <div class="mt-auto pt-6 border-t border-white/5 space-y-3">
-                                <div class="flex items-center gap-3 text-slate-400">
-                                    <flux:icon.list-bullet class="w-4 h-4 text-indigo-400" />
+                            <div class="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 space-y-3">
+                                <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                                    <flux:icon.list-bullet class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->lessons_count }} Lessons</span>
                                 </div>
-                                <div class="flex items-center gap-3 text-slate-400">
-                                    <flux:icon.chart-bar class="w-4 h-4 text-emerald-400" />
+                                <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                                    <flux:icon.chart-bar class="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->level ?? 'Beginner' }}</span>
                                 </div>
-                                <div class="flex items-center gap-3 text-slate-400">
-                                    <flux:icon.tag class="w-4 h-4 text-amber-400" />
+                                <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                                    <flux:icon.tag class="w-4 h-4 text-amber-500 dark:text-amber-400" />
                                     <span class="text-xs font-bold uppercase tracking-wider truncate">{{ $playlist->category ?? 'Frameworks' }}</span>
                                 </div>
                             </div>
