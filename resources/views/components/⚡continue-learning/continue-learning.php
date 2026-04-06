@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Playlist;
+use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -9,45 +10,60 @@ new class extends Component
 {
     public ?Lesson $lesson = null;
 
-    public ?Course $course = null;
+    public ?Playlist $playlist = null;
 
-    public function mount()
+    public function mount(): void
     {
         $user = Auth::user();
+
         if (! $user) {
             return;
         }
 
         // Try to find the most recently completed lesson
-        $lastCompletedLesson = $user->completedLessons()->latest('lesson_user.created_at')->first();
+        $lastCompletedLesson = $user->completedLessons()
+            ->latest('lesson_user.created_at')
+            ->with('section.playlist')
+            ->first();
 
-        if ($lastCompletedLesson) {
-            $this->course = $lastCompletedLesson->course;
+        if ($lastCompletedLesson && $lastCompletedLesson->section && $lastCompletedLesson->section->playlist) {
+            $this->playlist = $lastCompletedLesson->section->playlist;
 
-            // Find the NEXT lesson in this course by sort_order
-            $this->lesson = $this->course->lessons()
+            // Find the NEXT lesson in the same section by sort_order
+            $this->lesson = Lesson::where('section_id', $lastCompletedLesson->section_id)
                 ->where('is_published', true)
                 ->where('sort_order', '>', $lastCompletedLesson->sort_order)
-                ->orderBy('sort_order', 'asc')
+                ->orderBy('sort_order')
                 ->first();
 
+            // If done with section, find first lesson in the next section
             if (! $this->lesson) {
-                // If they finished this course, suggest a random published lesson from an uncompleted course
-                $this->lesson = Lesson::where('is_published', true)
-                    ->whereNotIn('course_id', [$this->course->id])
-                    ->inRandomOrder()
+                $nextSection = Section::where('playlist_id', $this->playlist->id)
+                    ->where('sort_order', '>', $lastCompletedLesson->section->sort_order)
+                    ->orderBy('sort_order')
                     ->first();
-                if ($this->lesson) {
-                    $this->course = $this->lesson->course;
+
+                if ($nextSection) {
+                    $this->lesson = Lesson::where('section_id', $nextSection->id)
+                        ->where('is_published', true)
+                        ->orderBy('sort_order')
+                        ->first();
                 }
             }
         }
 
-        // If no lesson was ever completed, suggest the first published lesson in the system
+        // If still no lesson found, suggest the first published lesson in any playlist
         if (! $this->lesson) {
-            $this->lesson = Lesson::where('is_published', true)->orderBy('course_id')->orderBy('sort_order')->first();
-            if ($this->lesson) {
-                $this->course = $this->lesson->course;
+            $section = Section::whereHas('playlist', fn ($q) => $q->where('is_published', true))
+                ->orderBy('sort_order')
+                ->first();
+
+            if ($section) {
+                $this->lesson = Lesson::where('section_id', $section->id)
+                    ->where('is_published', true)
+                    ->orderBy('sort_order')
+                    ->first();
+                $this->playlist = $section->playlist;
             }
         }
     }

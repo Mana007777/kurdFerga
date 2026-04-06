@@ -20,6 +20,11 @@ class Section extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function playlist(): BelongsTo
+    {
+        return $this->belongsTo(Playlist::class);
+    }
+
     public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class)->orderBy('sort_order');
