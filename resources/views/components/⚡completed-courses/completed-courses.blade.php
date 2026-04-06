@@ -1,7 +1,7 @@
 <div class="glass-panel relative flex flex-col justify-between overflow-hidden rounded-3xl group hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-700 p-8 shadow-xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-white/90 to-white/50 dark:from-zinc-900/90 dark:to-zinc-900/50 backdrop-blur-2xl h-full"
      x-data="{
          current: 0,
-         target: @entangle('completedCoursesCount'),
+         target: @entangle('completedPlaylistsCount'),
          animationId: null,
          init() {
             setTimeout(() => this.animateTo(this.target), 100);

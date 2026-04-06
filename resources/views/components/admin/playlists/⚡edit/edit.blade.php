@@ -26,7 +26,7 @@
                 
                 <flux:textarea wire:model="description" label="Playlist Description" rows="4" required />
                 
-                <flux:switch wire:model="is_published" label="Publish State" description="Toggle course visibility." />
+                <flux:switch wire:model="is_published" label="Publish State" description="Toggle playlist visibility." />
                 
                 <div class="pt-4 flex justify-end gap-3 border-t border-slate-200 dark:border-zinc-700">
                     <flux:button href="{{ route('admin.playlists.index') }}" variant="ghost" wire:navigate>Cancel</flux:button>

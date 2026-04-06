@@ -3,17 +3,17 @@
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
-use App\Models\Course;
+use App\Models\Playlist;
 
 new #[Layout('layouts.base')] class extends Component
 {
     #[Computed]
     public function latestSeries()
     {
-        return Course::withCount('lessons')
+        return Playlist::withCount('lessons')
             ->where('is_published', true)
             ->latest()
-            ->take(4)
+            ->take(6)
             ->get();
     }
 
@@ -137,7 +137,7 @@ new #[Layout('layouts.base')] class extends Component
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
                             <a href="#" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
-                                Series
+                                Playlists
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
                             <a href="#" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
@@ -173,7 +173,7 @@ new #[Layout('layouts.base')] class extends Component
                         <span class="flex h-2.5 w-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)] animate-pulse"></span>
                         <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-200 dark:to-white font-semibold">New</span>
                         <span class="w-px h-4 bg-zinc-300 dark:bg-white/20"></span>
-                        <span class="text-slate-600 dark:text-slate-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">Master Livewire 4 today</span>
+                        <span class="text-slate-600 dark:text-slate-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">Watch the latest playlists today</span>
                         <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-white transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
@@ -230,7 +230,7 @@ new #[Layout('layouts.base')] class extends Component
                         <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
                         Fresh Content
                     </div>
-                    <h2 class="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight mb-2">Latest Masterclasses</h2>
+                    <h2 class="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight mb-2">Latest Playlists</h2>
                     <p class="text-xl text-slate-600 dark:text-slate-400 font-medium">Binge-watch our newest tech releases.</p>
                 </div>
             </div>
@@ -249,7 +249,7 @@ new #[Layout('layouts.base')] class extends Component
                     
                     {{-- First Set --}}
                     @foreach($this->latestSeries as $index => $series)
-                    <div class="relative transform-style-3d cursor-pointer w-[320px] h-[400px] shrink-0">
+                    <a href="{{ route('playlists.show', $series->slug) }}" wire:navigate class="relative transform-style-3d cursor-pointer w-[320px] h-[400px] shrink-0 block">
                         <div class="absolute -inset-0.5 bg-gradient-to-br {{ $colors[$index % 4] }} rounded-[2rem] blur-xl opacity-0 hover:opacity-40 transition-opacity duration-700 ease-out"></div>
                         
                         <div class="absolute inset-0 glass-panel border border-white/10 rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500 ease-out shadow-2xl hover:-translate-y-2">
@@ -271,21 +271,21 @@ new #[Layout('layouts.base')] class extends Component
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Eps</span>
+                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Videos</span>
                                 </div>
 
                                 <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-3 leading-tight">{{ $series->title }}</h3>
                                 <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
                                 
                                 <div class="mt-6 flex items-center text-sm font-bold text-slate-500">
-                                    <span class="mr-2">Start Series</span>
+                                    <span class="group-hover:mr-2 transition-all">Start Playlist</span>
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     @endforeach
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Playlist extends Model
 {
@@ -23,5 +24,10 @@ class Playlist extends Model
     public function sections(): HasMany
     {
         return $this->hasMany(Section::class)->orderBy('sort_order');
+    }
+
+    public function lessons(): HasManyThrough
+    {
+        return $this->hasManyThrough(Lesson::class, Section::class);
     }
 }

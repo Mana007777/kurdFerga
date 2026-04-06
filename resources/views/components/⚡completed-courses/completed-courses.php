@@ -6,7 +6,7 @@ use Livewire\Component;
 
 new class extends Component
 {
-    public int $completedCoursesCount = 0;
+    public int $completedPlaylistsCount = 0;
 
     public function mount(): void
     {
@@ -39,6 +39,6 @@ new class extends Component
             }
         }
 
-        $this->completedCoursesCount = $completedCount;
+        $this->completedPlaylistsCount = $completedCount;
     }
 };

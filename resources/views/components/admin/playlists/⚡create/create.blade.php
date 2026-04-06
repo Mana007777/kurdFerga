@@ -10,7 +10,7 @@
         <div class="glass-panel rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/5 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl p-8">
             <form wire:submit="save" class="space-y-6">
                 
-                <flux:input wire:model="title" label="Playlist Title" placeholder="e.g. Advanced Laravel Architecture" description="The main heading for your course." required />
+                <flux:input wire:model="title" label="Playlist Title" placeholder="e.g. Advanced Laravel Architecture" description="The main heading for your playlist." required />
                 
                 <div class="space-y-2">
                     <flux:label>Thumbnail Image</flux:label>
@@ -24,7 +24,7 @@
                 
                 <flux:textarea wire:model="description" label="Playlist Description" placeholder="Explain what the students will learn..." rows="4" required />
                 
-                <flux:switch wire:model="is_published" label="Publish Immediately" description="Draft courses are hidden from students until published." />
+                <flux:switch wire:model="is_published" label="Publish Immediately" description="Draft playlists are hidden from students until published." />
                 
                 <hr class="border-slate-200 dark:border-white/5 my-4" />
                 
