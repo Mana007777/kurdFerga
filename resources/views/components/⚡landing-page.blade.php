@@ -89,11 +89,11 @@ new #[Layout('layouts.base')] class extends Component
         .transform-style-3d { transform-style: preserve-3d; }
 
         @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
         }
         .animate-scroll-left {
-            animation: scroll-left 20s linear infinite;
+            animation: scroll-left 5s linear infinite;
         }
         .pause-on-hover:hover {
             animation-play-state: paused;
