@@ -13,6 +13,15 @@ new class extends Component
     #[Validate('required|min:3')]
     public $title = '';
 
+    #[Validate('nullable|string|max:255')]
+    public string $author_name = '';
+
+    #[Validate('required|string|max:255')]
+    public string $level = 'Beginner';
+
+    #[Validate('nullable|string|max:255')]
+    public string $category = '';
+
     #[Validate('nullable|image|max:1024')]
     public $thumbnail;
 
@@ -39,6 +48,9 @@ new class extends Component
             'slug' => Str::slug($this->title),
             'description' => $this->description,
             'thumbnail' => $thumbnailPath,
+            'author_name' => $this->author_name,
+            'level' => $this->level,
+            'category' => $this->category,
             'is_published' => $this->is_published,
         ]);
 

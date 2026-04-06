@@ -16,67 +16,57 @@
 
     <!-- Grid -->
     @if($playlists->isNotEmpty())
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            @php
-                $gradients = [
-                    'from-blue-500 to-indigo-600',
-                    'from-rose-500 to-orange-500',
-                    'from-cyan-500 to-teal-500',
-                    'from-emerald-500 to-green-600',
-                    'from-violet-500 to-purple-600',
-                    'from-amber-500 to-yellow-500',
-                ];
-            @endphp
-
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             @foreach($playlists as $index => $playlist)
-                @php $grad = $gradients[$index % count($gradients)]; @endphp
                 <a
                     href="{{ route('playlists.show', $playlist) }}"
                     wire:navigate
-                    class="group relative rounded-2xl overflow-hidden border border-slate-200/60 dark:border-white/5 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col"
+                    class="group relative pt-8 flex flex-col transition-all duration-500 hover:-translate-y-2"
                 >
-                    <!-- Thumbnail / Gradient Banner -->
-                    <div class="relative h-44 w-full overflow-hidden shrink-0">
-                        @if($playlist->thumbnail)
-                            <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $playlist->title }}" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                        @else
-                            <div class="absolute inset-0 bg-gradient-to-br {{ $grad }}"></div>
-                            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 18px 18px;"></div>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                    <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
+                    <!-- Pixel Icon Container (Centered over the top border) -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 z-20">
+                        <div class="relative w-20 h-20 rounded-full p-1 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_35px_rgba(99,102,241,0.8)] transition-all duration-500">
+                            <div class="w-full h-full rounded-full bg-[#0F172A] p-1 overflow-hidden border-2 border-white/10">
+                                @if($playlist->thumbnail)
+                                    <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" alt="{{ $playlist->title }}" />
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-900 to-slate-900 rounded-full">
+                                        <flux:icon.academic-cap class="w-8 h-8 text-indigo-400" />
+                                    </div>
+                                @endif
                             </div>
-                        @endif
-
-                        <!-- Sections badge -->
-                        <div class="absolute top-3 right-3 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5">
-                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
-                            </svg>
-                            {{ $playlist->sections_count }} {{ Str::plural('section', $playlist->sections_count) }}
                         </div>
                     </div>
 
-                    <!-- Content -->
-                    <div class="p-5 flex flex-col flex-1">
-                        <h3 class="font-bold text-slate-800 dark:text-zinc-100 text-base leading-snug mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                            {{ $playlist->title }}
-                        </h3>
-                        @if($playlist->description)
-                            <p class="text-xs text-slate-500 dark:text-zinc-400 line-clamp-2 mb-4 flex-1">{{ $playlist->description }}</p>
-                        @else
-                            <div class="flex-1"></div>
-                        @endif
-                        <div class="flex items-center justify-between mt-2 pt-3 border-t border-slate-100 dark:border-white/5">
-                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:underline">Watch Now</span>
-                            <svg class="w-4 h-4 text-indigo-500 -translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
+                    <!-- Card Body -->
+                    <div class="flex-1 bg-[#1E293B]/80 dark:bg-[#0F172A]/80 backdrop-blur-3xl rounded-[2.5rem] border border-white/5 p-8 pt-14 shadow-2xl relative overflow-hidden group-hover:border-indigo-500/30 transition-colors duration-500">
+                        <!-- Subtle Glow Effect -->
+                        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-[60px] group-hover:bg-indigo-500/20 transition-all duration-500"></div>
+                        
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="text-center mb-6">
+                                <h3 class="text-xl md:text-2xl font-black text-white leading-tight mb-2 group-hover:text-indigo-400 transition-colors duration-300">
+                                    {{ $playlist->title }}
+                                </h3>
+                                <p class="text-sm font-medium text-slate-400 truncate">
+                                    With <span class="text-slate-300">{{ $playlist->author_name ?? 'Team Ferga' }}</span>
+                                </p>
+                            </div>
+
+                            <div class="mt-auto pt-6 border-t border-white/5 space-y-3">
+                                <div class="flex items-center gap-3 text-slate-400">
+                                    <flux:icon.list-bullet class="w-4 h-4 text-indigo-400" />
+                                    <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->lessons_count }} Lessons</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-slate-400">
+                                    <flux:icon.chart-bar class="w-4 h-4 text-emerald-400" />
+                                    <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->level ?? 'Beginner' }}</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-slate-400">
+                                    <flux:icon.tag class="w-4 h-4 text-amber-400" />
+                                    <span class="text-xs font-bold uppercase tracking-wider truncate">{{ $playlist->category ?? 'Frameworks' }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </a>

@@ -21,7 +21,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component
         return [
             'playlists' => Playlist::where('is_published', true)
                 ->when($this->search, fn ($q) => $q->where('title', 'like', '%'.$this->search.'%'))
-                ->withCount('sections')
+                ->withCount(['sections', 'lessons'])
                 ->latest()
                 ->paginate(12),
         ];

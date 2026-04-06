@@ -13,6 +13,9 @@ class Playlist extends Model
         'slug',
         'description',
         'thumbnail',
+        'author_name',
+        'level',
+        'category',
         'is_published',
     ];
 

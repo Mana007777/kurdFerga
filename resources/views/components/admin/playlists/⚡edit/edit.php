@@ -12,8 +12,14 @@ new class extends Component
 
     public Playlist $playlist;
 
-    #[Validate('required|min:3')]
-    public $title = '';
+    #[Validate('nullable|string|max:255')]
+    public string $author_name = '';
+
+    #[Validate('required|string|max:255')]
+    public string $level = 'Beginner';
+
+    #[Validate('nullable|string|max:255')]
+    public string $category = '';
 
     #[Validate('nullable|image|max:1024')]
     public $thumbnail;
@@ -30,6 +36,9 @@ new class extends Component
         abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
         $this->playlist = $playlist;
         $this->title = $playlist->title;
+        $this->author_name = $playlist->author_name ?? '';
+        $this->level = $playlist->level ?? 'Beginner';
+        $this->category = $playlist->category ?? '';
         $this->existingThumbnail = $playlist->thumbnail;
         $this->description = $playlist->description;
         $this->is_published = $playlist->is_published;
@@ -43,6 +52,9 @@ new class extends Component
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'description' => $this->description,
+            'author_name' => $this->author_name,
+            'level' => $this->level,
+            'category' => $this->category,
             'is_published' => $this->is_published,
         ];
 

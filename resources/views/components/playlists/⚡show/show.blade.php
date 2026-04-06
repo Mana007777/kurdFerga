@@ -1,141 +1,197 @@
-<div class="p-6 md:p-10 max-w-5xl mx-auto w-full">
-    <!-- Back -->
-    <flux:button variant="ghost" icon="arrow-left" href="{{ route('playlists.index') }}" wire:navigate class="mb-6" />
+<div class="p-6 md:p-10 max-w-6xl mx-auto w-full relative">
+    <!-- Back Button -->
+    <div class="mb-12">
+        <flux:button variant="ghost" icon="arrow-left" href="{{ route('playlists.index') }}" wire:navigate>Back to Playlists</flux:button>
+    </div>
 
-    <!-- Playlist Hero -->
-    <div class="relative rounded-3xl overflow-hidden mb-10 bg-gradient-to-br from-indigo-500 to-purple-600 shadow-2xl">
-        @if($playlist->thumbnail)
-            <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40" alt="{{ $playlist->title }}" />
-        @endif
-        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
-        <div class="relative z-10 px-8 py-12">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest mb-4">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                Playlist
+    <!-- Playlist Hero (Centered Pixel Icon Style) -->
+    <div class="relative pt-12 pb-16 mb-16 px-8 text-center group">
+        <!-- Floating Animated Background Glows -->
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] animate-pulse"></div>
+        <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] animate-pulse transition-delay-2000"></div>
+
+        <!-- Centered Pixel Icon -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+            <div class="relative w-32 h-32 rounded-full p-1.5 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_30px_rgba(99,102,241,0.4)]">
+                <div class="w-full h-full rounded-full bg-[#0F172A] p-1.5 overflow-hidden border-2 border-white/10">
+                    @if($playlist->thumbnail)
+                        <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover rounded-full" alt="{{ $playlist->title }}" />
+                    @else
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-900 to-slate-900 rounded-full">
+                            <flux:icon.academic-cap class="w-12 h-12 text-indigo-400" />
+                        </div>
+                    @endif
+                </div>
             </div>
-            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-3">{{ $playlist->title }}</h1>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="bg-[#1E293B]/60 dark:bg-[#0F172A]/60 backdrop-blur-3xl rounded-[3rem] border border-white/5 p-12 pt-20 shadow-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                Playlist Overview
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-4">{{ $playlist->title }}</h1>
+            
+            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium text-slate-400">
+                <span class="flex items-center gap-2">With <span class="text-slate-200">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
+                <span class="w-1 h-1 rounded-full bg-slate-700 hidden md:block"></span>
+                <span class="flex items-center gap-2"><flux:icon.chart-bar class="w-4 h-4 text-emerald-400" /> {{ $playlist->level ?? 'Beginner' }}</span>
+                <span class="w-1 h-1 rounded-full bg-slate-700 hidden md:block"></span>
+                <span class="flex items-center gap-2"><flux:icon.tag class="w-4 h-4 text-amber-400" /> {{ $playlist->category ?? 'General' }}</span>
+            </div>
+
             @if($playlist->description)
-                <p class="text-white/80 text-lg max-w-2xl">{{ $playlist->description }}</p>
+                <p class="text-slate-400 text-lg max-w-3xl mx-auto mt-8 leading-relaxed font-medium">{{ $playlist->description }}</p>
             @endif
-            <div class="flex items-center gap-6 mt-6 text-white/70 text-sm font-medium">
-                <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-                    {{ $sections->count() }} {{ Str::plural('Section', $sections->count()) }}
-                </span>
-                <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    {{ $sections->sum(fn($s) => $s->lessons->count()) }} {{ Str::plural('Video', $sections->sum(fn($s) => $s->lessons->count())) }}
-                </span>
-                @php
-                    $totalLessons = $sections->sum(fn($s) => $s->lessons->count());
-                    $done = count($completedLessonIds);
-                    $progressPct = $totalLessons > 0 ? min(100, (int) round(($done / $totalLessons) * 100)) : 0;
-                @endphp
-                <span class="flex items-center gap-2 ml-auto">
-                    <div class="w-24 h-2 rounded-full bg-white/20 overflow-hidden">
-                        <div class="h-full rounded-full bg-white transition-all duration-500" style="width: {{ $progressPct }}%"></div>
+
+            <!-- Progress Summary -->
+            @php
+                $totalLessons = $sections->sum(fn($s) => $s->lessons->count());
+                $done = count($completedLessonIds);
+                $progressPct = $totalLessons > 0 ? min(100, (int) round(($done / $totalLessons) * 100)) : 0;
+            @endphp
+            <div class="mt-12 flex flex-col items-center gap-4">
+                <div class="flex items-center justify-between w-full max-w-md mb-1">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Platform Progress</span>
+                    <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full">{{ $progressPct }}%</span>
+                </div>
+                <div class="w-full max-w-md h-3 rounded-full bg-white/5 p-0.5 overflow-hidden border border-white/5 shadow-inner">
+                    <div class="h-full rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 transition-all duration-1000 shadow-[0_0_10px_rgba(99,102,241,0.5)]" style="width: {{ $progressPct }}%"></div>
+                </div>
+                <div class="flex items-center gap-6 mt-2">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                        <flux:icon.list-bullet class="w-4 h-4 text-slate-600" />
+                        {{ $sections->count() }} SECTIONS
                     </div>
-                    <span class="text-white font-bold text-sm">{{ $progressPct }}%</span>
-                </span>
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                        <flux:icon.play class="w-4 h-4 text-slate-600" />
+                        {{ $totalLessons }} LESSONS
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Sections & Lessons -->
-    @forelse($sections as $section)
-        <div class="mb-6 rounded-2xl border border-slate-200/60 dark:border-white/5 overflow-hidden bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl shadow-sm">
-            <!-- Section Header -->
-            <div class="px-6 py-4 bg-slate-50/80 dark:bg-black/20 border-b border-slate-200/60 dark:border-white/5 flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center">
-                    <svg class="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-                    </svg>
+    <!-- Content Sections -->
+    <div class="space-y-10">
+        @forelse($sections as $section)
+            <div class="bg-[#1E293B]/40 dark:bg-[#0F172A]/40 backdrop-blur-2xl rounded-3xl border border-white/5 overflow-hidden shadow-xl transition-all duration-300 hover:border-white/10">
+                <!-- Section Header -->
+                <div class="px-8 py-5 bg-white/5 border-b border-white/5 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                        <flux:icon.folder class="w-5 h-5 fill-current opacity-50" />
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black text-white tracking-tight">{{ $section->title }}</h2>
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">
+                            {{ $section->lessons->count() }} {{ Str::plural('video', $section->lessons->count()) }}
+                        </p>
+                    </div>
                 </div>
-                <h2 class="font-bold text-slate-800 dark:text-zinc-100">{{ $section->title }}</h2>
-                <span class="ml-auto text-xs text-slate-500 dark:text-zinc-500 font-medium">{{ $section->lessons->count() }} {{ Str::plural('video', $section->lessons->count()) }}</span>
-            </div>
 
-            <!-- Lessons -->
-            <div class="divide-y divide-slate-100 dark:divide-white/5">
-                @forelse($section->lessons as $i => $lesson)
-                    @php $isDone = in_array($lesson->id, $completedLessonIds); @endphp
-                    <div class="group flex items-center gap-4 px-6 py-4 {{ $isDone ? 'bg-green-50/50 dark:bg-green-900/10' : 'hover:bg-indigo-50/50 dark:hover:bg-indigo-900/10' }} transition-colors">
-                        <!-- Episode Number -->
-                        <div class="w-8 h-8 shrink-0 rounded-full {{ $isDone ? 'bg-green-100 dark:bg-green-900/30' : 'bg-slate-100 dark:bg-zinc-800' }} flex items-center justify-center text-xs font-bold {{ $isDone ? 'text-green-600 dark:text-green-400' : 'text-slate-500 dark:text-zinc-400' }}">
-                            @if($isDone)
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            @else
-                                {{ $i + 1 }}
-                            @endif
-                        </div>
-
-                        <!-- Play icon -->
-                        <div class="w-10 h-10 shrink-0 rounded-xl {{ $isDone ? 'bg-green-100 dark:bg-green-900/20' : 'bg-indigo-50 dark:bg-indigo-900/20' }} flex items-center justify-center group-hover:bg-indigo-500 transition-colors">
-                            <svg class="w-5 h-5 {{ $isDone ? 'text-green-500' : 'text-indigo-500' }} group-hover:text-white ml-0.5 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
-
-                        <div class="flex-1 min-w-0">
-                            <h4 class="font-semibold text-slate-800 dark:text-zinc-100 text-sm truncate {{ $isDone ? 'line-through text-slate-400 dark:text-zinc-500' : '' }}">{{ $lesson->title }}</h4>
-                            <div class="flex items-center gap-2 mt-0.5">
-                                @if($lesson->is_preview)
-                                    <span class="text-xs font-bold text-amber-600 dark:text-amber-400">Free Preview</span>
-                                @endif
+                <!-- Lessons List -->
+                <div class="divide-y divide-white/5">
+                    @forelse($section->lessons as $i => $lesson)
+                        @php $isDone = in_array($lesson->id, $completedLessonIds); @endphp
+                        <div class="group flex items-center gap-6 px-8 py-5 {{ $isDone ? 'bg-emerald-500/5' : 'hover:bg-white/5' }} transition-all duration-300">
+                            <!-- Index / Done Indicator -->
+                            <div class="shrink-0">
                                 @if($isDone)
-                                    <span class="text-xs font-bold text-green-600 dark:text-green-400 flex items-center gap-1">
-                                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                        Completed · +5 XP
-                                    </span>
+                                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                                        <flux:icon.check class="w-5 h-5 stroke-[3]" />
+                                    </div>
+                                @else
+                                    <div class="w-10 h-10 rounded-xl bg-slate-800/50 border border-white/5 flex items-center justify-center text-sm font-black text-slate-500 group-hover:text-indigo-400 group-hover:border-indigo-500/30 transition-all duration-300">
+                                        {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+                                    </div>
                                 @endif
                             </div>
-                        </div>
 
-                        <!-- Action buttons -->
-                        <div class="shrink-0 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
-                            @if($lesson->video_url)
-                                <a href="{{ $lesson->video_url }}" target="_blank">
-                                    <flux:badge size="sm" color="indigo" icon="play">Watch</flux:badge>
-                                </a>
-                            @endif
-                            @if(! $isDone)
-                                <button wire:click="completeLesson({{ $lesson->id }})" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 hover:bg-green-500 hover:text-white transition-all duration-200">
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    Mark Done
-                                </button>
-                            @endif
+                            <!-- Lesson Info -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <h4 @class(['font-bold text-lg leading-tight truncate transition-colors duration-300', 'text-slate-400 line-through decoration-emerald-500/50' => $isDone, 'text-white group-hover:text-indigo-400' => !$isDone])>
+                                        {{ $lesson->title }}
+                                    </h4>
+                                    @if($lesson->is_preview)
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded-md bg-amber-500/10 text-[9px] font-black text-amber-500 uppercase tracking-widest border border-amber-500/20">Free</span>
+                                    @endif
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    @if($isDone)
+                                        <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest flex items-center gap-1">
+                                            <flux:icon.sparkles class="w-3 h-3" />
+                                            Completed · +5 XP
+                                        </span>
+                                    @else
+                                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Lesson Content</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Desktop Actions -->
+                            <div class="hidden md:flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                                <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
+                                
+                                @if($lesson->video_url)
+                                    <a href="{{ $lesson->video_url }}" target="_blank">
+                                        <flux:button size="sm" variant="subtle" icon="play">Watch Vid</flux:button>
+                                    </a>
+                                @endif
+                                
+                                @if(! $isDone)
+                                    <button wire:click="completeLesson({{ $lesson->id }})" class="h-9 px-4 rounded-xl text-xs font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-200">
+                                        Complete
+                                    </button>
+                                @endif
+                            </div>
+
+                            <!-- Right Arrow (Mobile Only / Indicator) -->
+                            <div class="md:hidden">
+                                <flux:icon.chevron-right class="w-5 h-5 text-slate-600 group-hover:text-indigo-500 transition-colors" />
+                            </div>
                         </div>
-                    </div>
-                @empty
-                    <div class="px-6 py-8 text-center text-sm text-slate-400 dark:text-zinc-600 italic">No videos in this section yet.</div>
-                @endforelse
+                    @empty
+                        <div class="px-8 py-10 text-center text-sm text-slate-500 italic">No videos in this section yet.</div>
+                    @endforelse
+                </div>
             </div>
-        </div>
-    @empty
-        <div class="text-center py-16 rounded-2xl border border-dashed border-slate-300 dark:border-zinc-700">
-            <p class="text-slate-500 dark:text-zinc-500">No content available yet for this playlist.</p>
-        </div>
-    @endforelse
+        @empty
+            <div class="text-center py-20 rounded-[3rem] border border-dashed border-white/5 bg-white/5">
+                <p class="text-slate-500 font-medium tracking-wide">Seeking content... check back soon!</p>
+            </div>
+        @endforelse
+    </div>
 
-    <!-- Course Interactions (Stars & Comments) -->
+    <!-- Related Courses - Interaction Hub -->
     @if($playlist->courses->isNotEmpty())
-        <div class="mt-16 space-y-12">
-            <hr class="border-slate-200 dark:border-white/5" />
+        <div class="mt-24 space-y-16">
+            <div class="relative py-8">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-white/5"></div>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="px-6 bg-[#050B14] text-xs font-black text-slate-500 uppercase tracking-[0.3em]">Masterclass Discussion</span>
+                </div>
+            </div>
             
             @foreach($playlist->courses as $course)
-                <div class="glass-panel rounded-3xl p-8 shadow-xl border border-slate-200/60 dark:border-indigo-500/10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-100 dark:border-white/5">
-                        <div>
-                            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
-                                Related Course
+                <div class="bg-[#1E293B]/60 dark:bg-[#0F172A]/80 backdrop-blur-3xl rounded-[3rem] p-10 shadow-2xl border border-white/5 group transition-all duration-500 hover:border-indigo-500/20">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-10 pb-8 border-b border-white/5">
+                        <div class="max-w-2xl">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-black uppercase tracking-widest mb-4">
+                                Deep Dive Module
                             </div>
-                            <h3 class="text-2xl font-black text-slate-800 dark:text-white tracking-tight">{{ $course->title }}</h3>
-                            <p class="text-slate-500 dark:text-zinc-400 text-sm mt-1">{{ $course->description }}</p>
+                            <h3 class="text-3xl font-black text-white tracking-tight leading-tight group-hover:text-indigo-400 transition-colors">{{ $course->title }}</h3>
+                            <p class="text-slate-400 text-base mt-2 font-medium leading-relaxed">{{ $course->description }}</p>
                         </div>
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-4">
                             <livewire:courses.star-course :course="$course" :key="'star-'.$course->id" />
-                            <flux:badge size="sm" color="indigo" inset="top bottom">{{ $course->comments->count() }} Comments</flux:badge>
+                            <div class="h-10 px-4 bg-white/5 flex items-center justify-center rounded-2xl border border-white/10 text-xs font-bold text-slate-400">
+                                {{ $course->comments->count() }} Shared Thoughts
+                            </div>
                         </div>
                     </div>
 

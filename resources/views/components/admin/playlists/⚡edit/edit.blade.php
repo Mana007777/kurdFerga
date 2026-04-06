@@ -24,6 +24,17 @@
                     </div>
                 </div>
                 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <flux:input wire:model="author_name" label="Author Name" placeholder="e.g. Jeffrey Way" />
+                    <flux:select wire:model="level" label="Difficulty Level">
+                        <flux:select.option>Beginner</flux:select.option>
+                        <flux:select.option>Intermediate</flux:select.option>
+                        <flux:select.option>Advanced</flux:select.option>
+                    </flux:select>
+                </div>
+
+                <flux:input wire:model="category" label="Category" placeholder="e.g. Frameworks, PHP, AI..." />
+
                 <flux:textarea wire:model="description" label="Playlist Description" rows="4" required />
                 
                 <flux:switch wire:model="is_published" label="Publish State" description="Toggle playlist visibility." />
