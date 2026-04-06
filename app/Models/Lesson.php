@@ -25,6 +25,11 @@ class Lesson extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function playlist(): BelongsTo
+    {
+        return $this->belongsTo(Playlist::class);
+    }
+
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
@@ -35,5 +40,10 @@ class Lesson extends Model
         return $this->belongsToMany(User::class)
             ->withPivot('is_completed')
             ->withTimestamps();
+    }
+
+    public function starredByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'lesson_stars')->withTimestamps();
     }
 }

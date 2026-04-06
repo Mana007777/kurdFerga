@@ -88,6 +88,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Lesson::class, 'lesson_user')->withTimestamps();
     }
 
+    public function starredLessons(): BelongsToMany
+    {
+        return $this->belongsToMany(Lesson::class, 'lesson_stars')->withTimestamps();
+    }
+
     public function completeLesson(Lesson $lesson): void
     {
         if (! $this->completedLessons()->where('lesson_id', $lesson->id)->exists()) {

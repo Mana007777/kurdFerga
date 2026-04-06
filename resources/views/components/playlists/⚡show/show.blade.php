@@ -93,6 +93,7 @@
 
                         <!-- Action buttons -->
                         <div class="shrink-0 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
                             @if($lesson->video_url)
                                 <a href="{{ $lesson->video_url }}" target="_blank">
                                     <flux:badge size="sm" color="indigo" icon="play">Watch</flux:badge>

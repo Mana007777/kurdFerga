@@ -91,6 +91,9 @@
                         <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->requestUri === '/profile'" wire:navigate>
                             {{ __('My Profile') }}
                         </flux:sidebar.item>
+                        <flux:sidebar.item icon="star" :href="route('stars.index')" :current="request()->routeIs('stars.index')" wire:navigate>
+                            {{ __('Starred Videos') }}
+                        </flux:sidebar.item>
                     </flux:sidebar.group>
 
                     @if(auth()->check() && auth()->user()->isAdmin())
@@ -108,15 +111,6 @@
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
 
             <flux:dropdown position="top" align="start">
                 <flux:profile
