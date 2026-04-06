@@ -50,6 +50,16 @@
                 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
                 transition-duration: 400ms !important;
             }
+
+            @keyframes border-flow {
+                0% { background-position: 0% 0%; }
+                100% { background-position: 0% 200%; }
+            }
+            .animate-border-flow {
+                background: linear-gradient(to bottom, transparent, #3b82f6, #6366f1, #a855f7, #6366f1, #3b82f6, transparent);
+                background-size: 100% 200%;
+                animation: border-flow 2s linear infinite;
+            }
         </style>
 
         <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50 dark:bg-[#020617]">
@@ -61,7 +71,9 @@
         </div>
 
         <div class="relative z-10 flex min-h-screen">
-            <flux:sidebar sticky stashable collapsible class="border-e border-slate-200 dark:border-white/5 bg-white/90 dark:bg-[#050B14]/90 backdrop-blur-3xl">
+            <flux:sidebar sticky stashable collapsible class="relative border-e border-slate-200 dark:border-white/5 bg-white/90 dark:bg-[#050B14]/90 backdrop-blur-3xl">
+                <!-- Animated Right Glow Border -->
+                <div class="absolute right-0 top-0 bottom-0 w-[2px] animate-border-flow z-[100] pointer-events-none shadow-[-2px_0_15px_rgba(59,130,246,0.5)] opacity-100"></div>
                 <flux:sidebar.header class="flex items-center justify-between">
                     <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                     <flux:sidebar.toggle class="hidden lg:flex" icon="chevron-left" />
