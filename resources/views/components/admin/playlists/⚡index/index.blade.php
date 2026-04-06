@@ -25,7 +25,7 @@
                         <flux:table.cell>
                             <div class="flex items-center gap-3">
                                 @if($playlist->thumbnail)
-                                    <img src="{{ $playlist->thumbnail }}" class="w-10 h-10 rounded-lg object-cover" />
+                                    <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-10 h-10 rounded-lg object-cover" />
                                 @else
                                     <div class="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-500">
                                         <flux:icon.academic-cap class="w-5 h-5"/>

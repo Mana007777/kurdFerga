@@ -122,6 +122,7 @@
                 <flux:profile
                     :name="auth()->user()->name"
                     :avatar="auth()->user()->profilePhotoUrl()"
+                    :src="auth()->user()->profilePhotoUrl()"
                     icon-trailing="chevron-up"
                     class="cursor-pointer hover:bg-white/5 rounded-xl transition-colors"
                 />
@@ -157,6 +158,7 @@
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :avatar="auth()->user()->profilePhotoUrl()"
+                    :src="auth()->user()->profilePhotoUrl()"
                     icon-trailing="chevron-down"
                 />
 
