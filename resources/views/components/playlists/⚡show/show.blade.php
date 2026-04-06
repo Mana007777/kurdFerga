@@ -5,7 +5,7 @@
     <!-- Playlist Hero -->
     <div class="relative rounded-3xl overflow-hidden mb-10 bg-gradient-to-br from-indigo-500 to-purple-600 shadow-2xl">
         @if($playlist->thumbnail)
-            <img src="{{ $playlist->thumbnail }}" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40" alt="{{ $playlist->title }}" />
+            <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40" alt="{{ $playlist->title }}" />
         @endif
         <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
         <div class="relative z-10 px-8 py-12">

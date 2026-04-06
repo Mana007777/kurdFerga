@@ -38,7 +38,7 @@
                     <!-- Thumbnail / Gradient Banner -->
                     <div class="relative h-44 w-full overflow-hidden shrink-0">
                         @if($playlist->thumbnail)
-                            <img src="{{ $playlist->thumbnail }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $playlist->title }}" />
+                            <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $playlist->title }}" />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         @else
                             <div class="absolute inset-0 bg-gradient-to-br {{ $grad }}"></div>

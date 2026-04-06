@@ -12,7 +12,17 @@
                 
                 <flux:input wire:model="title" label="Playlist Title" required />
                 
-                <flux:input wire:model="thumbnail" type="url" label="Thumbnail URL" />
+                <div class="space-y-2">
+                    <flux:label>Thumbnail Image</flux:label>
+                    <div class="flex items-center gap-4">
+                        @if($thumbnail)
+                            <img src="{{ $thumbnail->temporaryUrl() }}" class="w-20 h-20 rounded-xl object-cover border border-slate-200 dark:border-white/10" />
+                        @elseif($existingThumbnail)
+                            <img src="{{ str_starts_with($existingThumbnail, 'http') ? $existingThumbnail : asset('storage/' . $existingThumbnail) }}" class="w-20 h-20 rounded-xl object-cover border border-slate-200 dark:border-white/10" />
+                        @endif
+                        <flux:input wire:model="thumbnail" type="file" accept="image/*" description="Recommended size: 1280x720 (16:9). Leave empty to keep existing." />
+                    </div>
+                </div>
                 
                 <flux:textarea wire:model="description" label="Playlist Description" rows="4" required />
                 

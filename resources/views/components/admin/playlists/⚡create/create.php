@@ -2,16 +2,17 @@
 
 use App\Models\Playlist;
 use Illuminate\Support\Str;
-use Livewire\Attributes\Validate;
-use Livewire\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component
 {
+    use WithFileUploads;
+
     #[Validate('required|min:3')]
     public $title = '';
 
-    #[Validate('nullable|url')]
-    public $thumbnail = '';
+    #[Validate('nullable|image|max:1024')]
+    public $thumbnail;
 
     #[Validate('required')]
     public $description = '';
@@ -27,11 +28,15 @@ new class extends Component
     {
         $this->validate();
 
+        $thumbnailPath = $this->thumbnail
+            ? $this->thumbnail->store('thumbnails', 'public')
+            : null;
+
         Playlist::create([
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'description' => $this->description,
-            'thumbnail' => $this->thumbnail,
+            'thumbnail' => $thumbnailPath,
             'is_published' => $this->is_published,
         ]);
 
