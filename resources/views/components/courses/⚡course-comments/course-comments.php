@@ -13,6 +13,8 @@ new class extends Component
     #[Validate('required|min:3|max:1000')]
     public string $body = '';
 
+    public ?int $replyingTo = null;
+
     public function mount(Course $course): void
     {
         $this->course = $course;
@@ -29,10 +31,24 @@ new class extends Component
         $this->course->comments()->create([
             'user_id' => Auth::id(),
             'body' => $this->body,
+            'parent_id' => $this->replyingTo,
         ]);
 
         $this->body = '';
+        $this->replyingTo = null;
         $this->dispatch('comment-posted');
+    }
+
+    public function setReply(int $commentId): void
+    {
+        $this->replyingTo = $commentId;
+        $this->body = '';
+    }
+
+    public function cancelReply(): void
+    {
+        $this->replyingTo = null;
+        $this->body = '';
     }
 
     public function deleteComment(int $commentId): void
@@ -49,7 +65,11 @@ new class extends Component
     public function with(): array
     {
         return [
-            'comments' => $this->course->comments()->with('user')->latest()->get(),
+            'comments' => $this->course->comments()
+                ->whereNull('parent_id')
+                ->with(['user', 'replies.user'])
+                ->latest()
+                ->get(),
         ];
     }
 };

@@ -23,30 +23,94 @@
         </div>
     @endauth
 
-    <div class="space-y-6">
+    <div class="space-y-8">
         @forelse($comments as $comment)
-            <div class="flex gap-4 group">
-                <flux:avatar src="{{ $comment->user->profilePhotoUrl() }}" size="sm" class="shrink-0" />
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2 mb-1">
-                        <flux:text weight="bold" class="text-slate-800 dark:text-zinc-100 truncate">
-                            {{ $comment->user->name }}
-                        </flux:text>
-                        <flux:text size="xs" class="text-slate-400 dark:text-zinc-500">
-                            {{ $comment->created_at->diffForHumans() }}
-                        </flux:text>
+            <div class="space-y-4">
+                <div class="flex gap-4 group">
+                    <flux:avatar src="{{ $comment->user->profilePhotoUrl() }}" size="sm" class="shrink-0" />
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <flux:text weight="bold" class="text-slate-800 dark:text-zinc-100 truncate">
+                                {{ $comment->user->name }}
+                            </flux:text>
+                            <flux:text size="xs" class="text-slate-400 dark:text-zinc-500">
+                                {{ $comment->created_at->diffForHumans() }}
+                            </flux:text>
+                        </div>
+                        <div class="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed bg-slate-50 dark:bg-black/20 p-4 rounded-xl rounded-tl-none border border-slate-100 dark:border-white/5">
+                            {{ $comment->body }}
+                        </div>
+                        
+                        <div class="mt-2 flex items-center gap-4">
+                            @auth
+                                <button wire:click="setReply({{ $comment->id }})" class="text-[10px] uppercase tracking-widest font-bold text-indigo-500/60 hover:text-indigo-500 transition-colors flex items-center gap-1">
+                                    <flux:icon.chat-bubble-left-right class="w-3 h-3" />
+                                    Reply
+                                </button>
+                            @endauth
+
+                            @if(auth()->id() === $comment->user_id)
+                                <button wire:click="deleteComment({{ $comment->id }})" class="text-[10px] uppercase tracking-widest font-bold text-red-500/60 hover:text-red-500 transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                                    <flux:icon.trash class="w-3 h-3" />
+                                    Delete
+                                </button>
+                            @endif
+                        </div>
                     </div>
-                    <div class="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed bg-slate-50 dark:bg-black/20 p-4 rounded-xl rounded-tl-none border border-slate-100 dark:border-white/5">
-                        {{ $comment->body }}
-                    </div>
-                    
-                    @if(auth()->id() === $comment->user_id)
-                        <button wire:click="deleteComment({{ $comment->id }})" class="mt-2 text-[10px] uppercase tracking-widest font-bold text-red-500/60 hover:text-red-500 transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            Delete
-                        </button>
-                    @endif
                 </div>
+
+                <!-- Replies -->
+                @if($comment->replies->isNotEmpty())
+                    <div class="ml-12 space-y-4 border-l-2 border-slate-100 dark:border-white/5 pl-6">
+                        @foreach($comment->replies as $reply)
+                            <div class="flex gap-4 group">
+                                <flux:avatar src="{{ $reply->user->profilePhotoUrl() }}" size="xs" class="shrink-0" />
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                        <flux:text weight="bold" size="sm" class="text-slate-800 dark:text-zinc-100 truncate">
+                                            {{ $reply->user->name }}
+                                        </flux:text>
+                                        <flux:text size="xs" class="text-slate-400 dark:text-zinc-500">
+                                            {{ $reply->created_at->diffForHumans() }}
+                                        </flux:text>
+                                    </div>
+                                    <div class="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
+                                        {{ $reply->body }}
+                                    </div>
+                                    
+                                    @if(auth()->id() === $reply->user_id)
+                                        <button wire:click="deleteComment({{ $reply->id }})" class="mt-2 text-[10px] uppercase tracking-widest font-bold text-red-500/60 hover:text-red-500 transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                                            <flux:icon.trash class="w-3 h-3" />
+                                            Delete
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                <!-- Reply Form -->
+                @if($replyingTo === $comment->id)
+                    <div class="ml-12 mt-4 bg-indigo-50/50 dark:bg-indigo-500/5 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-500/10">
+                        <div class="flex items-center justify-between mb-3">
+                            <flux:text size="xs" weight="bold" class="text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Replying to {{ $comment->user->name }}</flux:text>
+                            <button wire:click="cancelReply" class="text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300">
+                                <flux:icon.x-mark class="w-4 h-4" />
+                            </button>
+                        </div>
+                        <flux:textarea
+                            wire:model="body"
+                            placeholder="Write your reply..."
+                            rows="2"
+                            required
+                            class="!bg-transparent border-0 ring-0 focus:ring-0 text-sm"
+                        />
+                        <div class="mt-3 flex justify-end">
+                            <flux:button wire:click="postComment" size="sm" variant="primary">Post Reply</flux:button>
+                        </div>
+                    </div>
+                @endif
             </div>
         @empty
             <div class="text-center py-10 text-slate-400 dark:text-zinc-600 italic text-sm">
