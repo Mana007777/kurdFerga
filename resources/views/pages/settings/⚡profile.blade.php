@@ -9,12 +9,14 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Livewire\WithFileUploads;
 
 new #[Title('Profile settings')] class extends Component {
-    use ProfileValidationRules;
+    use ProfileValidationRules, WithFileUploads;
 
     public string $name = '';
     public string $email = '';
+    public $photo;
 
     /**
      * Mount the component.
@@ -32,9 +34,19 @@ new #[Title('Profile settings')] class extends Component {
     {
         $user = Auth::user();
 
-        $validated = $this->validate($this->profileRules($user->id));
+        $validated = $this->validate(array_merge(
+            $this->profileRules($user->id),
+            ['photo' => ['nullable', 'image', 'max:1024']]
+        ));
 
-        $user->fill($validated);
+        if ($this->photo) {
+            $user->profile_photo_path = $this->photo->store('profile-photos', 'public');
+        }
+
+        $user->fill([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+        ]);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -85,6 +97,14 @@ new #[Title('Profile settings')] class extends Component {
     <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <div class="max-w-lg">
             <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
+            <div class="flex items-center gap-6 mb-8">
+                <flux:avatar src="{{ $this->photo ? $this->photo->temporaryUrl() : auth()->user()->profilePhotoUrl() }}" size="xl" class="!w-24 !h-24 shadow-xl" />
+                <div class="flex-1">
+                    <flux:label class="mb-2">Profile Photo</flux:label>
+                    <flux:input wire:model="photo" type="file" accept="image/*" description="Recommended: Square image, max 1MB." />
+                </div>
+            </div>
+
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
             <div>

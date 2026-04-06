@@ -121,7 +121,7 @@
             <flux:dropdown position="top" align="start">
                 <flux:profile
                     :name="auth()->user()->name"
-                    :initials="auth()->user()->initials()"
+                    :avatar="auth()->user()->profilePhotoUrl()"
                     icon-trailing="chevron-up"
                     class="cursor-pointer hover:bg-white/5 rounded-xl transition-colors"
                 />
@@ -156,7 +156,7 @@
 
             <flux:dropdown position="top" align="end">
                 <flux:profile
-                    :initials="auth()->user()->initials()"
+                    :avatar="auth()->user()->profilePhotoUrl()"
                     icon-trailing="chevron-down"
                 />
 
@@ -166,7 +166,7 @@
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <flux:avatar
                                     :name="auth()->user()->name"
-                                    :initials="auth()->user()->initials()"
+                                    :src="auth()->user()->profilePhotoUrl()"
                                 />
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">

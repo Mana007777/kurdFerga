@@ -116,4 +116,31 @@
             <p class="text-slate-500 dark:text-zinc-500">No content available yet for this playlist.</p>
         </div>
     @endforelse
+
+    <!-- Course Interactions (Stars & Comments) -->
+    @if($playlist->courses->isNotEmpty())
+        <div class="mt-16 space-y-12">
+            <hr class="border-slate-200 dark:border-white/5" />
+            
+            @foreach($playlist->courses as $course)
+                <div class="glass-panel rounded-3xl p-8 shadow-xl border border-slate-200/60 dark:border-indigo-500/10">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-100 dark:border-white/5">
+                        <div>
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
+                                Related Course
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-800 dark:text-white tracking-tight">{{ $course->title }}</h3>
+                            <p class="text-slate-500 dark:text-zinc-400 text-sm mt-1">{{ $course->description }}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <livewire:courses.star-course :course="$course" :key="'star-'.$course->id" />
+                            <flux:badge size="sm" color="indigo" inset="top bottom">{{ $course->comments->count() }} Comments</flux:badge>
+                        </div>
+                    </div>
+
+                    <livewire:courses.course-comments :course="$course" :key="'comments-'.$course->id" />
+                </div>
+            @endforeach
+        </div>
+    @endif
 </div>

@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-#[Fillable(['name', 'email', 'password', 'pts', 'current_team_id', 'role'])]
+#[Fillable(['name', 'email', 'password', 'pts', 'current_team_id', 'role', 'profile_photo_path'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -71,6 +71,16 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    /**
+     * Get the URL to the user's profile photo.
+     */
+    public function profilePhotoUrl(): string
+    {
+        return $this->profile_photo_path
+            ? asset('storage/'.$this->profile_photo_path)
+            : 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
     }
 
     public function completedLessons(): BelongsToMany
