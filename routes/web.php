@@ -19,6 +19,7 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/playlists', 'playlists.index')->name('playlists.index');
     Route::livewire('/playlists/{playlist}', 'playlists.show')->name('playlists.show');
     Route::livewire('/stars', 'pages::stars')->name('stars.index');
+    Route::livewire('/leaderboard', 'pages::leaderboard')->name('leaderboard');
 
     // Admin Playlist Management routes
     Route::prefix('admin/playlists')->name('admin.playlists.')->group(function () {

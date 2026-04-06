@@ -104,6 +104,12 @@
                         </flux:sidebar.group>
                     @endif
 
+                    <flux:sidebar.group :heading="__('Community')" class="grid w-full mt-4">
+                        <flux:sidebar.item icon="trophy" :href="route('leaderboard')" :current="request()->routeIs('leaderboard')" wire:navigate>
+                            Leaderboard
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+
                     <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-4">
                         View All Playlists
                     </flux:sidebar.item>
