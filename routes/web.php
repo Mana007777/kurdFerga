@@ -16,7 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
 
     // Public Playlist browsing
-    Route::livewire('/playlists', 'playlists')->name('playlists.index');
+    Route::livewire('/playlists', 'playlists.index')->name('playlists.index');
     Route::livewire('/playlists/{playlist}', 'playlists.show')->name('playlists.show');
 
     // Admin Playlist Management routes
