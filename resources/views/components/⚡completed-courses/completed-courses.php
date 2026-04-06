@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Course;
+use App\Models\Playlist;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -8,32 +8,35 @@ new class extends Component
 {
     public int $completedCoursesCount = 0;
 
-    public function mount()
+    public function mount(): void
     {
-        // Dummy data explicitly to demonstrate the UI animations correctly!
-        $this->completedCoursesCount = rand(2, 14);
-
-        /*
         $user = Auth::user();
 
         if ($user) {
-            $courses = Course::where('is_published', true)->withCount(['lessons' => function ($query) {
-                $query->where('is_published', true);
-            }])->get();
-
             $completedCount = 0;
 
-            foreach ($courses as $course) {
-                if ($course->lessons_count > 0) {
-                    $completedLessonsCount = $user->completedLessons()->where('course_id', $course->id)->count();
+            $playlists = Playlist::where('is_published', true)
+                ->with(['sections.lessons' => fn ($q) => $q->where('is_published', true)])
+                ->get();
 
-                    if ($completedLessonsCount === $course->lessons_count) {
+            foreach ($playlists as $playlist) {
+                $lessonIds = $playlist->sections
+                    ->flatMap(fn ($s) => $s->lessons->pluck('id'));
+
+                $total = $lessonIds->count();
+
+                if ($total > 0) {
+                    $completed = $user->completedLessons()
+                        ->whereIn('lesson_id', $lessonIds)
+                        ->count();
+
+                    if ($completed >= $total) {
                         $completedCount++;
                     }
                 }
             }
+
             $this->completedCoursesCount = $completedCount;
         }
-        */
     }
 };

@@ -1,59 +1,57 @@
 <?php
 
-use App\Models\Course;
+use App\Models\Playlist;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 new class extends Component
 {
-    public ?int $selectedCourseId = null;
+    public ?int $selectedPlaylistId = null;
 
     public int $percentage = 0;
 
-    public function mount()
+    public function mount(): void
     {
-        // Try to pre-select the first published course by default
-        $this->selectedCourseId = Course::where('is_published', true)->first()?->id;
+        $this->selectedPlaylistId = Playlist::where('is_published', true)->first()?->id;
         $this->updatePercentage();
     }
 
-    public function updatedSelectedCourseId()
+    public function updatedSelectedPlaylistId(): void
     {
         $this->updatePercentage();
     }
 
-    public function updatePercentage()
+    public function updatePercentage(): void
     {
-        // Using dummy numbers temporarily so the beautiful UI animations can be seen!
-        $this->percentage = rand(35, 95);
-
-        /*
         $this->percentage = 0;
         $user = Auth::user();
 
-        if ($user && $this->selectedCourseId) {
-            $selectedCourse = Course::find($this->selectedCourseId);
+        if ($user && $this->selectedPlaylistId) {
+            $playlist = Playlist::find($this->selectedPlaylistId);
 
-            if ($selectedCourse) {
-                // Count published lessons in this course
-                $totalLessons = $selectedCourse->lessons()->where('is_published', true)->count();
+            if ($playlist) {
+                $lessonIds = $playlist->sections()
+                    ->with('lessons')
+                    ->get()
+                    ->flatMap(fn ($s) => $s->lessons->where('is_published', true)->pluck('id'));
 
-                if ($totalLessons > 0) {
-                    $completedLessons = $user->completedLessons()
-                        ->where('course_id', $selectedCourse->id)
+                $total = $lessonIds->count();
+
+                if ($total > 0) {
+                    $completed = $user->completedLessons()
+                        ->whereIn('lesson_id', $lessonIds)
                         ->count();
 
-                    $this->percentage = min(100, round(($completedLessons / $totalLessons) * 100));
+                    $this->percentage = min(100, (int) round(($completed / $total) * 100));
                 }
             }
         }
-        */
     }
 
     public function with(): array
     {
         return [
-            'courses' => Course::where('is_published', true)->get(),
+            'playlists' => Playlist::where('is_published', true)->get(),
         ];
     }
 };
