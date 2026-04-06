@@ -2,6 +2,8 @@
 
 use App\Models\Playlist;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 use Livewire\WithFileUploads;
 
 new class extends Component
