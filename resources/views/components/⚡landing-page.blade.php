@@ -304,7 +304,7 @@ new #[Layout('layouts.base')] class extends Component
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">Ferga Learning Platform</h3>
+                <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">F</h3>
                 <div class="flex gap-8 mb-10">
                     <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-white hover:scale-110 transition-transform">Twitter</a>
                     <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-white hover:scale-110 transition-transform">GitHub</a>
