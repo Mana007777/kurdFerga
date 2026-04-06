@@ -2,7 +2,7 @@
     <div class="flex items-center gap-4 mb-8">
         <flux:button variant="ghost" icon="arrow-left" href="{{ route('admin.courses.index') }}" wire:navigate />
         <div>
-            <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Manage Playlist</h1>
+            <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Manage Curriculum</h1>
             <p class="text-slate-500 dark:text-slate-400 mt-1">Curriculum for <span class="font-bold">"{{ $course->title }}"</span>.</p>
         </div>
     </div>

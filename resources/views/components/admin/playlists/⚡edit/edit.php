@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\Course;
+use App\Models\Playlist;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 new class extends Component
 {
-    public Course $course;
+    public Playlist $playlist;
 
     #[Validate('required|min:3')]
     public $title = '';
@@ -20,21 +20,21 @@ new class extends Component
 
     public $is_published = false;
 
-    public function mount(Course $course)
+    public function mount(Playlist $playlist)
     {
         abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
-        $this->course = $course;
-        $this->title = $course->title;
-        $this->thumbnail = $course->thumbnail;
-        $this->description = $course->description;
-        $this->is_published = $course->is_published;
+        $this->playlist = $playlist;
+        $this->title = $playlist->title;
+        $this->thumbnail = $playlist->thumbnail;
+        $this->description = $playlist->description;
+        $this->is_published = $playlist->is_published;
     }
 
     public function save()
     {
         $this->validate();
 
-        $this->course->update([
+        $this->playlist->update([
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'description' => $this->description,
@@ -42,6 +42,6 @@ new class extends Component
             'is_published' => $this->is_published,
         ]);
 
-        return $this->redirect(route('admin.courses.index'), navigate: true);
+        return $this->redirect(route('admin.playlists.index'), navigate: true);
     }
 };

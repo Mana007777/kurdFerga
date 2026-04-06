@@ -9,12 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Course extends Model
 {
     protected $fillable = [
+        'playlist_id',
         'title',
         'slug',
         'description',
         'thumbnail',
         'is_published',
     ];
+
+    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Playlist::class);
+    }
 
     public function sections(): HasMany
     {

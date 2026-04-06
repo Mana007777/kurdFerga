@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Course;
+use App\Models\Playlist;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,16 +13,16 @@ new class extends Component
         abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
     }
 
-    public function delete(Course $course)
+    public function delete(Playlist $playlist)
     {
         abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
-        $course->delete();
+        $playlist->delete();
     }
 
     public function with(): array
     {
         return [
-            'courses' => Course::withCount('lessons')->latest()->paginate(10),
+            'playlists' => Playlist::withCount('courses')->latest()->paginate(10),
         ];
     }
 };

@@ -15,11 +15,16 @@ Route::prefix('{current_team}')
 Route::middleware(['auth'])->group(function () {
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
 
+    // Admin Playlist Management routes
+    Route::prefix('admin/playlists')->name('admin.playlists.')->group(function () {
+        Route::livewire('/', 'admin.playlists.index')->name('index');
+        Route::livewire('/create', 'admin.playlists.create')->name('create');
+        Route::livewire('/{playlist}/edit', 'admin.playlists.edit')->name('edit');
+        Route::livewire('/{playlist}/courses', 'admin.playlists.courses')->name('courses');
+    });
+
     // Admin Course Management routes
     Route::prefix('admin/courses')->name('admin.courses.')->group(function () {
-        Route::livewire('/', 'admin.courses.index')->name('index');
-        Route::livewire('/create', 'admin.courses.create')->name('create');
-        Route::livewire('/{course}/edit', 'admin.courses.edit')->name('edit');
         Route::livewire('/{course}/playlist', 'admin.courses.playlist')->name('playlist');
     });
 });
