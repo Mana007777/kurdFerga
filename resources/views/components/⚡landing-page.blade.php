@@ -117,7 +117,7 @@ new #[Layout('layouts.base')] class extends Component
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
-                            <span class="text-2xl tracking-tight text-zinc-900 dark:text-white font-black z-10 drop-shadow-sm">Ferga<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Learning</span></span>
+                            <span class="text-2xl tracking-tight text-zinc-900 dark:text-white font-black z-10 drop-shadow-sm">F</span>
                         </a>
                         
                         <nav class="hidden md:flex gap-8">
