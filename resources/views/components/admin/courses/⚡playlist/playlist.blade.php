@@ -1,6 +1,6 @@
 <div class="p-6 md:p-10 max-w-5xl mx-auto w-full">
     <div class="flex items-center gap-4 mb-8">
-        <flux:button variant="ghost" icon="arrow-left" href="{{ route('admin.playlists.courses', $course->playlist_id) }}" wire:navigate />
+        <flux:button variant="ghost" icon="arrow-left" href="{{ $course->playlist_id ? route('admin.playlists.courses', $course->playlist_id) : route('admin.playlists.index') }}" wire:navigate />
         <div>
             <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Manage Curriculum</h1>
             <p class="text-slate-500 dark:text-slate-400 mt-1">Curriculum for <span class="font-bold">"{{ $course->title }}"</span>.</p>
