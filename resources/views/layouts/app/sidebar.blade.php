@@ -88,6 +88,31 @@
                             </flux:sidebar.item>
                         </flux:sidebar.group>
                     @endif
+
+                    @php
+                        $latestPlaylists = \App\Models\Playlist::where('is_published', true)
+                            ->latest()
+                            ->take(3)
+                            ->get();
+                    @endphp
+
+                    @if($latestPlaylists->isNotEmpty())
+                        <flux:sidebar.group :heading="__('Latest Playlists')" class="grid w-full mt-4">
+                            @foreach($latestPlaylists as $sidebarPlaylist)
+                                <flux:sidebar.item
+                                    icon="play-circle"
+                                    :href="route('playlists.show', $sidebarPlaylist)"
+                                    :current="request()->is('playlists/' . $sidebarPlaylist->id)"
+                                    wire:navigate
+                                >
+                                    {{ str($sidebarPlaylist->title)->limit(22) }}
+                                </flux:sidebar.item>
+                            @endforeach
+                            <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="text-indigo-500 dark:text-indigo-400 font-semibold">
+                                View All Playlists
+                            </flux:sidebar.item>
+                        </flux:sidebar.group>
+                    @endif
                 </flux:sidebar.nav>
 
             <flux:spacer />
