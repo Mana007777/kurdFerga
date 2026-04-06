@@ -18,6 +18,34 @@
                 
                 <flux:switch wire:model="is_published" label="Publish Immediately" description="Draft courses are hidden from students until published." />
                 
+                <hr class="border-slate-200 dark:border-white/5 my-4" />
+                
+                <div>
+                    <flux:heading size="sm" class="mb-2">Course Playlists (Sections)</flux:heading>
+                    <flux:subheading class="mb-4">Optionally create some initial playlists. You can add more later.</flux:subheading>
+                    
+                    <div class="flex gap-2">
+                        <div class="flex-1">
+                            <flux:input wire:model="newPlaylistName" wire:keydown.enter.prevent="addPlaylist" placeholder="e.g. Introduction" />
+                        </div>
+                        <flux:button variant="subtle" wire:click="addPlaylist">Add</flux:button>
+                    </div>
+
+                    @if(count($playlists) > 0)
+                        <div class="mt-4 space-y-2">
+                            @foreach($playlists as $index => $playlist)
+                                <div class="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-zinc-800/50">
+                                    <span class="font-medium text-slate-700 dark:text-zinc-200 text-sm flex items-center gap-2">
+                                        <flux:icon.folder class="w-4 h-4 text-indigo-500" />
+                                        {{ $playlist }}
+                                    </span>
+                                    <flux:button size="sm" variant="ghost" icon="trash" class="text-red-500" wire:click="removePlaylist({{ $index }})" />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
                 <div class="pt-4 flex justify-end gap-3 border-t border-slate-200 dark:border-zinc-700">
                     <flux:button href="{{ route('admin.courses.index') }}" variant="ghost" wire:navigate>Cancel</flux:button>
                     <flux:button type="submit" variant="primary">Create Course</flux:button>
