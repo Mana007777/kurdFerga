@@ -20,7 +20,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     {
         return [
             'playlists' => Playlist::where('is_published', true)
-                ->when($this->search, fn ($q) => $q->where('title', 'like', '%' . $this->search . '%'))
+                ->when($this->search, fn ($q) => $q->where('title', 'like', '%'.$this->search.'%'))
                 ->withCount('sections')
                 ->latest()
                 ->paginate(12),

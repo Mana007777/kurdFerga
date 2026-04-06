@@ -84,7 +84,7 @@
                     @if(auth()->check() && auth()->user()->isAdmin())
                         <flux:sidebar.group :heading="__('Administration')" class="grid w-full mt-4">
                             <flux:sidebar.item icon="academic-cap" :href="route('admin.playlists.index')" :current="request()->routeIs('admin.playlists.*')" wire:navigate>
-                                {{ __('Course Management') }}
+                                {{ __('Curriculum') }}
                             </flux:sidebar.item>
                         </flux:sidebar.group>
                     @endif

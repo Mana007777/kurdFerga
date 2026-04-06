@@ -2,8 +2,8 @@
     <div class="flex items-center gap-4 mb-8">
         <flux:button variant="ghost" icon="arrow-left" href="{{ route('admin.playlists.index') }}" wire:navigate />
         <div>
-            <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Manage Courses</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-1">Content for <span class="font-bold">"{{ $playlist->title }}"</span>.</p>
+            <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Playlist Content</h1>
+            <p class="text-slate-500 dark:text-slate-400 mt-1">Videos for <span class="font-bold">"{{ $playlist->title }}"</span>.</p>
         </div>
     </div>
 
@@ -13,7 +13,7 @@
             <!-- Search -->
             <div class="flex items-end">
                 <div class="w-full">
-                    <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" clearable label="Search Courses" placeholder="Search across all sections..." />
+                    <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" clearable label="Search Videos" placeholder="Search across all sections..." />
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                     </h3>
                     <div class="flex gap-2">
                         <flux:modal.trigger name="add-lesson-modal">
-                            <flux:button size="sm" variant="subtle" icon="video-camera" wire:click="openAddLessonModal({{ $section->id }})">Add Course</flux:button>
+                            <flux:button size="sm" variant="subtle" icon="video-camera" wire:click="openAddLessonModal({{ $section->id }})">Add Video</flux:button>
                         </flux:modal.trigger>
                         <flux:button size="sm" variant="danger" icon="trash" wire:click="deleteSection({{ $section->id }})" wire:confirm="Delete this entire section and all its videos?" />
                     </div>
@@ -62,12 +62,12 @@
                                 @if($lesson->is_preview)
                                     <flux:badge size="sm" color="amber">Free Preview</flux:badge>
                                 @endif
-                                <flux:button size="xs" variant="ghost" icon="trash" class="text-red-500" wire:click="deleteLesson({{ $lesson->id }})" wire:confirm="Delete this course?" />
+                                <flux:button size="xs" variant="ghost" icon="trash" class="text-red-500" wire:click="deleteLesson({{ $lesson->id }})" wire:confirm="Delete this video?" />
                             </div>
                         </div>
                     @empty
                         <div class="text-center py-6 text-slate-400 dark:text-zinc-500 text-sm italic">
-                            No courses in this section yet. Add a video to get started.
+                            No videos in this section yet. Add a video to get started.
                         </div>
                     @endforelse
                 </div>
@@ -81,11 +81,11 @@
         @endforelse
     </div>
 
-    <!-- Add Course (Lesson) Modal -->
+    <!-- Add Video (Lesson) Modal -->
     <flux:modal name="add-lesson-modal" class="md:w-96" @lesson-added.window="$el.close()">
         <div class="space-y-6">
             <div>
-                <flux:heading size="lg">Add New Course</flux:heading>
+                <flux:heading size="lg">Add New Video</flux:heading>
                 <flux:subheading>Upload a video to the selected section.</flux:subheading>
             </div>
 
@@ -95,7 +95,7 @@
                  x-on:livewire-upload-error="uploading = false"
                  x-on:livewire-upload-progress="progress = $event.detail.progress">
 
-                <flux:input wire:model="newLessonTitle" label="Course Title" placeholder="e.g. Introduction to OOP" />
+                <flux:input wire:model="newLessonTitle" label="Video Title" placeholder="e.g. Introduction to OOP" />
 
                 <flux:input wire:model="newLessonVideo" type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime" label="Video File (Up to 100MB)" required />
 
@@ -108,7 +108,7 @@
             </div>
 
             <div class="flex flex-row-reverse gap-3 mt-6">
-                <flux:button variant="primary" wire:click="addLesson" wire:loading.attr="disabled" wire:target="newLessonVideo, addLesson">Save Course</flux:button>
+                <flux:button variant="primary" wire:click="addLesson" wire:loading.attr="disabled" wire:target="newLessonVideo, addLesson">Save Video</flux:button>
                 <flux:modal.close>
                     <flux:button variant="ghost">Cancel</flux:button>
                 </flux:modal.close>

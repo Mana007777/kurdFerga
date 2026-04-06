@@ -38,7 +38,7 @@
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center space-x-3">
                 <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-blue-500 to-indigo-500"></div>
-                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-zinc-100">Course Progress</h3>
+                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-zinc-100">Learning Progress</h3>
             </div>
             
             <div class="relative w-44">
@@ -89,7 +89,7 @@
         {{-- Footer --}}
         <div class="w-full text-center">
             <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-slate-400/80">
-                Of Published Lessons Completed
+                Of Published Videos Completed
             </p>
         </div>
 

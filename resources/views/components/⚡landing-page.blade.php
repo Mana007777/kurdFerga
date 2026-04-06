@@ -117,7 +117,7 @@ new #[Layout('layouts.base')] class extends Component
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
-                            <span class="text-2xl tracking-tight text-zinc-900 dark:text-white font-black z-10 drop-shadow-sm">Lara<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Casts</span></span>
+                            <span class="text-2xl tracking-tight text-zinc-900 dark:text-white font-black z-10 drop-shadow-sm">Ferga<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Learning</span></span>
                         </a>
                         
                         <nav class="hidden md:flex gap-8">
@@ -172,7 +172,7 @@ new #[Layout('layouts.base')] class extends Component
             
            
             <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] mb-8 max-w-5xl transition-all duration-1000 delay-500 ease-out drop-shadow-2xl text-zinc-900 dark:text-transparent dark:animate-shine dark:bg-clip-text pb-2">
-                The best way to learn <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Laravel</span><br class="hidden md:block" /> and modern PHP.
+                The best way to learn <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Coding</span><br class="hidden md:block" /> and modern tech.
             </h1>
             
             <p :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 max-w-2xl mb-14 font-medium transition-all duration-1000 delay-700 ease-out leading-relaxed">
@@ -304,7 +304,7 @@ new #[Layout('layouts.base')] class extends Component
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">Laracasts Clone</h3>
+                <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">Ferga Learning Platform</h3>
                 <div class="flex gap-8 mb-10">
                     <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-white hover:scale-110 transition-transform">Twitter</a>
                     <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-white hover:scale-110 transition-transform">GitHub</a>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -17,7 +18,7 @@ class Course extends Model
         'is_published',
     ];
 
-    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function playlist(): BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }

@@ -15,7 +15,7 @@
                 <flux:table.columns>
                     <flux:table.column>Playlist</flux:table.column>
                     <flux:table.column>Status</flux:table.column>
-                    <flux:table.column>Courses</flux:table.column>
+                    <flux:table.column>Videos</flux:table.column>
                     <flux:table.column class="text-right whitespace-nowrap">Actions</flux:table.column>
                 </flux:table.columns>
                 
@@ -47,7 +47,7 @@
                         </flux:table.cell>
                         <flux:table.cell>
                             <div class="flex gap-2 justify-end">
-                                <flux:button size="sm" variant="subtle" icon="list-bullet" href="{{ route('admin.playlists.courses', $playlist) }}" wire:navigate>Manage Courses</flux:button>
+                                <flux:button size="sm" variant="subtle" icon="list-bullet" href="{{ route('admin.playlists.courses', $playlist) }}" wire:navigate>Manage Content</flux:button>
                                 <flux:button size="sm" variant="ghost" icon="pencil-square" href="{{ route('admin.playlists.edit', $playlist) }}" wire:navigate />
                                 <flux:button size="sm" variant="danger" icon="trash" wire:click="delete({{ $playlist->id }})" wire:confirm="Are you sure you want to delete this completely?" />
                             </div>

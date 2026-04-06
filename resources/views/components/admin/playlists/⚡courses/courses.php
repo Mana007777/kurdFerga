@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Lesson;
 use App\Models\Playlist;
 use App\Models\Section;
-use App\Models\Lesson;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -18,9 +18,13 @@ new class extends Component
     public $newSectionTitle = '';
 
     public $newLessonTitle = '';
+
     public $newLessonVideo;
+
     public $newLessonIsPreview = false;
+
     public $activeSectionIdForLesson = null;
+
     public $search = '';
 
     public function mount(Playlist $playlist)
@@ -69,7 +73,7 @@ new class extends Component
             'playlist_id' => $this->playlist->id,
             'title' => $this->newLessonTitle,
             'slug' => Str::slug($this->newLessonTitle),
-            'video_url' => '/storage/' . $path,
+            'video_url' => '/storage/'.$path,
             'is_preview' => $this->newLessonIsPreview,
             'is_published' => true,
             'sort_order' => $maxSort + 1,
@@ -97,7 +101,7 @@ new class extends Component
         return [
             'sections' => $this->playlist->sections()->with(['lessons' => function ($query) {
                 if (! empty($this->search)) {
-                    $query->where('title', 'like', '%' . $this->search . '%');
+                    $query->where('title', 'like', '%'.$this->search.'%');
                 }
                 $query->orderBy('sort_order');
             }])->orderBy('sort_order')->get(),

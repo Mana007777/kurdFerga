@@ -55,7 +55,7 @@
                     <span x-text="current"></span>
                 </h2>
                 <div class="mt-4 px-4 py-1.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 text-xs font-bold uppercase tracking-widest">
-                    Completed Courses
+                    Completed Playlists
                 </div>
             </div>
         </div>
