@@ -48,7 +48,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
 
                     <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
                         <flux:button
-                            href="{{ route('playlists.show', ['playlist' => $lesson->playlist_id, 'lesson' => $lesson->slug]) }}"
+                            href="{{ route('playlists.show', $lesson->playlist?->slug ?? '') }}"
                             variant="subtle"
                             size="sm"
                             icon="play"
