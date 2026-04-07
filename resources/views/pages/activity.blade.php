@@ -123,7 +123,7 @@ new #[Title('Activity')] class extends Component {
                                         <div 
                                             wire:click="selectDate('{{ $date }}')"
                                             title="{{ $count }} videos watched on {{ \Carbon\Carbon::parse($date)->format('M d, Y') }}"
-                                            class="w-[12px] h-[12px] rounded-sm {{ $bgClass }} transition-transform hover:scale-125 cursor-pointer ring-1 ring-zinc-950/5 dark:ring-white/5 {{ $selectedDate === $date ? 'ring-2 ring-blue-500 scale-125 z-10' : '' }}"
+                                            class="w-[12px] h-[12px] rounded-sm {{ $bgClass }} transition-transform hover:scale-125 cursor-pointer ring-1 ring-zinc-950/5 dark:ring-white/5 {{ $selectedDate === $date ? 'ring-2 ring-violet-500 scale-125 z-10' : '' }}"
                                         ></div>
                                     @endforeach
                                 </div>
@@ -151,7 +151,7 @@ new #[Title('Activity')] class extends Component {
         <div class="mt-12 w-full max-w-5xl">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
                         <flux:icon.calendar class="w-5 h-5 text-blue-600 dark:text-blue-400" />
                     </div>
                     <div>
@@ -172,13 +172,13 @@ new #[Title('Activity')] class extends Component {
             @else
                 <div class="grid gap-4">
                     @foreach($this->watchedVideos as $video)
-                        <div class="group flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-gray-900/50 border border-zinc-200 dark:border-white/10 hover:border-blue-500/50 hover:shadow-lg transition-all duration-300">
+                        <div class="group flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-gray-900/50 border border-zinc-200 dark:border-white/10 hover:border-violet-500/50 hover:shadow-lg transition-all duration-300">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center shrink-0">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500/20 to-violet-500/20 flex items-center justify-center shrink-0">
                                     <flux:icon.play class="w-6 h-6 text-blue-600 dark:text-blue-400" variant="solid" />
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-zinc-900 dark:text-white group-hover:text-blue-500 transition-colors">{{ $video->title }}</h4>
+                                    <h4 class="font-bold text-zinc-900 dark:text-white group-hover:text-violet-500 transition-colors">{{ $video->title }}</h4>
                                     <div class="flex items-center gap-2 mt-1">
                                         <span class="text-xs font-medium text-zinc-500">{{ $video->playlist_title ?? 'Standalone Course' }}</span>
                                         <span class="text-zinc-300 dark:text-gray-700">•</span>

@@ -1,6 +1,6 @@
 <div class="mt-8">
     <flux:heading size="lg" class="mb-6 flex items-center gap-2">
-        <svg class="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 012 2h-5l-5 5v-5z"/></svg>
+        <svg class="w-5 h-5 text-violet-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 012 2h-5l-5 5v-5z"/></svg>
         Course Comments ({{ $comments->count() }})
     </flux:heading>
 
@@ -43,7 +43,7 @@
                         
                         <div class="mt-2 flex items-center gap-4">
                             @auth
-                                <button wire:click="setReply({{ $comment->id }})" class="text-[10px] uppercase tracking-widest font-bold text-indigo-500/60 hover:text-indigo-500 transition-colors flex items-center gap-1">
+                                <button wire:click="setReply({{ $comment->id }})" class="text-[10px] uppercase tracking-widest font-bold text-violet-500/60 hover:text-violet-500 transition-colors flex items-center gap-1">
                                     <flux:icon.chat-bubble-left-right class="w-3 h-3" />
                                     Reply
                                 </button>
@@ -92,9 +92,9 @@
 
                 <!-- Reply Form -->
                 @if($replyingTo === $comment->id)
-                    <div class="ml-12 mt-4 bg-indigo-50/50 dark:bg-indigo-500/5 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-500/10">
+                    <div class="ml-12 mt-4 bg-indigo-50/50 dark:bg-violet-500/5 p-4 rounded-2xl border border-indigo-100 dark:border-violet-500/10">
                         <div class="flex items-center justify-between mb-3">
-                            <flux:text size="xs" weight="bold" class="text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Replying to {{ $comment->user->name }}</flux:text>
+                            <flux:text size="xs" weight="bold" class="text-plum-600 dark:text-indigo-400 uppercase tracking-wider">Replying to {{ $comment->user->name }}</flux:text>
                             <button wire:click="cancelReply" class="text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300">
                                 <flux:icon.x-mark class="w-4 h-4" />
                             </button>

@@ -38,7 +38,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
                         </div>
                     </div>
                     
-                    <h3 class="font-bold text-slate-800 dark:text-gray-100 text-lg leading-tight mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <h3 class="font-bold text-slate-800 dark:text-gray-100 text-lg leading-tight mb-2 group-hover:text-plum-600 dark:group-hover:text-indigo-400 transition-colors">
                         {{ $lesson->title }}
                     </h3>
                     

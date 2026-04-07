@@ -29,7 +29,7 @@
      }"
 >
     <!-- Ambient glowing orbs -->
-    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-bl from-purple-400 to-indigo-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
+    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-bl from-purple-400 to-violet-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
     <div class="absolute -left-24 -bottom-24 w-56 h-56 bg-gradient-to-tr from-violet-400 to-fuchsia-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
     
     <div class="relative z-10 w-full flex flex-col h-full space-y-8">
@@ -37,11 +37,11 @@
         {{-- Header --}}
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center space-x-3">
-                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-purple-500 to-indigo-500"></div>
+                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-purple-500 to-violet-500"></div>
                 <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Milestones</h3>
             </div>
             
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/40 text-indigo-500 dark:text-indigo-400 shadow-inner backdrop-blur-md">
+            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/40 text-violet-500 dark:text-indigo-400 shadow-inner backdrop-blur-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path>
                 </svg>

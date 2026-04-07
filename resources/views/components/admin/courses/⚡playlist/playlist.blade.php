@@ -34,7 +34,7 @@
                 <!-- Section Header -->
                 <div class="px-6 py-4 border-b border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-black/20 flex justify-between items-center">
                     <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 flex items-center gap-2">
-                        <flux:icon.folder class="w-5 h-5 text-indigo-500" />
+                        <flux:icon.folder class="w-5 h-5 text-violet-500" />
                         {{ $section->title }}
                     </h3>
                     <div class="flex gap-2">
@@ -48,14 +48,14 @@
                 <!-- Lessons List -->
                 <div class="p-4 space-y-2">
                     @forelse($section->lessons as $lesson)
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-gray-800/50 border border-slate-100 dark:border-white/5 hover:border-indigo-200 dark:hover:border-indigo-500/30 transition-colors">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-gray-800/50 border border-slate-100 dark:border-white/5 hover:border-indigo-200 dark:hover:border-violet-500/30 transition-colors">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-violet-500/10 flex items-center justify-center text-violet-500">
                                     <flux:icon.play class="w-4 h-4 ml-0.5" />
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-slate-700 dark:text-gray-200 text-sm">{{ $lesson->title }}</h4>
-                                    <a href="{{ $lesson->video_url }}" target="_blank" class="text-xs text-indigo-500 hover:underline line-clamp-1">{{ $lesson->video_url }}</a>
+                                    <a href="{{ $lesson->video_url }}" target="_blank" class="text-xs text-violet-500 hover:underline line-clamp-1">{{ $lesson->video_url }}</a>
                                 </div>
                             </div>
                             <div class="flex items-center gap-3">
@@ -101,7 +101,7 @@
                 
                 <!-- Upload Progress Bar -->
                 <div x-show="uploading" class="w-full bg-slate-200 dark:bg-gray-800 rounded-full h-2.5 overflow-hidden">
-                  <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-150" x-bind:style="'width: ' + progress + '%'"></div>
+                  <div class="bg-plum-600 h-2.5 rounded-full transition-all duration-150" x-bind:style="'width: ' + progress + '%'"></div>
                 </div>
 
                 <flux:switch wire:model="newLessonIsPreview" label="Free Preview" description="Allow non-enrolled students to watch." />

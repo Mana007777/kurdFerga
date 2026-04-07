@@ -1,12 +1,12 @@
 @if($lesson && $playlist)
-<div class="relative w-full overflow-hidden rounded-3xl group shadow-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl transition-all duration-500 hover:shadow-indigo-500/20">
+<div class="relative w-full overflow-hidden rounded-3xl group shadow-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl transition-all duration-500 hover:shadow-violet-500/20">
     
     <!-- Background abstract image / gradients -->
     <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl">
         @if($playlist->thumbnail)
             <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover opacity-10 dark:opacity-[0.03] blur-sm group-hover:blur-md transition-all duration-700" alt="Playlist Background">
         @else
-            <div class="absolute -right-20 -top-20 w-96 h-96 bg-gradient-to-br from-indigo-500 to-purple-600 opacity-20 dark:opacity-10 blur-[100px] rounded-full group-hover:opacity-30 group-hover:scale-110 transition-all duration-1000"></div>
+            <div class="absolute -right-20 -top-20 w-96 h-96 bg-gradient-to-br from-violet-500 to-plum-600 opacity-20 dark:opacity-10 blur-[100px] rounded-full group-hover:opacity-30 group-hover:scale-110 transition-all duration-1000"></div>
         @endif
         <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent dark:from-zinc-900/95 dark:via-zinc-900/80 dark:to-transparent"></div>
     </div>
@@ -16,7 +16,7 @@
         
         <div class="flex items-center gap-8 w-full md:w-2/3">
             <!-- Icon/Artwork -->
-            <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 flex items-center justify-center text-white rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
+            <div class="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-violet-500 to-plum-600 shadow-lg shadow-violet-500/30 flex items-center justify-center text-white rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 md:h-12 md:w-12 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -26,10 +26,10 @@
             <!-- Text content -->
             <div class="flex flex-col space-y-2">
                 <div class="inline-flex items-center space-x-3">
-                    <span class="px-3.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[10px] font-black uppercase tracking-widest border border-indigo-200 dark:border-indigo-500/30 shadow-sm">Up Next</span>
+                    <span class="px-3.5 py-1 rounded-full bg-indigo-100 dark:bg-violet-500/20 text-indigo-700 dark:text-indigo-300 text-[10px] font-black uppercase tracking-widest border border-indigo-200 dark:border-violet-500/30 shadow-sm">Up Next</span>
                     <span class="text-sm font-bold text-slate-500 dark:text-gray-400 tracking-wider uppercase">{{ $playlist->title }}</span>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white tracking-tight drop-shadow-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300 mt-1">
+                <h2 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white tracking-tight drop-shadow-sm group-hover:text-plum-600 dark:group-hover:text-indigo-400 transition-colors duration-300 mt-1">
                     {{ $lesson->title }}
                 </h2>
             </div>
@@ -37,8 +37,8 @@
 
         <!-- Action Button -->
         <div class="flex-shrink-0 flex items-center justify-end w-full md:w-auto mt-4 md:mt-0">
-            <a href="{{ route('playlists.show', $playlist) }}" wire:navigate class="relative group/btn inline-flex items-center justify-center px-10 py-4 font-black text-white transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full hover:shadow-xl hover:shadow-indigo-500/40 focus:outline-none focus:ring-4 focus:ring-indigo-500/50">
-                <span class="absolute inset-0 w-full h-full rounded-full transition-all duration-500 ease-out opacity-0 bg-gradient-to-r from-purple-600 to-indigo-500 group-hover/btn:opacity-100"></span>
+            <a href="{{ route('playlists.show', $playlist) }}" wire:navigate class="relative group/btn inline-flex items-center justify-center px-10 py-4 font-black text-white transition-all duration-300 bg-gradient-to-r from-violet-500 to-plum-600 rounded-full hover:shadow-xl hover:shadow-violet-500/40 focus:outline-none focus:ring-4 focus:ring-violet-500/50">
+                <span class="absolute inset-0 w-full h-full rounded-full transition-all duration-500 ease-out opacity-0 bg-gradient-to-r from-plum-600 to-violet-500 group-hover/btn:opacity-100"></span>
                 <span class="relative flex items-center gap-3">
                     <span class="tracking-widest uppercase text-sm">Resume</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover/btn:translate-x-1.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
@@ -60,7 +60,7 @@
         </div>
         <h2 class="text-xl font-black text-slate-700 dark:text-gray-200 tracking-tight">You're all caught up!</h2>
         <p class="text-sm font-semibold tracking-wide text-slate-500 dark:text-gray-400">Browse playlists to start learning.</p>
-        <a href="{{ route('playlists.index') }}" wire:navigate class="inline-flex items-center gap-2 mt-2 px-6 py-2.5 rounded-full bg-indigo-500 text-white text-sm font-bold hover:bg-indigo-600 transition-colors">
+        <a href="{{ route('playlists.index') }}" wire:navigate class="inline-flex items-center gap-2 mt-2 px-6 py-2.5 rounded-full bg-violet-500 text-white text-sm font-bold hover:bg-plum-600 transition-colors">
             Browse Playlists
         </a>
     </div>

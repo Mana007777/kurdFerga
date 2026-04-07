@@ -24,7 +24,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
             Academy Hall of Fame
         </div>
         <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-6">
-            The <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Leaderboard</span>
+            The Leaderboard
         </h1>
         <p class="text-slate-500 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             Celebrating our top contributors and most dedicated learners. Climb the ranks by completing lessons and engaging with the community.
@@ -47,7 +47,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                     </div>
                     <div class="text-center mb-4 min-h-[60px]">
                         <h3 class="font-black text-slate-800 dark:text-white text-lg truncate w-48">{{ $topUsers[1]->name }}</h3>
-                        <p class="text-indigo-500 dark:text-indigo-400 font-bold text-sm uppercase tracking-widest">{{ $topUsers[1]->pts }} PTS</p>
+                        <p class="text-violet-500 dark:text-violet-400 font-bold text-sm uppercase tracking-widest">{{ $topUsers[1]->pts }} PTS</p>
                     </div>
                     <div class="w-full h-32 md:h-40 bg-gradient-to-t from-slate-200/50 to-slate-100/50 dark:from-white/10 dark:to-white/5 rounded-t-3xl border-x border-t border-slate-200 dark:border-white/10 flex items-center justify-center">
                         <flux:icon.sparkles class="w-10 h-10 text-slate-400 opacity-30" />
@@ -65,7 +65,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                         </div>
                         
                         <!-- Glowing Ring -->
-                        <div class="absolute inset-[-8px] rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 animate-spin-slow opacity-70 blur-md"></div>
+                        <div class="absolute inset-[-8px] rounded-full bg-gradient-to-r from-violet-400 via-violet-300 to-plum-500 animate-spin-slow opacity-30 blur-md"></div>
                         
                         <div class="relative w-32 h-32 rounded-full p-1.5 bg-gradient-to-br from-amber-400 to-orange-500 shadow-2xl transition-transform group-hover:scale-110 duration-500 z-10">
                             <div class="w-full h-full rounded-full bg-white dark:bg-[gray-900] p-1 overflow-hidden">
@@ -101,7 +101,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                     </div>
                     <div class="text-center mb-4 min-h-[60px]">
                         <h3 class="font-black text-slate-800 dark:text-white text-lg truncate w-48">{{ $topUsers[2]->name }}</h3>
-                        <p class="text-indigo-500 dark:text-indigo-400 font-bold text-sm uppercase tracking-widest">{{ $topUsers[2]->pts }} PTS</p>
+                        <p class="text-plum-500 dark:text-plum-400 font-bold text-sm uppercase tracking-widest">{{ $topUsers[2]->pts }} PTS</p>
                     </div>
                     <div class="w-full h-24 md:h-32 bg-gradient-to-t from-slate-200/50 to-slate-100/50 dark:from-white/10 dark:to-white/5 rounded-t-3xl border-x border-t border-slate-200 dark:border-white/10 flex items-center justify-center">
                         <flux:icon.gift class="w-8 h-8 text-orange-600 opacity-30" />
@@ -133,26 +133,26 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                     @foreach($otherUsers as $index => $user)
                         <tr class="group hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors duration-200">
                             <td class="px-8 py-5">
-                                <span class="inline-flex w-8 h-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 text-xs font-black text-slate-500 dark:text-gray-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
+                                <span class="inline-flex w-8 h-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 text-xs font-black text-slate-500 dark:text-gray-400 group-hover:bg-violet-500 group-hover:text-white transition-all duration-300">
                                     {{ $index + 4 }}
                                 </span>
                             </td>
                             <td class="px-8 py-5">
                                 <div class="flex items-center gap-4">
                                     <div class="relative shrink-0">
-                                        <div class="w-10 h-10 rounded-full border-2 border-slate-200 dark:border-white/10 p-0.5 group-hover:border-indigo-500 transition-colors">
+                                        <div class="w-10 h-10 rounded-full border-2 border-slate-200 dark:border-white/10 p-0.5 group-hover:border-violet-500 transition-colors">
                                             <img src="{{ $user->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full" alt="{{ $user->name }}">
                                         </div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <span class="font-bold text-slate-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ $user->name }}</span>
+                                        <span class="font-bold text-slate-800 dark:text-gray-200 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">{{ $user->name }}</span>
                                         <span class="text-[10px] text-slate-400 font-medium truncate max-w-[120px]">{{ $user->email }}</span>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-8 py-5 text-right">
                                 <div class="flex flex-col items-end">
-                                    <span class="text-sm font-black text-slate-700 dark:text-white group-hover:text-indigo-500 transition-colors">{{ number_format($user->pts) }}</span>
+                                    <span class="text-sm font-black text-slate-700 dark:text-white group-hover:text-violet-500 transition-colors">{{ number_format($user->pts) }}</span>
                                     <span class="text-[9px] font-black text-slate-400 tracking-tighter uppercase">XP Gained</span>
                                 </div>
                             </td>

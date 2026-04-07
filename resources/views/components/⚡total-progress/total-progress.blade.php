@@ -1,4 +1,4 @@
-<div class="glass-panel relative flex flex-col justify-between overflow-hidden rounded-3xl group hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-700 p-8 shadow-xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-white/90 to-white/50 dark:from-zinc-900/90 dark:to-zinc-900/50 backdrop-blur-2xl"
+<div class="glass-panel relative flex flex-col justify-between overflow-hidden rounded-3xl group hover:shadow-2xl hover:shadow-violet-500/20 transition-all duration-700 p-8 shadow-xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-white/90 to-white/50 dark:from-zinc-900/90 dark:to-zinc-900/50 backdrop-blur-2xl"
      x-data="{
          current: 0,
          target: @entangle('percentage'),
@@ -29,7 +29,7 @@
      }"
 >
     <!-- Ambient glowing orbs -->
-    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-br from-blue-400 to-indigo-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
+    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-br from-blue-400 to-violet-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
     <div class="absolute -left-24 -bottom-24 w-56 h-56 bg-gradient-to-tr from-purple-400 to-pink-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
     
     <div class="relative z-10 w-full flex flex-col h-full space-y-8">
@@ -37,12 +37,12 @@
         {{-- Header & Select --}}
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center space-x-3">
-                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-blue-500 to-indigo-500"></div>
+                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-violet-500 to-violet-500"></div>
                 <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Learning Progress</h3>
             </div>
             
             <div class="relative w-44">
-                <select wire:model.live="selectedPlaylistId" class="appearance-none w-full bg-white/30 dark:bg-gray-800/40 text-slate-700 dark:text-gray-200 text-sm font-bold tracking-wide rounded-full py-2 pl-4 pr-10 border border-slate-200/50 dark:border-white/10 focus:border-indigo-500/50 outline-none backdrop-blur-md shadow-sm transition-all duration-300 hover:bg-white/50 dark:hover:bg-zinc-700/50 cursor-pointer">
+                <select wire:model.live="selectedPlaylistId" class="appearance-none w-full bg-white/30 dark:bg-gray-800/40 text-slate-700 dark:text-gray-200 text-sm font-bold tracking-wide rounded-full py-2 pl-4 pr-10 border border-slate-200/50 dark:border-white/10 focus:border-violet-500/50 outline-none backdrop-blur-md shadow-sm transition-all duration-300 hover:bg-white/50 dark:hover:bg-zinc-700/50 cursor-pointer">
                     @foreach($playlists as $playlist)
                         <option value="{{ $playlist->id }}" class="bg-white dark:bg-gray-800 text-slate-800 dark:text-gray-200 py-2">{{ str($playlist->title)->limit(15) }}</option>
                     @endforeach
@@ -66,7 +66,7 @@
                     <!-- Foreground Progress Circle with Gradient -->
                     <defs>
                         <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#3b82f6" /> <!-- blue-500 -->
+                            <stop offset="0%" stop-color="#3b82f6" /> <!-- violet-500 -->
                             <stop offset="100%" stop-color="#8b5cf6" /> <!-- violet-500 -->
                         </linearGradient>
                     </defs>

@@ -39,7 +39,7 @@
 
                     @if (Route::has('password.request'))
                         <div class="flex justify-end">
-                            <flux:link class="text-sm text-blue-500 hover:text-blue-400" :href="route('password.request')" wire:navigate>
+                            <flux:link class="text-sm text-violet-500 hover:text-blue-400" :href="route('password.request')" wire:navigate>
                                 {{ __('Forgot your password?') }}
                             </flux:link>
                         </div>
@@ -52,7 +52,7 @@
                 <div class="flex items-center justify-end mt-2">
                     <flux:button variant="primary" type="submit" class="w-full relative group/btn overflow-hidden" data-test="login-button">
                         <span class="relative z-10">{{ __('Log in') }}</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-plum-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
                     </flux:button>
                 </div>
             </form>
@@ -60,7 +60,7 @@
             @if (Route::has('register'))
                 <div class="space-x-1 mt-2 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-gray-400">
                     <span>{{ __('Don\'t have an account?') }}</span>
-                    <flux:link :href="route('register')" wire:navigate class="text-blue-500 font-bold hover:text-blue-400">{{ __('Sign up') }}</flux:link>
+                    <flux:link :href="route('register')" wire:navigate class="text-violet-500 font-bold hover:text-blue-400">{{ __('Sign up') }}</flux:link>
                 </div>
             @endif
         </div>
