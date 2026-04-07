@@ -7,14 +7,14 @@
     <!-- Playlist Hero (Centered Pixel Icon Style) -->
     <div class="relative pt-12 pb-16 mb-16 px-8 text-center group">
 
-        <!-- Centered Pixel Icon -->
+        <!-- Icon Container -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-            <div class="relative w-32 h-32 rounded-full p-1.5 bg-gradient-to-br from-violet-500 to-plum-600 shadow-[0_0_30px_rgba(238,130,238,0.2)]">
-                <div class="w-full h-full rounded-full bg-white dark:bg-[gray-900] p-1.5 overflow-hidden border-2 border-white/10">
+            <div class="relative w-32 h-32 rounded-full p-1 bg-gray-200 dark:bg-gray-700 border-8 border-gray-50 dark:border-gray-950 shadow-xl group-hover:border-violet-500/50 transition-all duration-500">
+                <div class="w-full h-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
                     @if($playlist->thumbnail)
                         <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover rounded-full" alt="{{ $playlist->title }}" />
                     @else
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 rounded-full text-violet-400">
+                        <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-full text-gray-500 dark:text-gray-400">
                             <flux:icon.academic-cap class="w-12 h-12 fill-current" />
                         </div>
                     @endif
@@ -23,20 +23,20 @@
         </div>
 
         <!-- Hero Content -->
-        <div class="bg-white/70 dark:bg-[gray-900]/60 backdrop-blur-3xl rounded-[3rem] border border-slate-200 dark:border-white/5 p-12 pt-20 shadow-2xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-600 dark:text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+        <div class="bg-white dark:bg-gray-900 rounded-[3rem] border border-gray-200 dark:border-gray-800 p-12 pt-20 shadow-xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-6">
                 <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
                 Playlist Overview
             </div>
             
             <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight mb-4">{{ $playlist->title }}</h1>
             
-            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium text-slate-500 dark:text-gray-400">
-                <span class="flex items-center gap-2">With <span class="text-slate-900 dark:text-gray-200 underline decoration-violet-500/30">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
-                <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-gray-700 hidden md:block"></span>
-                <span class="flex items-center gap-2"><flux:icon.chart-bar class="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> {{ $playlist->level ?? 'Beginner' }}</span>
-                <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-gray-700 hidden md:block"></span>
-                <span class="flex items-center gap-2"><flux:icon.tag class="w-4 h-4 text-amber-600 dark:text-amber-400" /> {{ $playlist->category ?? 'General' }}</span>
+            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                <span class="flex items-center gap-2">With <span class="text-gray-900 dark:text-gray-200 underline decoration-violet-500/30">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
+                <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700 hidden md:block"></span>
+                <span class="flex items-center gap-2"><flux:icon.chart-bar class="w-4 h-4" /> {{ $playlist->level ?? 'Beginner' }}</span>
+                <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700 hidden md:block"></span>
+                <span class="flex items-center gap-2"><flux:icon.tag class="w-4 h-4" /> {{ $playlist->category ?? 'General' }}</span>
             </div>
 
             @if($playlist->description)
@@ -51,11 +51,11 @@
             @endphp
             <div class="mt-12 flex flex-col items-center gap-4">
                 <div class="flex items-center justify-between w-full max-w-md mb-1">
-                    <span class="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest">Platform Progress</span>
-                    <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full">{{ $progressPct }}%</span>
+                    <span class="text-xs font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest">Platform Progress</span>
+                    <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">{{ $progressPct }}%</span>
                 </div>
-                <div class="w-full max-w-md h-3 rounded-full bg-slate-100 dark:bg-white/5 p-0.5 overflow-hidden border border-slate-200 dark:border-white/5 shadow-inner">
-                    <div class="h-full rounded-full bg-gradient-to-r from-plum-600 via-plum-600 to-plum-600 transition-all duration-1000 shadow-[0_0_10px_rgba(99,102,241,0.3)]" style="width: {{ $progressPct }}%"></div>
+                <div class="w-full max-w-md h-3 rounded-full bg-gray-100 dark:bg-gray-800 p-0.5 overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner">
+                    <div class="h-full rounded-full bg-violet-600 transition-all duration-1000 shadow-[0_0_10px_rgba(139,92,246,0.2)]" style="width: {{ $progressPct }}%"></div>
                 </div>
                 <div class="flex items-center gap-6 mt-2">
                     <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
@@ -180,10 +180,10 @@
             </div>
             
             @foreach($playlist->courses as $course)
-                <div class="bg-white/60 dark:bg-[gray-900]/80 backdrop-blur-3xl rounded-[3rem] p-10 shadow-2xl border border-slate-200 dark:border-white/5 group transition-all duration-500 hover:border-violet-500/20">
-                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-10 pb-8 border-b border-slate-100 dark:border-white/5">
+                <div class="bg-white dark:bg-gray-900 rounded-[3rem] p-10 shadow-xl border border-gray-200 dark:border-gray-800 group transition-all duration-500 hover:border-violet-500/20">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-10 pb-8 border-b border-gray-100 dark:border-gray-800">
                         <div class="max-w-2xl">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-600 dark:text-violet-400 text-[10px] font-black uppercase tracking-widest mb-4">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest mb-4">
                                 Deep Dive Module
                             </div>
                             <h3 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">{{ $course->title }}</h3>

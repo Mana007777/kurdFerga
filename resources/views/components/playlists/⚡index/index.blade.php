@@ -1,7 +1,7 @@
 <div class="p-6 md:p-10 max-w-7xl mx-auto w-full">
     <!-- Header -->
     <div class="mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50/50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-500/20 text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-widest mb-4">
             <span class="w-2 h-2 rounded-full bg-violet-500"></span>
             Latest Content
         </div>
@@ -23,15 +23,15 @@
                     wire:navigate
                     class="group relative pt-8 flex flex-col transition-all duration-500 hover:-translate-y-2"
                 >
-                    <!-- Pixel Icon Container (Centered over the top border) -->
+                    <!-- Icon Container (Clean & Professional) -->
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 z-20">
-                        <div class="relative w-20 h-20 rounded-full p-1 bg-gradient-to-br from-violet-500 to-plum-600 shadow-[0_0_20px_rgba(238,130,238,0.2)] group-hover:shadow-[0_0_35px_rgba(238,130,238,0.4)] transition-all duration-500">
-                            <div class="w-full h-full rounded-full bg-[gray-900] p-1 overflow-hidden border-2 border-white/10">
+                        <div class="relative w-20 h-20 rounded-full p-0.5 bg-gray-200 dark:bg-gray-700 border-4 border-gray-100 dark:border-gray-900 shadow-md group-hover:border-violet-500/50 transition-all duration-500">
+                            <div class="w-full h-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
                                 @if($playlist->thumbnail)
                                     <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" alt="{{ $playlist->title }}" />
                                 @else
-                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 rounded-full">
-                                        <flux:icon.academic-cap class="w-8 h-8 text-violet-400" />
+                                    <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-full">
+                                        <flux:icon.academic-cap class="w-8 h-8 text-gray-500 dark:text-gray-400" />
                                     </div>
                                 @endif
                             </div>
@@ -39,31 +39,29 @@
                     </div>
 
                     <!-- Card Body -->
-                    <div class="flex-1 bg-white/80 dark:bg-[gray-900]/80 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200 dark:border-white/5 p-8 pt-14 shadow-xl dark:shadow-2xl relative overflow-hidden group-hover:border-violet-500/30 transition-all duration-500">
-                        <!-- Subtle Glow Effect (Slightly more subtle in light mode) -->
-                        <div class="absolute -top-24 -right-24 w-48 h-48 bg-violet-500/5 dark:bg-violet-500/10 rounded-full blur-[60px] group-hover:bg-violet-500/20 transition-all duration-500"></div>
+                    <div class="flex-1 bg-white dark:bg-gray-900 rounded-[2.5rem] border border-gray-200 dark:border-gray-800 p-8 pt-14 shadow-lg relative overflow-hidden group-hover:border-violet-500/30 transition-all duration-500">
                         
                         <div class="relative z-10 flex flex-col h-full">
                             <div class="text-center mb-6">
-                                <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors duration-300">
+                                <h3 class="text-xl md:text-2xl font-black text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors duration-300">
                                     {{ $playlist->title }}
                                 </h3>
-                                <p class="text-sm font-medium text-slate-500 dark:text-gray-400 truncate">
-                                    With <span class="text-slate-700 dark:text-gray-300">{{ $playlist->author_name ?? 'Team Ferga' }}</span>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                                    With <span class="text-gray-700 dark:text-gray-300">{{ $playlist->author_name ?? 'Team Ferga' }}</span>
                                 </p>
                             </div>
 
-                            <div class="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 space-y-3">
-                                <div class="flex items-center gap-3 text-slate-500 dark:text-gray-400">
-                                    <flux:icon.list-bullet class="w-4 h-4 text-violet-500" />
+                            <div class="mt-auto pt-6 border-t border-gray-100 dark:border-gray-800 space-y-3">
+                                <div class="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                                    <flux:icon.list-bullet class="w-4 h-4" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->lessons_count }} Lessons</span>
                                 </div>
-                                <div class="flex items-center gap-3 text-slate-500 dark:text-gray-400">
-                                    <flux:icon.chart-bar class="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
+                                <div class="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                                    <flux:icon.chart-bar class="w-4 h-4" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->level ?? 'Beginner' }}</span>
                                 </div>
-                                <div class="flex items-center gap-3 text-slate-500 dark:text-gray-400">
-                                    <flux:icon.tag class="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                                <div class="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                                    <flux:icon.tag class="w-4 h-4" />
                                     <span class="text-xs font-bold uppercase tracking-wider truncate">{{ $playlist->category ?? 'Frameworks' }}</span>
                                 </div>
                             </div>
