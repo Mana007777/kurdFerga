@@ -38,10 +38,10 @@
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center space-x-3">
                 <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-amber-400 to-orange-500"></div>
-                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-zinc-100">Achievements</h3>
+                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Achievements</h3>
             </div>
             
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-zinc-800/40 text-amber-500 dark:text-amber-400 shadow-inner backdrop-blur-md">
+            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/40 text-amber-500 dark:text-amber-400 shadow-inner backdrop-blur-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
                 </svg>
@@ -62,7 +62,7 @@
 
         {{-- Footer --}}
         <div class="w-full text-center">
-            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-slate-400/80">
+            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-gray-400/80">
                 Climb the leaderboard!
             </p>
         </div>

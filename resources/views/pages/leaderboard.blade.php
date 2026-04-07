@@ -26,7 +26,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
         <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-6">
             The <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Leaderboard</span>
         </h1>
-        <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
+        <p class="text-slate-500 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             Celebrating our top contributors and most dedicated learners. Climb the ranks by completing lessons and engaging with the community.
         </p>
     </div>
@@ -39,11 +39,11 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                 <div class="order-2 md:order-1 flex flex-col items-center w-full md:w-64">
                     <div class="relative mb-4 group">
                         <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-br from-slate-300 to-slate-500 shadow-xl transition-transform group-hover:scale-105 duration-500">
-                            <div class="w-full h-full rounded-full bg-white dark:bg-[#0F172A] p-1 overflow-hidden">
+                            <div class="w-full h-full rounded-full bg-white dark:bg-[gray-900] p-1 overflow-hidden">
                                 <img src="{{ $topUsers[1]->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full" alt="{{ $topUsers[1]->name }}">
                             </div>
                         </div>
-                        <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-slate-300 border-4 border-white dark:border-[#0F172A] flex items-center justify-center text-slate-800 font-black text-sm shadow-lg">2</div>
+                        <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-slate-300 border-4 border-white dark:border-[gray-900] flex items-center justify-center text-slate-800 font-black text-sm shadow-lg">2</div>
                     </div>
                     <div class="text-center mb-4 min-h-[60px]">
                         <h3 class="font-black text-slate-800 dark:text-white text-lg truncate w-48">{{ $topUsers[1]->name }}</h3>
@@ -68,11 +68,11 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                         <div class="absolute inset-[-8px] rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 animate-spin-slow opacity-70 blur-md"></div>
                         
                         <div class="relative w-32 h-32 rounded-full p-1.5 bg-gradient-to-br from-amber-400 to-orange-500 shadow-2xl transition-transform group-hover:scale-110 duration-500 z-10">
-                            <div class="w-full h-full rounded-full bg-white dark:bg-[#0F172A] p-1 overflow-hidden">
+                            <div class="w-full h-full rounded-full bg-white dark:bg-[gray-900] p-1 overflow-hidden">
                                 <img src="{{ $topUsers[0]->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full" alt="{{ $topUsers[0]->name }}">
                             </div>
                         </div>
-                        <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-amber-400 border-4 border-white dark:border-[#0F172A] flex items-center justify-center text-amber-900 font-black text-lg shadow-lg z-20">1</div>
+                        <div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-amber-400 border-4 border-white dark:border-[gray-900] flex items-center justify-center text-amber-900 font-black text-lg shadow-lg z-20">1</div>
                     </div>
                     <div class="text-center mb-6 min-h-[80px]">
                         <h3 class="font-black text-slate-900 dark:text-white text-2xl truncate w-56">{{ $topUsers[0]->name }}</h3>
@@ -93,11 +93,11 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                 <div class="order-3 md:order-3 flex flex-col items-center w-full md:w-64">
                     <div class="relative mb-4 group">
                         <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-br from-orange-400 to-amber-700 shadow-lg transition-transform group-hover:scale-105 duration-500">
-                            <div class="w-full h-full rounded-full bg-white dark:bg-[#0F172A] p-1 overflow-hidden">
+                            <div class="w-full h-full rounded-full bg-white dark:bg-[gray-900] p-1 overflow-hidden">
                                 <img src="{{ $topUsers[2]->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full" alt="{{ $topUsers[2]->name }}">
                             </div>
                         </div>
-                        <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-orange-600 border-4 border-white dark:border-[#0F172A] flex items-center justify-center text-white font-black text-sm shadow-lg">3</div>
+                        <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-orange-600 border-4 border-white dark:border-[gray-900] flex items-center justify-center text-white font-black text-sm shadow-lg">3</div>
                     </div>
                     <div class="text-center mb-4 min-h-[60px]">
                         <h3 class="font-black text-slate-800 dark:text-white text-lg truncate w-48">{{ $topUsers[2]->name }}</h3>
@@ -133,7 +133,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                     @foreach($otherUsers as $index => $user)
                         <tr class="group hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors duration-200">
                             <td class="px-8 py-5">
-                                <span class="inline-flex w-8 h-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 text-xs font-black text-slate-500 dark:text-slate-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
+                                <span class="inline-flex w-8 h-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 text-xs font-black text-slate-500 dark:text-gray-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
                                     {{ $index + 4 }}
                                 </span>
                             </td>
@@ -145,7 +145,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                                         </div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <span class="font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ $user->name }}</span>
+                                        <span class="font-bold text-slate-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ $user->name }}</span>
                                         <span class="text-[10px] text-slate-400 font-medium truncate max-w-[120px]">{{ $user->email }}</span>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
         @if($otherUsers->isEmpty())
             <div class="py-20 text-center">
                 <flux:icon.users class="w-12 h-12 text-slate-300 dark:text-white/10 mx-auto mb-4" />
-                <p class="text-slate-500 dark:text-slate-400 font-medium italic">No other ranked users yet. Be the first to join the full list!</p>
+                <p class="text-slate-500 dark:text-gray-400 font-medium italic">No other ranked users yet. Be the first to join the full list!</p>
             </div>
         @endif
     </div>

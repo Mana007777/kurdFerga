@@ -3,12 +3,12 @@
         <flux:button variant="ghost" icon="arrow-left" href="{{ $course->playlist_id ? route('admin.playlists.courses', $course->playlist_id) : route('admin.playlists.index') }}" wire:navigate />
         <div>
             <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Manage Curriculum</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-1">Curriculum for <span class="font-bold">"{{ $course->title }}"</span>.</p>
+            <p class="text-slate-500 dark:text-gray-400 mt-1">Curriculum for <span class="font-bold">"{{ $course->title }}"</span>.</p>
         </div>
     </div>
 
     <!-- Top Tools: Search and Add Section -->
-    <div class="glass-panel p-6 rounded-2xl mb-8 border border-slate-200 dark:border-white/5 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md shadow-sm">
+    <div class="glass-panel p-6 rounded-2xl mb-8 border border-slate-200 dark:border-white/5 bg-white/70 dark:bg-gray-900/60 backdrop-blur-md shadow-sm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Search Database -->
             <div class="flex items-end">
@@ -30,10 +30,10 @@
     <!-- Sections Loop -->
     <div class="space-y-6">
         @forelse($sections as $section)
-            <div class="glass-panel overflow-hidden rounded-2xl border border-slate-200 dark:border-white/5 bg-white/50 dark:bg-zinc-900/40 backdrop-blur-md shadow-sm">
+            <div class="glass-panel overflow-hidden rounded-2xl border border-slate-200 dark:border-white/5 bg-white/50 dark:bg-gray-900/40 backdrop-blur-md shadow-sm">
                 <!-- Section Header -->
                 <div class="px-6 py-4 border-b border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-black/20 flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-slate-800 dark:text-zinc-100 flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-gray-100 flex items-center gap-2">
                         <flux:icon.folder class="w-5 h-5 text-indigo-500" />
                         {{ $section->title }}
                     </h3>
@@ -48,13 +48,13 @@
                 <!-- Lessons List -->
                 <div class="p-4 space-y-2">
                     @forelse($section->lessons as $lesson)
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-zinc-800/50 border border-slate-100 dark:border-white/5 hover:border-indigo-200 dark:hover:border-indigo-500/30 transition-colors">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-gray-800/50 border border-slate-100 dark:border-white/5 hover:border-indigo-200 dark:hover:border-indigo-500/30 transition-colors">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-500">
                                     <flux:icon.play class="w-4 h-4 ml-0.5" />
                                 </div>
                                 <div>
-                                    <h4 class="font-semibold text-slate-700 dark:text-zinc-200 text-sm">{{ $lesson->title }}</h4>
+                                    <h4 class="font-semibold text-slate-700 dark:text-gray-200 text-sm">{{ $lesson->title }}</h4>
                                     <a href="{{ $lesson->video_url }}" target="_blank" class="text-xs text-indigo-500 hover:underline line-clamp-1">{{ $lesson->video_url }}</a>
                                 </div>
                             </div>
@@ -66,17 +66,17 @@
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-6 text-slate-400 dark:text-zinc-500 text-sm italic">
+                        <div class="text-center py-6 text-slate-400 dark:text-gray-500 text-sm italic">
                             No lessons in this section. Add a video to get started.
                         </div>
                     @endforelse
                 </div>
             </div>
         @empty
-            <div class="text-center py-12 glass-panel rounded-2xl border border-dashed border-slate-300 dark:border-zinc-700">
-                <flux:icon.folder-open class="w-12 h-12 text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
-                <h3 class="text-lg font-bold text-slate-700 dark:text-zinc-300">Playlist is Empty</h3>
-                <p class="text-sm text-slate-500 dark:text-zinc-500 mt-1">Start by creating your first Section above.</p>
+            <div class="text-center py-12 glass-panel rounded-2xl border border-dashed border-slate-300 dark:border-gray-700">
+                <flux:icon.folder-open class="w-12 h-12 text-slate-300 dark:text-gray-600 mx-auto mb-3" />
+                <h3 class="text-lg font-bold text-slate-700 dark:text-gray-300">Playlist is Empty</h3>
+                <p class="text-sm text-slate-500 dark:text-gray-500 mt-1">Start by creating your first Section above.</p>
             </div>
         @endforelse
     </div>
@@ -100,7 +100,7 @@
                 <flux:input wire:model="newLessonVideo" type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime" label="Video File (Up to 100MB)" required />
                 
                 <!-- Upload Progress Bar -->
-                <div x-show="uploading" class="w-full bg-slate-200 dark:bg-zinc-800 rounded-full h-2.5 overflow-hidden">
+                <div x-show="uploading" class="w-full bg-slate-200 dark:bg-gray-800 rounded-full h-2.5 overflow-hidden">
                   <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-150" x-bind:style="'width: ' + progress + '%'"></div>
                 </div>
 

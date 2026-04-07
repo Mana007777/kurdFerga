@@ -38,16 +38,16 @@
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center space-x-3">
                 <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-blue-500 to-indigo-500"></div>
-                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-zinc-100">Learning Progress</h3>
+                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Learning Progress</h3>
             </div>
             
             <div class="relative w-44">
-                <select wire:model.live="selectedPlaylistId" class="appearance-none w-full bg-white/30 dark:bg-zinc-800/40 text-slate-700 dark:text-zinc-200 text-sm font-bold tracking-wide rounded-full py-2 pl-4 pr-10 border border-slate-200/50 dark:border-white/10 focus:border-indigo-500/50 outline-none backdrop-blur-md shadow-sm transition-all duration-300 hover:bg-white/50 dark:hover:bg-zinc-700/50 cursor-pointer">
+                <select wire:model.live="selectedPlaylistId" class="appearance-none w-full bg-white/30 dark:bg-gray-800/40 text-slate-700 dark:text-gray-200 text-sm font-bold tracking-wide rounded-full py-2 pl-4 pr-10 border border-slate-200/50 dark:border-white/10 focus:border-indigo-500/50 outline-none backdrop-blur-md shadow-sm transition-all duration-300 hover:bg-white/50 dark:hover:bg-zinc-700/50 cursor-pointer">
                     @foreach($playlists as $playlist)
-                        <option value="{{ $playlist->id }}" class="bg-white dark:bg-zinc-800 text-slate-800 dark:text-slate-200 py-2">{{ str($playlist->title)->limit(15) }}</option>
+                        <option value="{{ $playlist->id }}" class="bg-white dark:bg-gray-800 text-slate-800 dark:text-gray-200 py-2">{{ str($playlist->title)->limit(15) }}</option>
                     @endforeach
                 </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-600 dark:text-slate-400">
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-600 dark:text-gray-400">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                     </svg>
@@ -88,7 +88,7 @@
 
         {{-- Footer --}}
         <div class="w-full text-center">
-            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-slate-400/80">
+            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-gray-400/80">
                 Of Published Videos Completed
             </p>
         </div>

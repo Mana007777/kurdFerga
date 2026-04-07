@@ -24,7 +24,7 @@ new #[Layout('layouts.base')] class extends Component
 };
 ?>
 
-<div x-data="{ mounted: false }" x-init="setTimeout(() => mounted = true, 50)" class="min-h-screen bg-slate-50 dark:bg-[#050B14] text-slate-800 dark:text-slate-300 font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden relative">
+<div x-data="{ mounted: false }" x-init="setTimeout(() => mounted = true, 50)" class="min-h-screen bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-300 font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden relative">
     
     <style>
         @keyframes blob {
@@ -82,7 +82,7 @@ new #[Layout('layouts.base')] class extends Component
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
         .dark .glass-panel {
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(31, 41, 55, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .perspective-1000 { perspective: 1000px; }
@@ -101,7 +101,7 @@ new #[Layout('layouts.base')] class extends Component
     </style>
 
     
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50 dark:bg-[#020617]">
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50 dark:bg-gray-950">
        
         <div class="absolute inset-[-10%] z-0 bg-dot-pattern mask-radial-faded opacity-50 animate-scroll-grid pointer-events-none"></div>
 
@@ -132,15 +132,15 @@ new #[Layout('layouts.base')] class extends Component
                         </a>
                         
                         <nav class="hidden md:flex gap-8">
-                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
+                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
                                 Topics
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
-                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
+                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
                                 Playlists
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
-                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
+                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
                                 Paths
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
@@ -148,10 +148,10 @@ new #[Layout('layouts.base')] class extends Component
                     </div>
                     
                     <div class="flex items-center gap-6">
-                        <a href="/login" class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] px-3 py-1.5 rounded-lg">Sign In</a>
+                        <a href="/login" class="text-sm font-bold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] px-3 py-1.5 rounded-lg">Sign In</a>
                         <button wire:click="getStarted" class="relative group overflow-hidden rounded-full p-[1px]">
                             <span class="absolute inset-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-70 group-hover:opacity-100 group-hover:rotate-180 transition-all duration-700 ease-linear rounded-full"></span>
-                            <div class="relative flex items-center gap-2 bg-white dark:bg-[#0A101D] px-6 py-2.5 rounded-full transition-all duration-300 group-hover:bg-opacity-0">
+                            <div class="relative flex items-center gap-2 bg-white dark:bg-gray-950 px-6 py-2.5 rounded-full transition-all duration-300 group-hover:bg-opacity-0">
                                 <span class="text-sm font-bold text-zinc-800 dark:text-white group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">Get Started</span>
                             </div>
                         </button>
@@ -173,8 +173,8 @@ new #[Layout('layouts.base')] class extends Component
                         <span class="flex h-2.5 w-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)] animate-pulse"></span>
                         <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-200 dark:to-white font-semibold">New</span>
                         <span class="w-px h-4 bg-zinc-300 dark:bg-white/20"></span>
-                        <span class="text-slate-600 dark:text-slate-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">Watch the latest playlists today</span>
-                        <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-white transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <span class="text-slate-600 dark:text-gray-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">Watch the latest playlists today</span>
+                        <svg class="w-4 h-4 text-slate-500 dark:text-gray-400 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-white transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </div>
@@ -186,7 +186,7 @@ new #[Layout('layouts.base')] class extends Component
                 The best way to learn <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Coding</span><br class="hidden md:block" /> and modern tech.
             </h1>
             
-            <p :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 max-w-2xl mb-14 font-medium transition-all duration-1000 delay-700 ease-out leading-relaxed">
+            <p :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="text-lg md:text-2xl text-slate-600 dark:text-gray-400 max-w-2xl mb-14 font-medium transition-all duration-1000 delay-700 ease-out leading-relaxed">
                 The most entertaining, comprehensive, and cinematic training for modern web artisans.
             </p>
             
@@ -205,7 +205,7 @@ new #[Layout('layouts.base')] class extends Component
                 
                 <a href="#latest" class="relative px-8 py-4 w-full sm:w-auto rounded-2xl font-bold text-zinc-900 dark:text-white glass-panel hover:bg-black/5 dark:hover:bg-white/10 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group border border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/30 dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                     Explore the Library
-                    <svg class="w-5 h-5 text-slate-500 dark:text-slate-300 group-hover:rotate-45 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-5 h-5 text-slate-500 dark:text-gray-300 group-hover:rotate-45 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                 </a>
@@ -231,7 +231,7 @@ new #[Layout('layouts.base')] class extends Component
                         Fresh Content
                     </div>
                     <h2 class="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight mb-2">Latest Playlists</h2>
-                    <p class="text-xl text-slate-600 dark:text-slate-400 font-medium">Binge-watch our newest tech releases.</p>
+                    <p class="text-xl text-slate-600 dark:text-gray-400 font-medium">Binge-watch our newest tech releases.</p>
                 </div>
             </div>
 
@@ -266,17 +266,17 @@ new #[Layout('layouts.base')] class extends Component
                                     </div>
                                 </div>
 
-                                <div class="p-6 flex flex-col grow bg-white/80 dark:bg-[#0A101D]/80 backdrop-blur-md relative z-30">
-                                    <div class="absolute -top-4 right-6 bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl flex items-center gap-1">
+                                <div class="p-6 flex flex-col grow bg-white/80 dark:bg-gray-900/80 backdrop-blur-md relative z-30">
+                                    <div class="absolute -top-4 right-6 bg-white dark:bg-gray-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-gray-700 shadow-xl flex items-center gap-1">
                                         <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Videos</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-gray-300">{{ $series->lessons_count }} Videos</span>
                                     </div>
 
                                     <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-3 leading-tight">{{ $series->title }}</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
                                     
                                     <div class="mt-6 flex items-center text-sm font-bold text-slate-500">
                                         <span class="group-hover:mr-2 transition-all">Start Playlist</span>
@@ -310,16 +310,16 @@ new #[Layout('layouts.base')] class extends Component
                                 </div>
 
                                 <div class="p-6 flex flex-col grow bg-white/80 dark:bg-[#0A101D]/80 backdrop-blur-md relative z-30">
-                                    <div class="absolute -top-4 right-6 bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl flex items-center gap-1">
+                                    <div class="absolute -top-4 right-6 bg-white dark:bg-gray-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-gray-700 shadow-xl flex items-center gap-1">
                                         <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Videos</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-gray-300">{{ $series->lessons_count }} Videos</span>
                                     </div>
 
                                     <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-3 leading-tight">{{ $series->title }}</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
                                     
                                     <div class="mt-6 flex items-center text-sm font-bold text-slate-500">
                                         <span class="group-hover:mr-2 transition-all">Start Playlist</span>
@@ -338,7 +338,7 @@ new #[Layout('layouts.base')] class extends Component
     </main>
 
     
-    <footer class="mt-32 border-t border-zinc-200 dark:border-white/5 bg-slate-50 dark:bg-[#03060c] py-16 relative overflow-hidden z-20">
+    <footer class="mt-32 border-t border-zinc-200 dark:border-white/5 bg-slate-50 dark:bg-gray-950 py-16 relative overflow-hidden z-20">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/10 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="flex flex-col items-center justify-center text-center">
@@ -349,9 +349,9 @@ new #[Layout('layouts.base')] class extends Component
                 </div>
                 <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">F</h3>
                 <div class="flex gap-8 mb-10">
-                    <a href="https://github.com/Mana007777" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-white hover:scale-110 transition-transform">GitHub</a>
+                    <a href="https://github.com/Mana007777" class="text-slate-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white hover:scale-110 transition-transform">GitHub</a>
                 </div>
-                <p class="text-slate-500 dark:text-slate-600 text-sm font-medium">© <?= date('Y') ?> Eat , Sleep , Code , Repeat.</p>
+                <p class="text-slate-500 dark:text-gray-600 text-sm font-medium">© <?= date('Y') ?> Eat , Sleep , Code , Repeat.</p>
             </div>
         </div>  
     </footer>

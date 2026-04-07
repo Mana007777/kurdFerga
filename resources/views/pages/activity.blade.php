@@ -79,12 +79,12 @@ new #[Title('Activity')] class extends Component {
 }; ?>
 
 <div class="flex h-full w-full flex-1 flex-col p-6">
-        <flux:heading size="xl" level="1" class="text-zinc-800 dark:text-zinc-200 mb-2">{{ __('Activity') }}</flux:heading>
+        <flux:heading size="xl" level="1" class="text-zinc-800 dark:text-gray-200 mb-2">{{ __('Activity') }}</flux:heading>
         <flux:subheading size="lg" class="mb-10 text-zinc-500">{{ __('Track your daily video completion streak and learning history.') }}</flux:subheading>
         
         <!-- GitHub-Style Contribution Graph -->
         <div class="w-full max-w-5xl">
-            <div class="glass-panel relative flex flex-col p-6 rounded-2xl bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-white/10 shadow-sm overflow-x-auto w-full">
+            <div class="glass-panel relative flex flex-col p-6 rounded-2xl bg-white dark:bg-gray-900/50 border border-zinc-200 dark:border-white/10 shadow-sm overflow-x-auto w-full">
                 <div class="min-w-max">
                     <!-- Months Header -->
                     <div class="relative h-[20px] ml-9 mb-1">
@@ -165,14 +165,14 @@ new #[Title('Activity')] class extends Component {
 
             @if($this->watchedVideos->isEmpty())
                 <div class="flex flex-col items-center justify-center py-12 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-white/5 bg-zinc-50/50 dark:bg-white/[0.02]">
-                    <flux:icon.clock class="w-12 h-12 text-zinc-300 dark:text-zinc-700 mb-4" />
+                    <flux:icon.clock class="w-12 h-12 text-zinc-300 dark:text-gray-700 mb-4" />
                     <flux:heading class="text-zinc-500">No activity recorded for this day</flux:heading>
                     <flux:subheading>Keep learning to fill your grid!</flux:subheading>
                 </div>
             @else
                 <div class="grid gap-4">
                     @foreach($this->watchedVideos as $video)
-                        <div class="group flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-white/10 hover:border-blue-500/50 hover:shadow-lg transition-all duration-300">
+                        <div class="group flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-gray-900/50 border border-zinc-200 dark:border-white/10 hover:border-blue-500/50 hover:shadow-lg transition-all duration-300">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center shrink-0">
                                     <flux:icon.play class="w-6 h-6 text-blue-600 dark:text-blue-400" variant="solid" />
@@ -181,7 +181,7 @@ new #[Title('Activity')] class extends Component {
                                     <h4 class="font-bold text-zinc-900 dark:text-white group-hover:text-blue-500 transition-colors">{{ $video->title }}</h4>
                                     <div class="flex items-center gap-2 mt-1">
                                         <span class="text-xs font-medium text-zinc-500">{{ $video->playlist_title ?? 'Standalone Course' }}</span>
-                                        <span class="text-zinc-300 dark:text-zinc-700">•</span>
+                                        <span class="text-zinc-300 dark:text-gray-700">•</span>
                                         <span class="text-xs text-zinc-400">{{ \Carbon\Carbon::parse($video->created_at)->format('H:i') }}</span>
                                     </div>
                                 </div>

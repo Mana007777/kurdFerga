@@ -1,5 +1,5 @@
 @if($lesson && $playlist)
-<div class="relative w-full overflow-hidden rounded-3xl group shadow-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-2xl transition-all duration-500 hover:shadow-indigo-500/20">
+<div class="relative w-full overflow-hidden rounded-3xl group shadow-xl border border-white/40 dark:border-white/10 bg-white/60 dark:bg-gray-900/60 backdrop-blur-2xl transition-all duration-500 hover:shadow-indigo-500/20">
     
     <!-- Background abstract image / gradients -->
     <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl">
@@ -27,7 +27,7 @@
             <div class="flex flex-col space-y-2">
                 <div class="inline-flex items-center space-x-3">
                     <span class="px-3.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-[10px] font-black uppercase tracking-widest border border-indigo-200 dark:border-indigo-500/30 shadow-sm">Up Next</span>
-                    <span class="text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase">{{ $playlist->title }}</span>
+                    <span class="text-sm font-bold text-slate-500 dark:text-gray-400 tracking-wider uppercase">{{ $playlist->title }}</span>
                 </div>
                 <h2 class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white tracking-tight drop-shadow-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300 mt-1">
                     {{ $lesson->title }}
@@ -51,15 +51,15 @@
     </div>
 </div>
 @else
-<div class="glass-panel relative w-full overflow-hidden rounded-3xl flex items-center justify-center p-12 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg">
+<div class="glass-panel relative w-full overflow-hidden rounded-3xl flex items-center justify-center p-12 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg">
     <div class="text-center space-y-4">
-        <div class="w-16 h-16 bg-slate-200 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
+        <div class="w-16 h-16 bg-slate-200 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 dark:text-gray-500 shadow-inner">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         </div>
-        <h2 class="text-xl font-black text-slate-700 dark:text-slate-200 tracking-tight">You're all caught up!</h2>
-        <p class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400">Browse playlists to start learning.</p>
+        <h2 class="text-xl font-black text-slate-700 dark:text-gray-200 tracking-tight">You're all caught up!</h2>
+        <p class="text-sm font-semibold tracking-wide text-slate-500 dark:text-gray-400">Browse playlists to start learning.</p>
         <a href="{{ route('playlists.index') }}" wire:navigate class="inline-flex items-center gap-2 mt-2 px-6 py-2.5 rounded-full bg-indigo-500 text-white text-sm font-bold hover:bg-indigo-600 transition-colors">
             Browse Playlists
         </a>

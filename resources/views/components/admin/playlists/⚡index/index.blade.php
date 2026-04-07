@@ -2,7 +2,7 @@
         <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Manage Playlists</h1>
-                <p class="text-slate-500 dark:text-slate-400 mt-1">Create, edit, and organize all playlists across the platform.</p>
+                <p class="text-slate-500 dark:text-gray-400 mt-1">Create, edit, and organize all playlists across the platform.</p>
             </div>
             
             <flux:button href="{{ route('admin.playlists.create') }}" variant="primary" icon="plus" wire:navigate>
@@ -10,7 +10,7 @@
             </flux:button>
         </div>
 
-        <div class="glass-panel overflow-hidden rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/5 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl">
+        <div class="glass-panel overflow-hidden rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/5 bg-white/70 dark:bg-gray-900/60 backdrop-blur-xl">
             <flux:table>
                 <flux:table.columns>
                     <flux:table.column>Playlist</flux:table.column>
@@ -32,7 +32,7 @@
                                     </div>
                                 @endif
                                 <div>
-                                    <h4 class="font-bold text-slate-800 dark:text-zinc-200">{{ str($playlist->title)->limit(40) }}</h4>
+                                    <h4 class="font-bold text-slate-800 dark:text-gray-200">{{ str($playlist->title)->limit(40) }}</h4>
                                     <p class="text-xs text-slate-500 line-clamp-1 max-w-sm">{{ str($playlist->description)->limit(50) }}</p>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                             </flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <span class="text-slate-600 dark:text-slate-400 font-medium">{{ $playlist->courses_count }}</span>
+                            <span class="text-slate-600 dark:text-gray-400 font-medium">{{ $playlist->courses_count }}</span>
                         </flux:table.cell>
                         <flux:table.cell>
                             <div class="flex gap-2 justify-end">

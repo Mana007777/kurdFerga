@@ -22,7 +22,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
             Your Favorites
         </div>
         <h1 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white tracking-tight mb-2">Starred Videos</h1>
-        <p class="text-slate-500 dark:text-slate-400 text-lg">Quick access to all the videos you've starred.</p>
+        <p class="text-slate-500 dark:text-gray-400 text-lg">Quick access to all the videos you've starred.</p>
     </div>
 
     @if($starredLessons->isNotEmpty())
@@ -33,16 +33,16 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
                         <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
                             <flux:icon.play class="w-6 h-6" />
                         </div>
-                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 dark:bg-zinc-800 px-2 py-1 rounded-md">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded-md">
                             {{ $lesson->playlist?->title ?? 'Playlist' }}
                         </div>
                     </div>
                     
-                    <h3 class="font-bold text-slate-800 dark:text-zinc-100 text-lg leading-tight mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <h3 class="font-bold text-slate-800 dark:text-gray-100 text-lg leading-tight mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                         {{ $lesson->title }}
                     </h3>
                     
-                    <p class="text-xs text-slate-500 dark:text-zinc-500 mb-6 line-clamp-1">
+                    <p class="text-xs text-slate-500 dark:text-gray-500 mb-6 line-clamp-1">
                         {{ $lesson->section?->title ?? 'Academy Content' }}
                     </p>
 
@@ -65,12 +65,12 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
             @endforeach
         </div>
     @else
-        <div class="text-center py-20 rounded-2xl border border-dashed border-slate-300 dark:border-zinc-700">
-            <div class="w-16 h-16 bg-slate-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
+        <div class="text-center py-20 rounded-2xl border border-dashed border-slate-300 dark:border-gray-700">
+            <div class="w-16 h-16 bg-slate-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
                 <flux:icon.star class="w-8 h-8" />
             </div>
-            <h3 class="text-lg font-bold text-slate-700 dark:text-zinc-300">No starred videos yet</h3>
-            <p class="text-sm text-slate-500 dark:text-zinc-500 mt-1">Start starring videos as you watch them to keep track of your favorites!</p>
+            <h3 class="text-lg font-bold text-slate-700 dark:text-gray-300">No starred videos yet</h3>
+            <p class="text-sm text-slate-500 dark:text-gray-500 mt-1">Start starring videos as you watch them to keep track of your favorites!</p>
             <flux:button href="{{ route('playlists.index') }}" variant="primary" class="mt-8" wire:navigate>Browse Playlists</flux:button>
         </div>
     @endif

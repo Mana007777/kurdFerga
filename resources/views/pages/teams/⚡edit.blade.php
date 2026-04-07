@@ -174,12 +174,12 @@ new class extends Component
 
                 <div class="space-y-3">
                     @foreach ($members as $member)
-                        <div class="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900" data-test="member-row">
+                        <div class="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900" data-test="member-row">
                             <div class="flex items-center gap-4">
                                 <flux:avatar :name="$member['name']" :initials="strtoupper(substr($member['name'], 0, 1))" />
                                 <div>
                                     <div class="font-medium">{{ $member['name'] }}</div>
-                                    <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">{{ $member['email'] }}</flux:text>
+                                    <flux:text class="text-sm text-zinc-500 dark:text-gray-400">{{ $member['email'] }}</flux:text>
                                 </div>
                             </div>
 
@@ -243,14 +243,14 @@ new class extends Component
 
                     <div class="space-y-3">
                         @foreach ($invitations as $invitation)
-                            <div class="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900" data-test="invitation-row">
+                            <div class="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900" data-test="invitation-row">
                                 <div class="flex items-center gap-4">
-                                    <div class="flex size-10 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
+                                    <div class="flex size-10 items-center justify-center rounded-full bg-zinc-100 dark:bg-gray-800">
                                         <flux:icon name="envelope" class="text-zinc-500" />
                                     </div>
                                     <div>
                                         <div class="font-medium">{{ $invitation['email'] }}</div>
-                                        <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">{{ $invitation['role_label'] }}</flux:text>
+                                        <flux:text class="text-sm text-zinc-500 dark:text-gray-400">{{ $invitation['role_label'] }}</flux:text>
                                     </div>
                                 </div>
 

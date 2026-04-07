@@ -4,7 +4,7 @@
         @class([
             'flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 border',
             'bg-amber-500/10 text-amber-600 border-amber-500/30 hover:bg-amber-500 hover:text-white' => $isStarred,
-            'bg-slate-100 text-slate-500 border-slate-200 dark:bg-zinc-800 dark:text-zinc-400 dark:border-white/5 hover:bg-indigo-500 hover:text-white hover:border-indigo-500' => ! $isStarred,
+            'bg-slate-100 text-slate-500 border-slate-200 dark:bg-gray-800 dark:text-gray-400 dark:border-white/5 hover:bg-indigo-500 hover:text-white hover:border-indigo-500' => ! $isStarred,
         ])
     >
         <svg
