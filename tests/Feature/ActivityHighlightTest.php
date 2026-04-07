@@ -26,11 +26,14 @@ it('displays videos watched on a selected date', function () {
     // Simulate watching a video yesterday
     $yesterday = Carbon::yesterday();
     $lesson3 = Lesson::factory()->create(['title' => 'Yesterday Video', 'playlist_id' => $playlist->id]);
+    
     DB::table('lesson_user')->insert([
         ['user_id' => $user->id, 'lesson_id' => $lesson3->id, 'created_at' => $yesterday, 'updated_at' => $yesterday],
     ]);
 
-    $component = Volt::test('pages.activity');
+    $this->actingAs($user);
+
+    $component = \Livewire\Livewire::test('pages::activity');
 
     // Initially should show today's videos (if we default mount to today)
     $component->assertSee('Video 1')
