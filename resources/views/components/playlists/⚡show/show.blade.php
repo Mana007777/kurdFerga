@@ -24,8 +24,8 @@
 
         <!-- Hero Content -->
         <div class="bg-white dark:bg-gray-900 rounded-[3rem] border border-gray-200 dark:border-gray-800 p-12 pt-20 shadow-xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-6">
-                <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-600 dark:text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-violet-500 shadow-[0_0_5px_rgba(139,92,246,0.5)]"></span>
                 Playlist Overview
             </div>
             
@@ -59,19 +59,19 @@
             @endphp
             <div class="mt-12 flex flex-col items-center gap-4">
                 <div class="flex items-center justify-between w-full max-w-md mb-1">
-                    <span class="text-xs font-bold text-gray-500 dark:text-gray-500 uppercase tracking-widest">Platform Progress</span>
-                    <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">{{ $progressPct }}%</span>
+                    <span class="text-xs font-bold text-violet-600/60 dark:text-violet-400/40 uppercase tracking-widest">Platform Progress</span>
+                    <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-100/50 dark:bg-violet-900/20 px-2 py-0.5 rounded-full">{{ $progressPct }}%</span>
                 </div>
                 <div class="w-full max-w-md h-3 rounded-full bg-gray-100 dark:bg-gray-800 p-0.5 overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner">
                     <div class="h-full rounded-full bg-violet-600 transition-all duration-1000 shadow-[0_0_10px_rgba(139,92,246,0.2)]" style="width: {{ $progressPct }}%"></div>
                 </div>
                 <div class="flex items-center gap-6 mt-2">
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
-                        <flux:icon.list-bullet class="w-4 h-4 text-slate-400 dark:text-gray-600" />
+                    <div class="flex items-center gap-2 text-xs font-bold text-violet-600/60 dark:text-violet-400/40">
+                        <flux:icon.list-bullet class="w-4 h-4 text-violet-600/40 dark:text-violet-400/30" />
                         {{ $sections->count() }} SECTIONS
                     </div>
-                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
-                        <flux:icon.play class="w-4 h-4 text-slate-400 dark:text-gray-600" />
+                    <div class="flex items-center gap-2 text-xs font-bold text-violet-600/60 dark:text-violet-400/40">
+                        <flux:icon.play class="w-4 h-4 text-violet-600/40 dark:text-violet-400/30" />
                         {{ $totalLessons }} LESSONS
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div>
                         <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">{{ $section->title }}</h2>
-                        <p class="text-[10px] font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest mt-0.5">
+                        <p class="text-[10px] font-bold text-violet-600/60 dark:text-violet-400/40 uppercase tracking-widest mt-0.5">
                             {{ $section->lessons->count() }} {{ Str::plural('video', $section->lessons->count()) }}
                         </p>
                     </div>
@@ -108,7 +108,7 @@
                                         <flux:icon.check class="w-5 h-5 stroke-[3]" />
                                     </div>
                                 @else
-                                    <div class="w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-gray-800/50 border border-slate-200 dark:border-white/5 flex items-center justify-center text-sm font-black text-slate-400 dark:text-gray-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:border-violet-500/30 transition-all duration-300">
+                                    <div class="w-10 h-10 rounded-xl bg-violet-100/50 dark:bg-violet-900/20 border border-violet-200/50 dark:border-violet-500/10 flex items-center justify-center text-sm font-black text-violet-600/40 dark:text-violet-400/30 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:border-violet-500/30 transition-all duration-300">
                                         {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
                                     </div>
                                 @endif
@@ -121,7 +121,7 @@
                                         {{ $lesson->title }}
                                     </h4>
                                     @if($lesson->is_preview)
-                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded-md bg-blue-500/10 text-[9px] font-black text-blue-600 dark:text-blue-500 uppercase tracking-widest border border-blue-500/20">Free</span>
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded-md bg-violet-500/10 text-[9px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-widest border border-violet-500/20">Free</span>
                                     @endif
                                 </div>
                                 <div class="flex items-center gap-4">
@@ -183,7 +183,7 @@
                     <div class="w-full border-t border-slate-200 dark:border-white/5"></div>
                 </div>
                 <div class="relative flex justify-center">
-                    <span class="px-6 bg-white dark:bg-[#050B14] text-xs font-black text-slate-400 dark:text-gray-500 uppercase tracking-[0.3em]">Masterclass Discussion</span>
+                    <span class="px-6 bg-white dark:bg-[#050B14] text-xs font-black text-blue-600/60 dark:text-blue-400/40 uppercase tracking-[0.3em]">Masterclass Discussion</span>
                 </div>
             </div>
             
@@ -191,7 +191,7 @@
                 <div class="bg-white dark:bg-gray-900 rounded-[3rem] p-10 shadow-xl border border-gray-200 dark:border-gray-800 group transition-all duration-500 hover:border-violet-500/20">
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-10 pb-8 border-b border-gray-100 dark:border-gray-800">
                         <div class="max-w-2xl">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest mb-4">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest mb-4">
                                 Deep Dive Module
                             </div>
                             <h3 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">{{ $course->title }}</h3>
@@ -203,7 +203,7 @@
                             @else
                                 <flux:button size="sm" variant="subtle" icon="star" @click="alert('Please login first')" />
                             @endauth
-                            <div class="h-10 px-4 bg-slate-50 dark:bg-white/5 flex items-center justify-center rounded-2xl border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-500 dark:text-gray-400">
+                            <div class="h-10 px-4 bg-blue-500/5 dark:bg-blue-500/10 flex items-center justify-center rounded-2xl border border-blue-500/20 text-xs font-bold text-blue-600 dark:text-blue-400">
                                 {{ $course->comments->count() }} Shared Thoughts
                             </div>
                         </div>

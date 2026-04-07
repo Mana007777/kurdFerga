@@ -1,8 +1,8 @@
 <div class="p-6 md:p-10 max-w-7xl mx-auto w-full">
     <!-- Header -->
     <div class="mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-widest mb-4">
-            <span class="w-2 h-2 rounded-full bg-violet-500"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-4">
+            <span class="w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.5)]"></span>
             Latest Content
         </div>
         <h1 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white tracking-tight mb-2">All Playlists</h1>
