@@ -43,5 +43,6 @@ it('displays videos watched on a selected date', function () {
     // Select yesterday
     $component->call('selectDate', $yesterday->format('Y-m-d'))
         ->assertSee('Yesterday Video')
+        ->assertSee(route('playlists.show', $playlist->slug))
         ->assertDontSee('Video 1');
 });

@@ -31,9 +31,10 @@ new #[Title('Activity')] class extends Component {
             ->select(
                 'lessons.title', 
                 'playlists.title as playlist_title', 
+                'playlists.slug as playlist_slug', 
                 'lesson_user.created_at',
                 'lessons.video_url',
-                'lessons.slug'
+                'lessons.slug as lesson_slug'
             )
             ->orderBy('lesson_user.created_at', 'desc')
             ->get();
@@ -186,7 +187,7 @@ new #[Title('Activity')] class extends Component {
                                 </div>
                             </div>
                             
-                            <flux:button size="sm" variant="subtle" icon="arrow-right" :href="route('playlists.show', $video->slug ?? '')" wire:navigate>
+                            <flux:button size="sm" variant="subtle" icon="arrow-right" :href="route('playlists.show', $video->playlist_slug ?? '')" wire:navigate>
                                 Watch Again
                             </flux:button>
                         </div>
