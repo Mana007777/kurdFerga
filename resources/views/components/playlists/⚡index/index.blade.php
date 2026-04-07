@@ -1,8 +1,8 @@
 <div class="p-6 md:p-10 max-w-7xl mx-auto w-full">
     <!-- Header -->
     <div class="mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-violet-500/30 text-xs font-bold text-plum-600 dark:text-indigo-400 uppercase tracking-widest mb-4">
-            <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50/50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-500/20 text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest mb-4">
+            <span class="w-2 h-2 rounded-full bg-violet-500"></span>
             Latest Content
         </div>
         <h1 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white tracking-tight mb-2">All Playlists</h1>
@@ -25,13 +25,13 @@
                 >
                     <!-- Pixel Icon Container (Centered over the top border) -->
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 z-20">
-                        <div class="relative w-20 h-20 rounded-full p-1 bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-[0_0_20px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_35px_rgba(99,102,241,0.8)] transition-all duration-500">
+                        <div class="relative w-20 h-20 rounded-full p-1 bg-gradient-to-br from-violet-500 to-plum-600 shadow-[0_0_20px_rgba(238,130,238,0.2)] group-hover:shadow-[0_0_35px_rgba(238,130,238,0.4)] transition-all duration-500">
                             <div class="w-full h-full rounded-full bg-[gray-900] p-1 overflow-hidden border-2 border-white/10">
                                 @if($playlist->thumbnail)
                                     <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" alt="{{ $playlist->title }}" />
                                 @else
-                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-900 to-slate-900 rounded-full">
-                                        <flux:icon.academic-cap class="w-8 h-8 text-indigo-400" />
+                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 rounded-full">
+                                        <flux:icon.academic-cap class="w-8 h-8 text-violet-400" />
                                     </div>
                                 @endif
                             </div>
@@ -45,7 +45,7 @@
                         
                         <div class="relative z-10 flex flex-col h-full">
                             <div class="text-center mb-6">
-                                <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-plum-600 dark:group-hover:text-indigo-400 transition-colors duration-300">
+                                <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors duration-300">
                                     {{ $playlist->title }}
                                 </h3>
                                 <p class="text-sm font-medium text-slate-500 dark:text-gray-400 truncate">
@@ -55,7 +55,7 @@
 
                             <div class="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 space-y-3">
                                 <div class="flex items-center gap-3 text-slate-500 dark:text-gray-400">
-                                    <flux:icon.list-bullet class="w-4 h-4 text-violet-500 dark:text-indigo-400" />
+                                    <flux:icon.list-bullet class="w-4 h-4 text-violet-500" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->lessons_count }} Lessons</span>
                                 </div>
                                 <div class="flex items-center gap-3 text-slate-500 dark:text-gray-400">
