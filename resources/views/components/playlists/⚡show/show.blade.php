@@ -59,19 +59,19 @@
             @endphp
             <div class="mt-12 flex flex-col items-center gap-4">
                 <div class="flex items-center justify-between w-full max-w-md mb-1">
-                    <span class="text-xs font-bold text-violet-600/60 dark:text-violet-400/40 uppercase tracking-widest">Platform Progress</span>
-                    <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-100/50 dark:bg-violet-900/20 px-2 py-0.5 rounded-full">{{ $progressPct }}%</span>
+                    <span class="text-xs font-bold text-violet-600/70 dark:text-violet-400/60 uppercase tracking-widest">Platform Progress</span>
+                    <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 dark:bg-violet-500/20 px-2.3 py-0.5 rounded-full">{{ $progressPct }}%</span>
                 </div>
                 <div class="w-full max-w-md h-3 rounded-full bg-gray-100 dark:bg-gray-800 p-0.5 overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner">
                     <div class="h-full rounded-full bg-violet-600 transition-all duration-1000 shadow-[0_0_10px_rgba(139,92,246,0.2)]" style="width: {{ $progressPct }}%"></div>
                 </div>
                 <div class="flex items-center gap-6 mt-2">
-                    <div class="flex items-center gap-2 text-xs font-bold text-violet-600/60 dark:text-violet-400/40">
-                        <flux:icon.list-bullet class="w-4 h-4 text-violet-600/40 dark:text-violet-400/30" />
+                    <div class="flex items-center gap-2 text-xs font-bold text-violet-600/70 dark:text-violet-400/60">
+                        <flux:icon.list-bullet class="w-4 h-4 text-violet-600/50 dark:text-violet-400/40" />
                         {{ $sections->count() }} SECTIONS
                     </div>
-                    <div class="flex items-center gap-2 text-xs font-bold text-violet-600/60 dark:text-violet-400/40">
-                        <flux:icon.play class="w-4 h-4 text-violet-600/40 dark:text-violet-400/30" />
+                    <div class="flex items-center gap-2 text-xs font-bold text-violet-600/70 dark:text-violet-400/60">
+                        <flux:icon.play class="w-4 h-4 text-violet-600/50 dark:text-violet-400/40" />
                         {{ $totalLessons }} LESSONS
                     </div>
                 </div>
@@ -82,15 +82,15 @@
     <!-- Content Sections -->
     <div class="space-y-10">
         @forelse($sections as $section)
-            <div class="bg-white/40 dark:bg-[gray-900]/40 backdrop-blur-2xl rounded-3xl border border-slate-200 dark:border-white/5 overflow-hidden shadow-sm dark:shadow-xl transition-all duration-300 hover:border-slate-300 dark:hover:border-white/10">
+            <div class="bg-white dark:bg-gray-900/50 rounded-[2.5rem] border border-gray-200 dark:border-gray-800 overflow-hidden shadow-lg dark:shadow-2xl transition-all duration-500 hover:border-violet-500/20">
                 <!-- Section Header -->
-                <div class="px-8 py-5 bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/5 flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-600 dark:text-violet-400">
-                        <flux:icon.folder class="w-5 h-5 fill-current opacity-70 dark:opacity-50" />
+                <div class="px-8 py-5 bg-gray-50/50 dark:bg-white/[0.02] border-b border-gray-100 dark:border-gray-800 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-600 dark:text-violet-400 shadow-sm">
+                        <flux:icon.folder class="w-5 h-5 fill-current opacity-80" />
                     </div>
                     <div>
                         <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">{{ $section->title }}</h2>
-                        <p class="text-[10px] font-bold text-violet-600/60 dark:text-violet-400/40 uppercase tracking-widest mt-0.5">
+                        <p class="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest mt-0.5 opacity-70">
                             {{ $section->lessons->count() }} {{ Str::plural('video', $section->lessons->count()) }}
                         </p>
                     </div>
@@ -108,7 +108,7 @@
                                         <flux:icon.check class="w-5 h-5 stroke-[3]" />
                                     </div>
                                 @else
-                                    <div class="w-10 h-10 rounded-xl bg-violet-100/50 dark:bg-violet-900/20 border border-violet-200/50 dark:border-violet-500/10 flex items-center justify-center text-sm font-black text-violet-600/40 dark:text-violet-400/30 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:border-violet-500/30 transition-all duration-300">
+                                    <div class="w-10 h-10 rounded-xl bg-gray-100/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center text-sm font-black text-gray-400 dark:text-gray-500 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:border-violet-500/30 transition-all duration-300">
                                         {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
                                     </div>
                                 @endif
@@ -131,7 +131,7 @@
                                             Completed · +5 XP
                                         </span>
                                     @else
-                                        <span class="text-[10px] font-bold text-violet-500/70 dark:text-violet-400/50 uppercase tracking-widest">Lesson Content</span>
+                                        <span class="text-[10px] font-bold text-violet-600/80 dark:text-violet-400/70 uppercase tracking-widest">Lesson Content</span>
                                     @endif
                                 </div>
                             </div>
