@@ -8,6 +8,37 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 new #[Title('Activity')] class extends Component {
+    public $selectedDate = null;
+
+    public function mount()
+    {
+        $this->selectedDate = Carbon::now()->format('Y-m-d');
+    }
+
+    public function selectDate($date)
+    {
+        $this->selectedDate = $date;
+    }
+
+    #[Computed]
+    public function watchedVideos(): \Illuminate\Support\Collection
+    {
+        return DB::table('lesson_user')
+            ->join('lessons', 'lesson_user.lesson_id', '=', 'lessons.id')
+            ->leftJoin('playlists', 'lessons.playlist_id', '=', 'playlists.id')
+            ->where('lesson_user.user_id', Auth::id())
+            ->whereDate('lesson_user.created_at', $this->selectedDate)
+            ->select(
+                'lessons.title', 
+                'playlists.title as playlist_title', 
+                'lesson_user.created_at',
+                'lessons.video_url',
+                'lessons.slug'
+            )
+            ->orderBy('lesson_user.created_at', 'desc')
+            ->get();
+    }
+
     #[Computed]
     public function graphData(): array
     {
@@ -89,8 +120,9 @@ new #[Title('Activity')] class extends Component {
                                                     ($count < 6 ? 'bg-[#30A14E] dark:bg-[#26A641]' : 'bg-[#216E39] dark:bg-[#39D353]')));
                                         @endphp
                                         <div 
+                                            wire:click="selectDate('{{ $date }}')"
                                             title="{{ $count }} videos watched on {{ \Carbon\Carbon::parse($date)->format('M d, Y') }}"
-                                            class="w-[12px] h-[12px] rounded-sm {{ $bgClass }} transition-transform hover:scale-125 cursor-pointer ring-1 ring-black/5 dark:ring-white/5"
+                                            class="w-[12px] h-[12px] rounded-sm {{ $bgClass }} transition-transform hover:scale-125 cursor-pointer ring-1 ring-zinc-950/5 dark:ring-white/5 {{ $selectedDate === $date ? 'ring-2 ring-blue-500 scale-125 z-10' : '' }}"
                                         ></div>
                                     @endforeach
                                 </div>
@@ -114,4 +146,52 @@ new #[Title('Activity')] class extends Component {
             </div>
         </div>
 
+        <!-- Activity Details -->
+        <div class="mt-12 w-full max-w-5xl">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                        <flux:icon.calendar class="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div>
+                        <flux:heading size="lg">{{ \Carbon\Carbon::parse($selectedDate)->format('F d, Y') }}</flux:heading>
+                        <flux:subheading>{{ $this->watchedVideos->count() }} videos watched</flux:subheading>
+                    </div>
+                </div>
+            </div>
+
+            <flux:separator class="mb-6" />
+
+            @if($this->watchedVideos->isEmpty())
+                <div class="flex flex-col items-center justify-center py-12 px-6 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-white/5 bg-zinc-50/50 dark:bg-white/[0.02]">
+                    <flux:icon.clock class="w-12 h-12 text-zinc-300 dark:text-zinc-700 mb-4" />
+                    <flux:heading class="text-zinc-500">No activity recorded for this day</flux:heading>
+                    <flux:subheading>Keep learning to fill your grid!</flux:subheading>
+                </div>
+            @else
+                <div class="grid gap-4">
+                    @foreach($this->watchedVideos as $video)
+                        <div class="group flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-white/10 hover:border-blue-500/50 hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center shrink-0">
+                                    <flux:icon.play class="w-6 h-6 text-blue-600 dark:text-blue-400" variant="solid" />
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-zinc-900 dark:text-white group-hover:text-blue-500 transition-colors">{{ $video->title }}</h4>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-xs font-medium text-zinc-500">{{ $video->playlist_title ?? 'Standalone Course' }}</span>
+                                        <span class="text-zinc-300 dark:text-zinc-700">•</span>
+                                        <span class="text-xs text-zinc-400">{{ \Carbon\Carbon::parse($video->created_at)->format('H:i') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <flux:button size="sm" variant="subtle" icon="arrow-right" :href="route('playlists.show', $video->slug ?? '')" wire:navigate>
+                                Watch Again
+                            </flux:button>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     </div>
