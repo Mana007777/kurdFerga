@@ -89,11 +89,11 @@ new #[Layout('layouts.base')] class extends Component
         .transform-style-3d { transform-style: preserve-3d; }
 
         @keyframes scroll-left {
-            0% { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         .animate-scroll-left {
-            animation: scroll-left 5s linear infinite;
+            animation: scroll-left 7s linear infinite;
         }
         .pause-on-hover:hover {
             animation-play-state: paused;
@@ -236,7 +236,7 @@ new #[Layout('layouts.base')] class extends Component
             </div>
 
             <div class="relative overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
-                <div class="flex gap-8 animate-scroll-left pause-on-hover w-max">
+                <div class="flex animate-scroll-left pause-on-hover w-max">
                     @php
                         $colors = ['from-blue-600 to-indigo-600', 'from-rose-600 to-orange-500', 'from-cyan-500 to-teal-500', 'from-emerald-500 to-green-600'];
                         $icons = [
@@ -248,45 +248,90 @@ new #[Layout('layouts.base')] class extends Component
                     @endphp
                     
                     {{-- First Set --}}
-                    @foreach($this->latestSeries as $index => $series)
-                    <a href="{{ route('playlists.show', $series->slug) }}" wire:navigate class="relative transform-style-3d cursor-pointer w-[320px] h-[400px] shrink-0 block">
-                        <div class="absolute -inset-0.5 bg-gradient-to-br {{ $colors[$index % 4] }} rounded-[2rem] blur-xl opacity-0 hover:opacity-40 transition-opacity duration-700 ease-out"></div>
-                        
-                        <div class="absolute inset-0 glass-panel border border-white/10 rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500 ease-out shadow-2xl hover:-translate-y-2">
-                            <div class="relative h-48 w-full overflow-hidden shrink-0">
-                                <div class="absolute inset-0 bg-gradient-to-br {{ $colors[$index % 4] }} opacity-80 z-10 mix-blend-multiply transition-all duration-700"></div>
-                                <div class="absolute inset-0 z-0 opacity-30 transition-all duration-1000" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
-                                <div class="absolute inset-0 flex items-center justify-center z-20">
-                                    <div class="w-20 h-20 glass-panel rounded-2xl flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-500">
-                                        <svg class="w-10 h-10 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icons[$index % 4] }}" />
+                    <div class="flex gap-8 pr-8">
+                        @foreach($this->latestSeries as $index => $series)
+                        <a href="{{ route('playlists.show', $series->slug) }}" wire:navigate class="relative transform-style-3d cursor-pointer w-[320px] h-[400px] shrink-0 block">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br {{ $colors[$index % 4] }} rounded-[2rem] blur-xl opacity-0 hover:opacity-40 transition-opacity duration-700 ease-out"></div>
+                            
+                            <div class="absolute inset-0 glass-panel border border-white/10 rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500 ease-out shadow-2xl hover:-translate-y-2">
+                                <div class="relative h-48 w-full overflow-hidden shrink-0">
+                                    <div class="absolute inset-0 bg-gradient-to-br {{ $colors[$index % 4] }} opacity-80 z-10 mix-blend-multiply transition-all duration-700"></div>
+                                    <div class="absolute inset-0 z-0 opacity-30 transition-all duration-1000" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                                        <div class="w-20 h-20 glass-panel rounded-2xl flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-500">
+                                            <svg class="w-10 h-10 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icons[$index % 4] }}" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 flex flex-col grow bg-white/80 dark:bg-[#0A101D]/80 backdrop-blur-md relative z-30">
+                                    <div class="absolute -top-4 right-6 bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Videos</span>
+                                    </div>
+
+                                    <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-3 leading-tight">{{ $series->title }}</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
+                                    
+                                    <div class="mt-6 flex items-center text-sm font-bold text-slate-500">
+                                        <span class="group-hover:mr-2 transition-all">Start Playlist</span>
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                         </svg>
                                     </div>
                                 </div>
                             </div>
+                        </a>
+                        @endforeach
+                    </div>
 
-                            <div class="p-6 flex flex-col grow bg-white/80 dark:bg-[#0A101D]/80 backdrop-blur-md relative z-30">
-                                <div class="absolute -top-4 right-6 bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Videos</span>
+                    {{-- Second Set (Identical for seamless looping) --}}
+                    <div class="flex gap-8 pr-8">
+                        @foreach($this->latestSeries as $index => $series)
+                        <a href="{{ route('playlists.show', $series->slug) }}" wire:navigate class="relative transform-style-3d cursor-pointer w-[320px] h-[400px] shrink-0 block">
+                            <div class="absolute -inset-0.5 bg-gradient-to-br {{ $colors[$index % 4] }} rounded-[2rem] blur-xl opacity-0 hover:opacity-40 transition-opacity duration-700 ease-out"></div>
+                            
+                            <div class="absolute inset-0 glass-panel border border-white/10 rounded-[2rem] overflow-hidden flex flex-col transition-all duration-500 ease-out shadow-2xl hover:-translate-y-2">
+                                <div class="relative h-48 w-full overflow-hidden shrink-0">
+                                    <div class="absolute inset-0 bg-gradient-to-br {{ $colors[$index % 4] }} opacity-80 z-10 mix-blend-multiply transition-all duration-700"></div>
+                                    <div class="absolute inset-0 z-0 opacity-30 transition-all duration-1000" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center z-20">
+                                        <div class="w-20 h-20 glass-panel rounded-2xl flex items-center justify-center border border-white/20 shadow-2xl transition-all duration-500">
+                                            <svg class="w-10 h-10 text-white drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icons[$index % 4] }}" />
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-3 leading-tight">{{ $series->title }}</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
-                                
-                                <div class="mt-6 flex items-center text-sm font-bold text-slate-500">
-                                    <span class="group-hover:mr-2 transition-all">Start Playlist</span>
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
+                                <div class="p-6 flex flex-col grow bg-white/80 dark:bg-[#0A101D]/80 backdrop-blur-md relative z-30">
+                                    <div class="absolute -top-4 right-6 bg-white dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $series->lessons_count }} Videos</span>
+                                    </div>
+
+                                    <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-3 leading-tight">{{ $series->title }}</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-auto leading-relaxed">{{ $series->description }}</p>
+                                    
+                                    <div class="mt-6 flex items-center text-sm font-bold text-slate-500">
+                                        <span class="group-hover:mr-2 transition-all">Start Playlist</span>
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    @endforeach
+                        </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </section>

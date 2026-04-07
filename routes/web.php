@@ -11,13 +11,15 @@ Route::prefix('{current_team}')
         Route::view('dashboard', 'dashboard')->name('dashboard');
         Route::livewire('activity', 'pages::activity')->name('activity');
     });
-
 Route::middleware(['auth'])->group(function () {
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
+});
 
-    // Public Playlist browsing
-    Route::livewire('/playlists', 'playlists.index')->name('playlists.index');
-    Route::livewire('/playlists/{playlist}', 'playlists.show')->name('playlists.show');
+// Public Playlist browsing
+Route::livewire('/playlists', 'playlists.index')->name('playlists.index');
+Route::livewire('/playlists/{playlist}', 'playlists.show')->name('playlists.show');
+
+Route::middleware(['auth'])->group(function () {
     Route::livewire('/stars', 'pages::stars')->name('stars.index');
     Route::livewire('/leaderboard', 'pages::leaderboard')->name('leaderboard');
 

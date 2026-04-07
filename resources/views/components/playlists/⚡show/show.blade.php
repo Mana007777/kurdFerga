@@ -133,19 +133,24 @@
 
                             <!-- Desktop Actions -->
                             <div class="hidden md:flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-                                <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
-                                
-                                @if($lesson->video_url)
-                                    <a href="{{ $lesson->video_url }}" target="_blank">
-                                        <flux:button size="sm" variant="subtle" icon="play">Watch Vid</flux:button>
-                                    </a>
-                                @endif
-                                
-                                @if(! $isDone)
-                                    <button wire:click="completeLesson({{ $lesson->id }})" class="h-9 px-4 rounded-xl text-xs font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-200">
-                                        Complete
-                                    </button>
-                                @endif
+                                @auth
+                                    <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
+                                    
+                                    @if($lesson->video_url)
+                                        <a href="{{ $lesson->video_url }}" target="_blank">
+                                            <flux:button size="sm" variant="subtle" icon="play">Watch Vid</flux:button>
+                                        </a>
+                                    @endif
+                                    
+                                    @if(! $isDone)
+                                        <button wire:click="completeLesson({{ $lesson->id }})" class="h-9 px-4 rounded-xl text-xs font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-200">
+                                            Complete
+                                        </button>
+                                    @endif
+                                @else
+                                    <flux:button size="sm" variant="subtle" icon="lock-closed" @click="alert('Please login first')">Watch Vid</flux:button>
+                                    <flux:button size="sm" variant="subtle" icon="star" @click="alert('Please login first')" />
+                                @endauth
                             </div>
 
                             <!-- Right Arrow (Mobile Only / Indicator) -->
@@ -188,7 +193,11 @@
                             <p class="text-slate-600 dark:text-slate-400 text-base mt-2 font-medium leading-relaxed">{{ $course->description }}</p>
                         </div>
                         <div class="flex items-center gap-4">
-                            <livewire:courses.star-course :course="$course" :key="'star-'.$course->id" />
+                            @auth
+                                <livewire:courses.star-course :course="$course" :key="'star-'.$course->id" />
+                            @else
+                                <flux:button size="sm" variant="subtle" icon="star" @click="alert('Please login first')" />
+                            @endauth
                             <div class="h-10 px-4 bg-slate-50 dark:bg-white/5 flex items-center justify-center rounded-2xl border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-500 dark:text-slate-400">
                                 {{ $course->comments->count() }} Shared Thoughts
                             </div>
