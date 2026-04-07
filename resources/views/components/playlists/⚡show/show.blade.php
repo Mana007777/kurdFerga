@@ -31,12 +31,20 @@
             
             <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight mb-4">{{ $playlist->title }}</h1>
             
-            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                <span class="flex items-center gap-2">With <span class="text-gray-900 dark:text-gray-200 underline decoration-violet-500/30">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
+            @php
+                $levelColor = match(strtolower($playlist->level ?? 'beginner')) {
+                    'beginner' => 'text-emerald-600 dark:text-emerald-400',
+                    'intermediate' => 'text-amber-600 dark:text-amber-400',
+                    'hard' => 'text-rose-600 dark:text-rose-400',
+                    default => 'text-emerald-600 dark:text-emerald-400',
+                };
+            @endphp
+            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium">
+                <span class="flex items-center gap-2 text-gray-500 dark:text-gray-400">With <span class="text-gray-900 dark:text-gray-200 underline decoration-violet-500/30">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
                 <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700 hidden md:block"></span>
-                <span class="flex items-center gap-2"><flux:icon.chart-bar class="w-4 h-4" /> {{ $playlist->level ?? 'Beginner' }}</span>
+                <span class="flex items-center gap-2 {{ $levelColor }}"><flux:icon.chart-bar class="w-4 h-4" /> {{ $playlist->level ?? 'Beginner' }}</span>
                 <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700 hidden md:block"></span>
-                <span class="flex items-center gap-2"><flux:icon.tag class="w-4 h-4" /> {{ $playlist->category ?? 'General' }}</span>
+                <span class="flex items-center gap-2 text-blue-600 dark:text-blue-400"><flux:icon.tag class="w-4 h-4" /> {{ $playlist->category ?? 'General' }}</span>
             </div>
 
             @if($playlist->description)
@@ -113,7 +121,7 @@
                                         {{ $lesson->title }}
                                     </h4>
                                     @if($lesson->is_preview)
-                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded-md bg-amber-500/10 text-[9px] font-black text-amber-600 dark:text-amber-500 uppercase tracking-widest border border-amber-500/20">Free</span>
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded-md bg-blue-500/10 text-[9px] font-black text-blue-600 dark:text-blue-500 uppercase tracking-widest border border-blue-500/20">Free</span>
                                     @endif
                                 </div>
                                 <div class="flex items-center gap-4">
@@ -123,7 +131,7 @@
                                             Completed · +5 XP
                                         </span>
                                     @else
-                                        <span class="text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-widest">Lesson Content</span>
+                                        <span class="text-[10px] font-bold text-violet-500/70 dark:text-violet-400/50 uppercase tracking-widest">Lesson Content</span>
                                     @endif
                                 </div>
                             </div>
@@ -135,7 +143,7 @@
                                     
                                     @if($lesson->video_url)
                                         <a href="{{ $lesson->video_url }}" target="_blank">
-                                            <flux:button size="sm" variant="subtle" icon="play">Watch Vid</flux:button>
+                                            <flux:button size="sm" variant="ghost" icon="play" class="text-violet-600 dark:text-violet-400">Watch Vid</flux:button>
                                         </a>
                                     @endif
                                     
@@ -145,8 +153,8 @@
                                         </button>
                                     @endif
                                 @else
-                                    <flux:button size="sm" variant="subtle" icon="lock-closed" @click="alert('Please login first')">Watch Vid</flux:button>
-                                    <flux:button size="sm" variant="subtle" icon="star" @click="alert('Please login first')" />
+                                    <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-gray-400">Watch Vid</flux:button>
+                                    <flux:button size="sm" variant="ghost" icon="star" @click="alert('Please login first')" class="text-gray-400" />
                                 @endauth
                             </div>
 

@@ -52,15 +52,23 @@
                             </div>
 
                             <div class="mt-auto pt-6 border-t border-gray-100 dark:border-gray-800 space-y-3">
-                                <div class="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center gap-3 text-violet-600 dark:text-violet-400">
                                     <flux:icon.list-bullet class="w-4 h-4" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->lessons_count }} Lessons</span>
                                 </div>
-                                <div class="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                                @php
+                                    $levelColor = match(strtolower($playlist->level ?? 'beginner')) {
+                                        'beginner' => 'text-emerald-600 dark:text-emerald-400',
+                                        'intermediate' => 'text-amber-600 dark:text-amber-400',
+                                        'hard' => 'text-rose-600 dark:text-rose-400',
+                                        default => 'text-emerald-600 dark:text-emerald-400',
+                                    };
+                                @endphp
+                                <div class="flex items-center gap-3 {{ $levelColor }}">
                                     <flux:icon.chart-bar class="w-4 h-4" />
                                     <span class="text-xs font-bold uppercase tracking-wider">{{ $playlist->level ?? 'Beginner' }}</span>
                                 </div>
-                                <div class="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center gap-3 text-blue-600 dark:text-blue-400">
                                     <flux:icon.tag class="w-4 h-4" />
                                     <span class="text-xs font-bold uppercase tracking-wider truncate">{{ $playlist->category ?? 'Frameworks' }}</span>
                                 </div>
