@@ -1,4 +1,4 @@
-<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-black border border-zinc-800 p-7 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]"
+<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-7 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]"
      x-data="{
          current: 0,
          target: @entangle('percentage'),

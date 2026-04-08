@@ -1,5 +1,5 @@
 @if($lesson && $playlist)
-<div class="relative w-full overflow-hidden rounded-[1.5rem] bg-black border border-zinc-800 p-8 md:p-10 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
+<div class="relative w-full overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-8 md:p-10 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
     
     <!-- Background Command Interface -->
     <div class="absolute inset-x-0 top-0 h-1/2 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
@@ -63,7 +63,7 @@
     <div class="absolute bottom-6 right-6 w-3 h-3 border-b border-r border-zinc-700 opacity-50"></div>
 </div>
 @else
-<div class="relative w-full overflow-hidden rounded-[1.5rem] bg-black border border-zinc-800 p-12 flex items-center justify-center">
+<div class="relative w-full overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-12 flex items-center justify-center">
     <div class="text-center space-y-6">
         <div class="w-16 h-16 bg-zinc-950 border border-zinc-800 rounded-2xl flex items-center justify-center mx-auto text-zinc-700 shadow-inner">
              <flux:icon.command-line class="w-8 h-8" />

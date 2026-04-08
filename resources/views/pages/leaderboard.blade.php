@@ -47,7 +47,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                 <div class="order-2 md:order-1 flex flex-col items-center w-full md:w-64 group">
                     <div class="relative mb-6">
                         <div class="w-24 h-24 rounded-full p-1 bg-zinc-900 border border-zinc-800 shadow-xl group-hover:border-zinc-500 transition-all duration-500">
-                            <div class="w-full h-full rounded-full bg-black p-1 overflow-hidden">
+                            <div class="w-full h-full rounded-full bg-zinc-950 p-1 overflow-hidden">
                                 <img src="{{ $topUsers[1]->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform" alt="{{ $topUsers[1]->name }}">
                             </div>
                         </div>
@@ -57,7 +57,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                         <h3 class="font-black text-white text-lg truncate w-48 uppercase tracking-tight">{{ $topUsers[1]->name }}</h3>
                         <p class="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">{{ $topUsers[1]->pts }} XP-UNIT</p>
                     </div>
-                    <div class="w-full h-32 md:h-40 bg-black border-x border-t border-zinc-800 rounded-t-2xl flex flex-col items-center justify-center space-y-2 group-hover:bg-zinc-950 transition-colors">
+                    <div class="w-full h-32 md:h-40 bg-zinc-950 border-x border-t border-zinc-800 rounded-t-2xl flex flex-col items-center justify-center space-y-2 group-hover:bg-zinc-900 transition-colors">
                         <div class="w-8 h-px bg-zinc-800"></div>
                         <span class="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em]">Sector Alpha</span>
                     </div>
@@ -70,7 +70,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                     <div class="relative mb-8">
                         <div class="absolute inset-[-12px] rounded-full bg-violet-500/10 animate-pulse blur-xl"></div>
                         <div class="relative w-36 h-36 rounded-full p-2 bg-zinc-900 border-2 border-violet-500/50 shadow-[0_0_50px_-12px_rgba(139,92,246,0.3)] group-hover:border-violet-400 transition-all duration-500 z-10">
-                            <div class="w-full h-full rounded-full bg-black p-1.5 overflow-hidden">
+                            <div class="w-full h-full rounded-full bg-zinc-950 p-1.5 overflow-hidden">
                                 <img src="{{ $topUsers[0]->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform" alt="{{ $topUsers[0]->name }}">
                             </div>
                         </div>
@@ -96,7 +96,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                 <div class="order-3 md:order-3 flex flex-col items-center w-full md:w-64 group">
                     <div class="relative mb-6">
                         <div class="w-24 h-24 rounded-full p-1 bg-zinc-900 border border-zinc-800 shadow-xl group-hover:border-zinc-500 transition-all duration-500">
-                            <div class="w-full h-full rounded-full bg-black p-1 overflow-hidden">
+                            <div class="w-full h-full rounded-full bg-zinc-950 p-1 overflow-hidden">
                                 <img src="{{ $topUsers[2]->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform" alt="{{ $topUsers[2]->name }}">
                             </div>
                         </div>
@@ -116,14 +116,14 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
     @endif
 
     <!-- Ranking Archive Section -->
-    <div class="bg-black border border-zinc-800 rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
+    <div class="bg-zinc-950 border border-zinc-800 rounded-[2.5rem] overflow-hidden shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
         <div class="px-8 py-8 border-b border-zinc-900 bg-zinc-900/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h2 class="text-xl font-black text-white uppercase tracking-tight">Personnel Archive</h2>
                 <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-1">Status: Historical telemetry retrieval active</p>
             </div>
             <div class="flex items-center gap-4">
-                <span class="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] px-4 py-2 bg-black border border-zinc-800 rounded-xl">
+                <span class="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-xl">
                     {{ count($otherUsers) + count($topUsers) }} Identified Units
                 </span>
             </div>

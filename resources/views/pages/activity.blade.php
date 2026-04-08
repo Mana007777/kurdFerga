@@ -103,7 +103,7 @@ new #[Title('Activity')] class extends Component {
     
     <!-- Data Grid Array (Contribution Graph) -->
     <div class="w-full">
-        <div class="relative overflow-hidden rounded-[2rem] bg-black border border-zinc-800 p-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] group">
+        <div class="relative overflow-hidden rounded-[2rem] bg-zinc-950 border border-zinc-800 p-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] group">
             <!-- Grid Background -->
             <div class="absolute inset-x-0 top-0 h-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
             
@@ -209,7 +209,7 @@ new #[Title('Activity')] class extends Component {
         </div>
 
         @if($this->watchedVideos->isEmpty())
-            <div class="relative overflow-hidden rounded-[1.5rem] bg-black border-2 border-dashed border-zinc-800 p-16 flex flex-col items-center justify-center text-center space-y-4">
+            <div class="relative overflow-hidden rounded-[1.5rem] bg-zinc-950 border-2 border-dashed border-zinc-800 p-16 flex flex-col items-center justify-center text-center space-y-4">
                  <div class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-700 mb-2">
                     <flux:icon.magnifying-glass class="w-6 h-6 animate-pulse" />
                 </div>

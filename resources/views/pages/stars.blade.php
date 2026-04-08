@@ -44,7 +44,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
     @if($starredLessons->isNotEmpty())
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($starredLessons as $lesson)
-                <div class="group relative bg-black border border-zinc-800 rounded-[2rem] p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] flex flex-col h-full">
+                <div class="group relative bg-zinc-950 border border-zinc-800 rounded-[2rem] p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] flex flex-col h-full">
                     
                     {{-- Module Identity --}}
                     <div class="flex items-start justify-between mb-8">
@@ -94,7 +94,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
         </div>
     @else
         <!-- Empty State: Database Retrieval Failure -->
-        <div class="relative overflow-hidden rounded-[3rem] bg-black border border-zinc-800 p-24 md:p-40 group text-center space-y-8">
+        <div class="relative overflow-hidden rounded-[3rem] bg-zinc-950 border border-zinc-800 p-24 md:p-40 group text-center space-y-8">
             <!-- Background Grid -->
             <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
             

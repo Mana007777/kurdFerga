@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-black text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
+    <body class="min-h-screen bg-zinc-950 text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
         <style>
             @keyframes scrollGrid {
                 0% { transform: translateY(0); }
@@ -51,7 +51,7 @@
         </div>
 
         <div class="relative z-10 flex min-h-screen">
-            <flux:sidebar sticky stashable collapsible class="relative border-e border-zinc-800 bg-black">
+            <flux:sidebar sticky stashable collapsible class="relative border-e border-zinc-800 bg-zinc-950">
                 <flux:sidebar.header class="flex items-center justify-between">
                     <x-app-logo :sidebar="true" :href="auth()->check() ? route('dashboard') : route('home')" wire:navigate />
                     <flux:sidebar.toggle class="hidden lg:flex" icon="chevron-left" />

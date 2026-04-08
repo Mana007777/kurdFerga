@@ -12,7 +12,7 @@ new #[Title('Appearance settings')] class extends Component {
 
     <x-pages::settings.layout :heading="__('Interface Specs')" :subheading="__('Update the visual interface parameters for your terminal.')">
         <div class="max-w-xl space-y-12">
-            <div class="bg-black border border-zinc-800 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group">
+            <div class="bg-zinc-950 border border-zinc-800 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group">
                 <div class="absolute inset-0 bg-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 
                 <div class="relative z-10 space-y-8">
@@ -22,7 +22,7 @@ new #[Title('Appearance settings')] class extends Component {
                     </div>
 
                     <div class="w-full">
-                        <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="!bg-black !p-1 !rounded-2xl !border-zinc-800">
+                        <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="!bg-zinc-950 !p-1 !rounded-2xl !border-zinc-800">
                             <flux:radio value="light" icon="sun" class="!text-[10px] !font-black !uppercase !tracking-widest !py-4 !rounded-xl transition-all">{{ __('Light') }}</flux:radio>
                             <flux:radio value="dark" icon="moon" class="!text-[10px] !font-black !uppercase !tracking-widest !py-4 !rounded-xl transition-all">{{ __('Dark') }}</flux:radio>
                             <flux:radio value="system" icon="computer-desktop" class="!text-[10px] !font-black !uppercase !tracking-widest !py-4 !rounded-xl transition-all">{{ __('System') }}</flux:radio>

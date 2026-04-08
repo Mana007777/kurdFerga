@@ -141,7 +141,7 @@ new #[Title('Security settings')] class extends Component {
                 </div>
 
                 <div class="flex items-center gap-6 pt-6 border-t border-zinc-900">
-                    <flux:button variant="filled" type="submit" class="!px-12 !py-6 !bg-black !hover:bg-violet-600 !text-white !font-black !text-[11px] !uppercase !tracking-[0.4em] !rounded-2xl !shadow-xl !transition-all">
+                    <flux:button variant="filled" type="submit" class="!px-12 !py-6 !bg-zinc-950 !hover:bg-violet-600 !text-white !font-black !text-[11px] !uppercase !tracking-[0.4em] !rounded-2xl !shadow-xl !transition-all">
                         Sync New Key
                     </flux:button>
 
@@ -159,7 +159,7 @@ new #[Title('Security settings')] class extends Component {
                         <h2 class="text-sm font-black text-zinc-500 uppercase tracking-widest">Multi-Layer Protocol (2FA)</h2>
                     </div>
 
-                    <div class="bg-black border border-zinc-800 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group">
+                    <div class="bg-zinc-950 border border-zinc-800 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group">
                          <div class="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                          
                          <div class="relative z-10 space-y-8" wire:cloak>

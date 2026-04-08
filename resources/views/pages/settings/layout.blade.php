@@ -1,4 +1,4 @@
-<div class="flex items-start max-md:flex-col gap-12 p-8 md:p-12 lg:p-16 bg-black min-h-screen">
+<div class="flex items-start max-md:flex-col gap-12 p-8 md:p-12 lg:p-16 bg-zinc-950 min-h-screen">
     {{-- Sidebar Navigation: Command List --}}
     <div class="w-full md:w-[280px] shrink-0">
         <div class="space-y-6">
@@ -37,7 +37,7 @@
 
     {{-- Main Content: Terminal Interface --}}
     <div class="flex-1 w-full max-w-4xl pt-4">
-        <div class="relative bg-black border border-zinc-800 rounded-[3rem] p-10 md:p-16 overflow-hidden">
+        <div class="relative bg-zinc-950 border border-zinc-800 rounded-[3rem] p-10 md:p-16 overflow-hidden">
              <!-- Background Grid -->
              <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
              
