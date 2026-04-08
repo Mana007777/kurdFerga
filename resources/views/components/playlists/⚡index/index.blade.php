@@ -4,15 +4,15 @@
         <div class="space-y-2">
             <div class="flex items-center gap-3">
                 <div class="px-2 py-0.5 rounded bg-violet-500/10 border border-violet-500/20">
-                    <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">Curriculum Database</span>
+                    <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">{{ __('Curriculum Database') }}</span>
                 </div>
                 <div class="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></span>
-                    Live Feed
+                    {{ __('Live Feed') }}
                 </div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">Academy Deployments</h1>
-            <p class="text-zinc-500 font-mono text-sm tracking-tight">Available Units: Select a syllabus for high-frequency learning integration.</p>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">{{ __('Academy Deployments') }}</h1>
+            <p class="text-zinc-500 font-mono text-sm tracking-tight">{{ __('Available Units: Select a syllabus for high-frequency learning integration.') }}</p>
         </div>
 
         <div class="relative w-full max-w-sm group">
@@ -20,7 +20,7 @@
                 wire:model.live.debounce.300ms="search" 
                 icon="magnifying-glass" 
                 clearable 
-                placeholder="Protocol Search..." 
+                placeholder="{{ __('Protocol Search...') }}" 
                 class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs !py-3 tracking-widest focus:!border-violet-500/50"
             />
             <div class="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-zinc-700"></div>
@@ -54,22 +54,22 @@
                         <h3 class="text-2xl font-black text-white leading-tight tracking-tighter uppercase group-hover:text-violet-400 transition-colors duration-300">
                             {{ $playlist->title }}
                         </h3>
-                        <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">Lead // {{ $playlist->author_name ?? 'Command' }}</p>
+                        <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">{{ __('Lead') }} // {{ $playlist->author_name ?? __('Command') }}</p>
                     </div>
 
                     {{-- Hardware Spec List --}}
                     <div class="space-y-4 pt-6 border-t border-zinc-900">
                         <div class="flex items-center gap-4 text-zinc-400 group/item">
                             <flux:icon.queue-list class="w-4 h-4 text-zinc-600 group-hover/item:text-violet-500 transition-colors" />
-                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->lessons_count }} Episodes</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->lessons_count }} {{ __('Episodes') }}</span>
                         </div>
                         <div class="flex items-center gap-4 text-zinc-400 group/item">
                             <flux:icon.academic-cap class="w-4 h-4 text-zinc-600 group-hover/item:text-emerald-500 transition-colors" />
-                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->level ?? 'Mastery' }}</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->level ?? __('Mastery') }}</span>
                         </div>
                         <div class="flex items-center gap-4 text-zinc-400 group/item">
                             <flux:icon.tag class="w-4 h-4 text-zinc-600 group-hover/item:text-amber-500 transition-colors" />
-                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->category ?? 'Platform' }}</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->category ?? __('Platform') }}</span>
                         </div>
                     </div>
 
@@ -91,8 +91,8 @@
                 <flux:icon.command-line class="w-8 h-8 animate-pulse" />
             </div>
             <div class="space-y-1">
-                <h3 class="text-xl font-black text-zinc-400 uppercase tracking-[0.2em]">Database Empty</h3>
-                <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest max-w-sm mx-auto">Critical Error: No curriculum deployments detected. Awaiting administrative synchronization.</p>
+                <h3 class="text-xl font-black text-zinc-400 uppercase tracking-[0.2em]">{{ __('Database Empty') }}</h3>
+                <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest max-w-sm mx-auto">{{ __('Critical Error: No curriculum deployments detected. Awaiting administrative synchronization.') }}</p>
             </div>
         </div>
     @endif

@@ -187,5 +187,6 @@
     "Disable 2FA Layer": "ناچالاککردنی چینی 2FA",
     "2FA-OFFLINE": "2FA-ناچالاکە",
     "When you enable multi-layer authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a dedicated TOTP-supported application.": "کاتێک چینی فرە-پشکنین چالاک دەکەیت، لە کاتی چوونە ژوورەوەدا داوای کۆدی ئاسایشت لێ دەکرێت. ئەم کۆدە لە ڕێگەی ئەپڵیکەیشنێکی تایبەتی TOTP وەردەگریت.",
-    "Initialize 2FA Sequence": "دەستپێکردنی زنجیرەی 2FA"
+    "Initialize 2FA Sequence": "دەستپێکردنی زنجیرەی 2FA",
+    "Command": "فەرماندەیی"
 }
