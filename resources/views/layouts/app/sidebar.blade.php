@@ -5,6 +5,17 @@
     </head>
     <body class="min-h-screen bg-zinc-950 text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
         <style>
+            .bg-dot-pattern {
+                background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+                background-size: 24px 24px;
+            }
+            .dark .bg-dot-pattern {
+                background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+            }
+            .mask-radial-faded {
+                mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+                -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+            }
             .glass-panel {
                 background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(24px);
