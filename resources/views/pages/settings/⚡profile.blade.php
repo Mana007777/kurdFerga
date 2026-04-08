@@ -109,13 +109,13 @@ new #[Title('Profile settings')] class extends Component {
 
                     <div class="flex-1 space-y-4">
                         <div>
-                            <span class="block text-[8px] font-mono text-zinc-600 uppercase tracking-[0.3em] mb-1">Personnel ID</span>
+                            <span class="block text-[8px] font-mono text-zinc-600 uppercase tracking-[0.3em] mb-1">{{ __('Personnel ID') }}</span>
                             <span class="block text-sm font-mono text-zinc-400 uppercase tracking-widest">USER-{{ str_pad(auth()->id(), 4, '0', STR_PAD_LEFT) }}</span>
                         </div>
                         <div class="space-y-2">
-                             <flux:label class="!text-[10px] !font-black !text-zinc-500 !uppercase !tracking-widest">Sync New Bio-Image</flux:label>
+                             <flux:label class="!text-[10px] !font-black !text-zinc-500 !uppercase !tracking-widest">{{ __('Sync New Bio-Image') }}</flux:label>
                              <flux:input wire:model="photo" type="file" accept="image/*" class="!bg-zinc-950 !border-zinc-800 !text-[10px] !font-mono !text-zinc-400" />
-                             <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest">Protocol: Max 1024KB // Format: JPG-PNG-WEBP</p>
+                             <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest">{{ __('Protocol: Max 1024KB // Format: JPG-PNG-WEBP') }}</p>
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@ new #[Title('Profile settings')] class extends Component {
                             autocomplete="name" 
                             class="!bg-zinc-950 !border-zinc-800 !text-white !font-black !h-14 !px-6 !text-lg !rounded-xl focus:!border-violet-500 transition-all"
                         />
-                         <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">System identifier for academy communications.</p>
+                         <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">{{ __('System identifier for academy communications.') }}</p>
                     </div>
 
                     <div class="space-y-2">
@@ -152,31 +152,31 @@ new #[Title('Profile settings')] class extends Component {
                             <div class="mt-4 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
                                 <flux:text class="!text-[10px] !font-black !text-amber-500 !uppercase !tracking-widest flex items-center gap-2">
                                     <flux:icon.exclamation-triangle class="w-4 h-4" />
-                                    Security Verification Pending
+                                    {{ __('Security Verification Pending') }}
                                 </flux:text>
                                 <flux:link class="!text-[10px] font-mono !text-amber-500/60 hover:!text-amber-500 uppercase tracking-widest mt-2 block" wire:click.prevent="resendVerificationNotification">
-                                    >> Re-send Protocol Email
+                                    {{ __('>> Re-send Protocol Email') }}
                                 </flux:link>
-
+ 
                                 @if (session('status') === 'verification-link-sent')
                                     <flux:text class="mt-2 !text-[9px] font-mono !text-emerald-500 uppercase tracking-widest">
-                                        Verification sequence transmitted.
+                                        {{ __('Verification sequence transmitted.') }}
                                     </flux:text>
                                 @endif
                             </div>
                         @endif
-                        <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">Primary channel for data transmissions and alerts.</p>
+                        <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">{{ __('Primary channel for data transmissions and alerts.') }}</p>
                     </div>
                 </div>
 
                 {{-- Action Terminal --}}
                 <div class="flex items-center gap-6 pt-6 border-t border-zinc-900">
                     <flux:button variant="filled" type="submit" class="!px-12 !py-6 !bg-violet-600 !hover:bg-violet-500 !text-white !font-black !text-[11px] !uppercase !tracking-[0.4em] !rounded-2xl !shadow-[0_0_30px_-10px_rgba(139,92,246,0.5)] !transition-all" data-test="update-profile-button">
-                        Update Credentials
+                        {{ __('Update Credentials') }}
                     </flux:button>
 
                     <x-action-message class="me-3 font-mono text-[9px] text-emerald-500 uppercase tracking-widest" on="profile-updated">
-                        [Protocol Synced]
+                        {{ __('[Protocol Synced]') }}
                     </x-action-message>
                 </div>
             </form>
@@ -185,7 +185,7 @@ new #[Title('Profile settings')] class extends Component {
                 <div class="mt-20 pt-20 border-t border-zinc-900">
                     <div class="flex items-center gap-3 mb-8">
                         <flux:icon.trash class="w-5 h-5 text-red-500/50" />
-                        <h3 class="text-sm font-black text-zinc-500 uppercase tracking-widest">Danger Zone // Termination</h3>
+                        <h3 class="text-sm font-black text-zinc-500 uppercase tracking-widest">{{ __('Danger Zone // Termination') }}</h3>
                     </div>
                     <livewire:pages::settings.delete-user-form />
                 </div>

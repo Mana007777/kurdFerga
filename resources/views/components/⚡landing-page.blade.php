@@ -112,24 +112,24 @@ new #[Layout('layouts.base')] class extends Component
                         
                         <nav class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em]">
                             <button @click="showTopics = true" class="text-zinc-500 hover:text-white transition-all duration-300 relative group cursor-pointer">
-                                Topics
+                                {{ __('Topics') }}
                                 <span class="absolute inset-x-0 -bottom-1 h-[1px] bg-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                             </button>
                             <a href="#latest" class="text-zinc-500 hover:text-white transition-all duration-300 relative group">
-                                Playlists
+                                {{ __('Playlists') }}
                                 <span class="absolute inset-x-0 -bottom-1 h-[1px] bg-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                             </a>
                             <a href="{{ route('paths.index') }}" wire:navigate class="text-zinc-500 hover:text-white transition-all duration-300 relative group">
-                                Paths
+                                {{ __('Paths') }}
                                 <span class="absolute inset-x-0 -bottom-1 h-[1px] bg-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                             </a>
                         </nav>
                     </div>
                     
                     <div class="flex items-center gap-8">
-                        <a href="/login" class="text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-widest px-4 py-2">Sign In</a>
+                        <a href="/login" class="text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-widest px-4 py-2">{{ __('Sign In') }}</a>
                         <button wire:click="getStarted" class="relative group h-10 px-6 bg-white rounded-full transition-all duration-300 transform hover:-translate-y-0.5 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                            <span class="text-[10px] font-black text-zinc-950 uppercase tracking-widest">Get Started</span>
+                            <span class="text-[10px] font-black text-zinc-950 uppercase tracking-widest">{{ __('Get Started') }}</span>
                         </button>
                     </div>
                 </div>
@@ -144,28 +144,28 @@ new #[Layout('layouts.base')] class extends Component
             <div :class="mounted ? 'scale-100 opacity-100' : 'scale-50 opacity-0'" class="transition-all duration-1000 delay-300 ease-out mb-12">
                 <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-black uppercase tracking-widest text-zinc-500">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
-                    <span class="text-zinc-300">Direct Feed Active</span>
+                    <span class="text-zinc-300">{{ __('Direct Feed Active') }}</span>
                     <span class="w-px h-3 bg-zinc-800 mx-1"></span>
-                    <span class="text-violet-500">Curriculum v2.4</span>
+                    <span class="text-violet-500">{{ __('Curriculum v2.4') }}</span>
                 </div>
             </div>
             
             <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] mb-10 max-w-5xl transition-all duration-1000 delay-500 ease-out text-white uppercase">
-                Artisanal <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500">Knowledge</span><br /> Deployment
+                {!! __('Artisanal <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500">Knowledge</span><br /> Deployment') !!}
             </h1>
             
             <p :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="text-sm md:text-lg text-zinc-500 max-w-2xl mb-16 font-mono transition-all duration-1000 delay-700 ease-out leading-relaxed tracking-tight uppercase">
-                High-frequency, precision-engineered training for modern web architects. Cinematic curriculum for the 0.1%.
+                {{ __('High-frequency, precision-engineered training for modern web architects. Cinematic curriculum for the 0.1%.') }}
             </p>
             
             <div :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="flex flex-col sm:flex-row gap-6 items-center justify-center transition-all duration-1000 delay-1000 ease-out w-full sm:w-auto">
                 <button wire:click="getStarted" class="relative group px-10 py-5 bg-violet-600 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_50px_-12px_rgba(139,92,246,0.6)]">
                     <div class="absolute inset-0 bg-gradient-to-tr from-violet-400/20 to-transparent"></div>
-                    <span class="relative text-[11px] font-black text-white uppercase tracking-[0.3em]">Initialize Training</span>
+                    <span class="relative text-[11px] font-black text-white uppercase tracking-[0.3em]">{{ __('Initialize Training') }}</span>
                 </button>
                 
                 <a href="#latest" class="px-10 py-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-[11px] font-black text-zinc-400 uppercase tracking-[0.3em] hover:bg-zinc-800 hover:text-white transition-all duration-300">
-                    System Database
+                    {{ __('System Database') }}
                 </a>
             </div>
         </div>
@@ -177,9 +177,9 @@ new #[Layout('layouts.base')] class extends Component
                     <div class="space-y-4">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-[9px] font-black text-violet-500 uppercase tracking-widest">
                             <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
-                            Live Deployments
+                            {{ __('Live Deployments') }}
                         </div>
-                        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">Latest Operations</h2>
+                        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">{{ __('Latest Operations') }}</h2>
                     </div>
                 </div>
             </div>
@@ -223,25 +223,25 @@ new #[Layout('layouts.base')] class extends Component
                                             <h3 class="text-xl font-black text-white leading-[1.1] tracking-tighter uppercase group-hover:text-violet-400 transition-colors duration-300 line-clamp-2">
                                                 {{ $series->title }}
                                             </h3>
-                                            <p class="text-[9px] font-mono text-zinc-600 uppercase tracking-[0.2em] truncate">Unit: {{ $series->author_name ?? 'Command' }}</p>
+                                            <p class="text-[9px] font-mono text-zinc-600 uppercase tracking-[0.2em] truncate">{{ __('Unit') }}: {{ $series->author_name ?? 'Command' }}</p>
                                         </div>
 
                                         {{-- Hardware Specs --}}
                                         <div class="space-y-3 pt-6 border-t border-zinc-900/50">
                                             <div class="flex items-center gap-3 text-zinc-500 group/item">
                                                 <flux:icon.queue-list class="w-3.5 h-3.5 text-zinc-700 group-hover/item:text-violet-500 transition-colors" />
-                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ $series->lessons_count }} Episodes</span>
+                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ $series->lessons_count }} {{ __('Episodes') }}</span>
                                             </div>
                                             <div class="flex items-center gap-3 text-zinc-500 group/item">
                                                 <flux:icon.tag class="w-3.5 h-3.5 text-zinc-700 group-hover/item:text-emerald-500 transition-colors" />
-                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ $series->category ?? 'Operation' }}</span>
+                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ __($series->category ?? 'Operation') }}</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     {{-- Bottom Hardware Bar --}}
                                     <div class="mt-6 flex items-center justify-between">
-                                        <div class="text-[9px] font-black text-zinc-700 uppercase tracking-widest">Protocol.0{{ $index + 1 }}</div>
+                                        <div class="text-[9px] font-black text-zinc-700 uppercase tracking-widest">{{ __('Protocol') }}.0{{ $index + 1 }}</div>
                                         <div class="w-8 h-[2px] bg-zinc-800 group-hover:w-12 group-hover:bg-violet-600 transition-all duration-500"></div>
                                     </div>
                                 </div>
@@ -270,7 +270,7 @@ new #[Layout('layouts.base')] class extends Component
                                     </div>
                                     <div class="absolute top-4 right-4 z-30">
                                         <div class="px-3 py-1 rounded-full bg-zinc-950/80 backdrop-blur-md border border-zinc-800 text-[8px] font-black text-violet-400 uppercase tracking-widest">
-                                            {{ $series->level ?? 'Mastery' }}
+                                            {{ __($series->level ?? 'Mastery') }}
                                         </div>
                                     </div>
                                 </div>
@@ -280,21 +280,21 @@ new #[Layout('layouts.base')] class extends Component
                                             <h3 class="text-xl font-black text-white leading-[1.1] tracking-tighter uppercase group-hover:text-violet-400 transition-colors duration-300 line-clamp-2">
                                                 {{ $series->title }}
                                             </h3>
-                                            <p class="text-[9px] font-mono text-zinc-600 uppercase tracking-[0.2em] truncate">Unit: {{ $series->author_name ?? 'Command' }}</p>
+                                            <p class="text-[9px] font-mono text-zinc-600 uppercase tracking-[0.2em] truncate">{{ __('Unit') }}: {{ $series->author_name ?? 'Command' }}</p>
                                         </div>
                                         <div class="space-y-3 pt-6 border-t border-zinc-900/50">
                                             <div class="flex items-center gap-3 text-zinc-500 group/item">
                                                 <flux:icon.queue-list class="w-3.5 h-3.5 text-zinc-700 group-hover/item:text-violet-500 transition-colors" />
-                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ $series->lessons_count }} Episodes</span>
+                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ $series->lessons_count }} {{ __('Episodes') }}</span>
                                             </div>
                                             <div class="flex items-center gap-3 text-zinc-500 group/item">
                                                 <flux:icon.tag class="w-3.5 h-3.5 text-zinc-700 group-hover/item:text-emerald-500 transition-colors" />
-                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ $series->category ?? 'Operation' }}</span>
+                                                <span class="text-[9px] font-black uppercase tracking-widest">{{ __($series->category ?? 'Operation') }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-6 flex items-center justify-between">
-                                        <div class="text-[9px] font-black text-zinc-700 uppercase tracking-widest">Protocol.0{{ $index + 1 }}</div>
+                                        <div class="text-[9px] font-black text-zinc-700 uppercase tracking-widest">{{ __('Protocol') }}.0{{ $index + 1 }}</div>
                                         <div class="w-8 h-[2px] bg-zinc-800 group-hover:w-12 group-hover:bg-violet-600 transition-all duration-500"></div>
                                     </div>
                                 </div>
@@ -309,8 +309,8 @@ new #[Layout('layouts.base')] class extends Component
         <flux:modal x-model="showTopics" variant="flyout" class="max-w-4xl !bg-zinc-950">
             <div class="space-y-6">
                 <div>
-                    <flux:heading size="xl" class="!text-white uppercase tracking-tighter font-black">Intell-Base Topics</flux:heading>
-                    <flux:text class="!text-zinc-500 !font-mono uppercase text-[10px]">Select a branch for theoretical deep-dive.</flux:text>
+                    <flux:heading size="xl" class="!text-white uppercase tracking-tighter font-black">{{ __('Intell-Base Topics') }}</flux:heading>
+                    <flux:text class="!text-zinc-500 !font-mono uppercase text-[10px]">{{ __('Select a branch for theoretical deep-dive.') }}</flux:text>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -334,7 +334,7 @@ new #[Layout('layouts.base')] class extends Component
                             <div class="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center mb-6">
                                 <flux:icon icon="book-open" class="w-8 h-8 text-zinc-700" />
                             </div>
-                            <flux:heading class="uppercase font-black tracking-widest text-zinc-500">Awaiting Selection</flux:heading>
+                            <flux:heading class="uppercase font-black tracking-widest text-zinc-500">{{ __('Awaiting Selection') }}</flux:heading>
                         </div>
 
                         <div x-show="activeTopic" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-6">
@@ -345,7 +345,7 @@ new #[Layout('layouts.base')] class extends Component
                                     
                                     <div class="flex items-center gap-2 mb-6">
                                         <div class="h-1 w-8 bg-violet-500 rounded-full"></div>
-                                        <span class="text-[9px] font-black text-violet-500 uppercase tracking-widest">Protocol Introduction</span>
+                                        <span class="text-[9px] font-black text-violet-500 uppercase tracking-widest">{{ __('Protocol Introduction') }}</span>
                                     </div>
 
                                     <div class="relative">
@@ -357,7 +357,7 @@ new #[Layout('layouts.base')] class extends Component
                             <a :href="'/playlists/' + activeTopic?.slug" class="relative group block w-full">
                                 <div class="absolute inset-0 bg-violet-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-80 transition duration-500"></div>
                                 <div class="relative flex items-center justify-center gap-3 py-4 bg-white text-zinc-950 font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:scale-[1.01] transition-all">
-                                    <span>Initialize Deployment</span>
+                                    <span>{{ __('Initialize Deployment') }}</span>
                                     <flux:icon icon="arrow-right" variant="micro" class="w-4 h-4" />
                                 </div>
                             </a>

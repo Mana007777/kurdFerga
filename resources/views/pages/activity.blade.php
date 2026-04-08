@@ -84,20 +84,20 @@ new #[Title('Activity')] class extends Component {
         <div class="space-y-2">
             <div class="flex items-center gap-3">
                 <div class="px-2 py-0.5 rounded bg-violet-500/10 border border-violet-500/20">
-                    <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">System Monitoring</span>
+                    <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">{{ __('System Monitoring') }}</span>
                 </div>
                 <div class="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Operational
+                    {{ __('Operational') }}
                 </div>
             </div>
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase">Mission Logs</h1>
-            <p class="text-zinc-500 font-mono text-sm tracking-tight">Sequence Archive: Historical Data Transmission & Activity Tracking</p>
+            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase">{{ __('Mission Logs') }}</h1>
+            <p class="text-zinc-500 font-mono text-sm tracking-tight">{{ __('Sequence Archive: Historical Data Transmission & Activity Tracking') }}</p>
         </div>
 
         <div class="hidden md:flex flex-col items-end text-right">
-            <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest leading-none mb-1">Station: ORBIT-01</span>
-            <span class="text-xs font-black text-zinc-400 uppercase tracking-[0.2em]">Sector // Academy</span>
+            <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest leading-none mb-1">{{ __('Station') }}: ORBIT-01</span>
+            <span class="text-xs font-black text-zinc-400 uppercase tracking-[0.2em]">{{ __('Sector // Academy') }}</span>
         </div>
     </div>
     

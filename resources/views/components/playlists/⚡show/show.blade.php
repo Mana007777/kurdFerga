@@ -1,7 +1,7 @@
 <div class="p-6 md:p-10 max-w-6xl mx-auto w-full relative">
     <!-- Back Button -->
     <div class="mb-12">
-        <flux:button variant="ghost" icon="arrow-left" href="{{ route('playlists.index') }}" wire:navigate>Back to Playlists</flux:button>
+        <flux:button variant="ghost" icon="arrow-left" href="{{ route('playlists.index') }}" wire:navigate>{{ __('Back to Playlists') }}</flux:button>
     </div>
 
     <!-- Playlist Hero (Centered Pixel Icon Style) -->
@@ -26,7 +26,7 @@
         <div class="bg-white dark:bg-gray-900 rounded-[3rem] border border-gray-200 dark:border-gray-800 p-12 pt-20 shadow-xl">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-600 dark:text-violet-400 text-[10px] font-bold uppercase tracking-widest mb-6">
                 <span class="w-1.5 h-1.5 rounded-full bg-violet-500 shadow-[0_0_5px_rgba(139,92,246,0.5)]"></span>
-                Playlist Overview
+                {{ __('Playlist Overview') }}
             </div>
             
             <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight mb-4">{{ $playlist->title }}</h1>
@@ -40,11 +40,11 @@
                 };
             @endphp
             <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium">
-                <span class="flex items-center gap-2 text-gray-500 dark:text-gray-400">With <span class="text-gray-900 dark:text-gray-200 underline decoration-violet-500/30">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
+                <span class="flex items-center gap-2 text-gray-500 dark:text-gray-400">{{ __('With') }} <span class="text-gray-900 dark:text-gray-200 underline decoration-violet-500/30">{{ $playlist->author_name ?? 'Team Ferga' }}</span></span>
                 <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700 hidden md:block"></span>
-                <span class="flex items-center gap-2 {{ $levelColor }}"><flux:icon.chart-bar class="w-4 h-4" /> {{ $playlist->level ?? 'Beginner' }}</span>
+                <span class="flex items-center gap-2 {{ $levelColor }}"><flux:icon.chart-bar class="w-4 h-4" /> {{ __($playlist->level ?? 'Beginner') }}</span>
                 <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700 hidden md:block"></span>
-                <span class="flex items-center gap-2 text-blue-600 dark:text-blue-400"><flux:icon.tag class="w-4 h-4" /> {{ $playlist->category ?? 'General' }}</span>
+                <span class="flex items-center gap-2 text-blue-600 dark:text-blue-400"><flux:icon.tag class="w-4 h-4" /> {{ __($playlist->category ?? 'General') }}</span>
             </div>
 
             @if($playlist->description)
@@ -59,7 +59,7 @@
             @endphp
             <div class="mt-12 flex flex-col items-center gap-4">
                 <div class="flex items-center justify-between w-full max-w-md mb-1">
-                    <span class="text-xs font-bold text-violet-600/70 dark:text-violet-400/60 uppercase tracking-widest">Platform Progress</span>
+                    <span class="text-xs font-bold text-violet-600/70 dark:text-violet-400/60 uppercase tracking-widest">{{ __('Platform Progress') }}</span>
                     <span class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-500/10 dark:bg-violet-500/20 px-2.3 py-0.5 rounded-full">{{ $progressPct }}%</span>
                 </div>
                 <div class="w-full max-w-md h-3 rounded-full bg-gray-100 dark:bg-gray-800 p-0.5 overflow-hidden border border-gray-200 dark:border-gray-700 shadow-inner">
@@ -68,11 +68,11 @@
                 <div class="flex items-center gap-6 mt-2">
                     <div class="flex items-center gap-2 text-xs font-bold text-violet-600/70 dark:text-violet-400/60">
                         <flux:icon.list-bullet class="w-4 h-4 text-violet-600/50 dark:text-violet-400/40" />
-                        {{ $sections->count() }} SECTIONS
+                        {{ $sections->count() }} {{ __('SECTIONS') }}
                     </div>
                     <div class="flex items-center gap-2 text-xs font-bold text-violet-600/70 dark:text-violet-400/60">
                         <flux:icon.play class="w-4 h-4 text-violet-600/50 dark:text-violet-400/40" />
-                        {{ $totalLessons }} LESSONS
+                        {{ $totalLessons }} {{ __('LESSONS') }}
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                     <div>
                         <h2 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">{{ $section->title }}</h2>
                         <p class="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest mt-0.5 opacity-70">
-                            {{ $section->lessons->count() }} {{ Str::plural('video', $section->lessons->count()) }}
+                            {{ $section->lessons->count() }} {{ __(Str::plural('video', $section->lessons->count())) }}
                         </p>
                     </div>
                 </div>
@@ -128,10 +128,10 @@
                                     @if($isDone)
                                         <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-widest flex items-center gap-1">
                                             <flux:icon.sparkles class="w-3 h-3" />
-                                            Completed · +5 XP
+                                            {{ __('Completed') }} · +5 XP
                                         </span>
                                     @else
-                                        <span class="text-[10px] font-bold text-violet-600/80 dark:text-violet-400/70 uppercase tracking-widest">Lesson Content</span>
+                                        <span class="text-[10px] font-bold text-violet-600/80 dark:text-violet-400/70 uppercase tracking-widest">{{ __('Lesson Content') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -143,17 +143,17 @@
                                     
                                     @if($lesson->video_url)
                                         <a href="{{ $lesson->video_url }}" target="_blank">
-                                            <flux:button size="sm" variant="ghost" icon="play" class="text-violet-600 dark:text-violet-400">Watch Vid</flux:button>
+                                            <flux:button size="sm" variant="ghost" icon="play" class="text-violet-600 dark:text-violet-400">{{ __('Watch Vid') }}</flux:button>
                                         </a>
                                     @endif
                                     
                                     @if(! $isDone)
                                         <button wire:click="completeLesson({{ $lesson->id }})" class="h-9 px-4 rounded-xl text-xs font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-200">
-                                            Complete
+                                            {{ __('Complete') }}
                                         </button>
                                     @endif
                                 @else
-                                    <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-gray-400">Watch Vid</flux:button>
+                                    <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-gray-400">{{ __('Watch Vid') }}</flux:button>
                                     <flux:button size="sm" variant="ghost" icon="star" @click="alert('Please login first')" class="text-gray-400" />
                                 @endauth
                             </div>
@@ -164,13 +164,13 @@
                             </div>
                         </div>
                     @empty
-                        <div class="px-8 py-10 text-center text-sm text-slate-400 italic">No videos in this section yet.</div>
+                        <div class="px-8 py-10 text-center text-sm text-slate-400 italic">{{ __('No videos in this section yet.') }}</div>
                     @endforelse
                 </div>
             </div>
         @empty
             <div class="text-center py-20 rounded-[3rem] border border-dashed border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5">
-                <p class="text-slate-400 dark:text-gray-500 font-medium tracking-wide">Seeking content... check back soon!</p>
+                <p class="text-slate-400 dark:text-gray-500 font-medium tracking-wide">{{ __('Seeking content... check back soon!') }}</p>
             </div>
         @endforelse
     </div>
@@ -183,7 +183,7 @@
                     <div class="w-full border-t border-slate-200 dark:border-white/5"></div>
                 </div>
                 <div class="relative flex justify-center">
-                    <span class="px-6 bg-white dark:bg-[#050B14] text-xs font-black text-blue-600/60 dark:text-blue-400/40 uppercase tracking-[0.3em]">Masterclass Discussion</span>
+                    <span class="px-6 bg-white dark:bg-[#050B14] text-xs font-black text-blue-600/60 dark:text-blue-400/40 uppercase tracking-[0.3em]">{{ __('Masterclass Discussion') }}</span>
                 </div>
             </div>
             
@@ -192,7 +192,7 @@
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-10 pb-8 border-b border-gray-100 dark:border-gray-800">
                         <div class="max-w-2xl">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest mb-4">
-                                Deep Dive Module
+                                {{ __('Deep Dive Module') }}
                             </div>
                             <h3 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">{{ $course->title }}</h3>
                             <p class="text-slate-600 dark:text-gray-400 text-base mt-2 font-medium leading-relaxed">{{ $course->description }}</p>
@@ -204,7 +204,7 @@
                                 <flux:button size="sm" variant="subtle" icon="star" @click="alert('Please login first')" />
                             @endauth
                             <div class="h-10 px-4 bg-blue-500/5 dark:bg-blue-500/10 flex items-center justify-center rounded-2xl border border-blue-500/20 text-xs font-bold text-blue-600 dark:text-blue-400">
-                                {{ $course->comments->count() }} Shared Thoughts
+                                {{ $course->comments->count() }} {{ __('Shared Thoughts') }}
                             </div>
                         </div>
                     </div>

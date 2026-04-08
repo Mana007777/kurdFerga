@@ -21,22 +21,22 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
         <div class="space-y-4">
             <div class="flex items-center gap-3">
                 <div class="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
-                    <span class="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">Priority Deployments</span>
+                    <span class="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">{{ __('Priority Deployments') }}</span>
                 </div>
                 <div class="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.4)]"></span>
-                    Retrieval Active
+                    {{ __('Retrieval Active') }}
                 </div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase leading-none">Priority Archive</h1>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase leading-none">{{ __('Priority Archive') }}</h1>
             <p class="text-zinc-500 font-mono text-sm tracking-tight max-w-2xl leading-relaxed">
-                Database Access: AUTHORIZED // High-frequency units marked for immediate operational deployment. 
+                {{ __('Database Access: AUTHORIZED // High-frequency units marked for immediate operational deployment.') }}
             </p>
         </div>
 
         <div class="hidden md:flex flex-col items-end text-right">
              <span class="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-xl">
-                {{ count($starredLessons) }} Saved Blocks
+                {{ count($starredLessons) }} {{ __('Saved Blocks') }}
             </span>
         </div>
     </div>

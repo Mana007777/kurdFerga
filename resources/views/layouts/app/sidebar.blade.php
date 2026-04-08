@@ -5,27 +5,6 @@
     </head>
     <body class="min-h-screen bg-zinc-950 text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
         <style>
-            @keyframes scrollGrid {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(24px); }
-            }
-                0% { transform: translateY(0); }
-                100% { transform: translateY(24px); }
-            }
-            .bg-dot-pattern {
-                background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-                background-size: 24px 24px;
-            }
-            .dark .bg-dot-pattern {
-                background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-            }
-            .mask-radial-faded {
-                mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
-                -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
-            }
-            .animate-scroll-grid {
-                animation: scrollGrid 1.5s linear infinite;
-            }
             .glass-panel {
                 background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(24px);
@@ -42,6 +21,20 @@
                 transition-property: width, max-width, min-width, transform, opacity !important;
                 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
                 transition-duration: 400ms !important;
+            }
+
+            /* Hide Scrollbars */
+            ::-webkit-scrollbar { display: none; }
+            * { -ms-overflow-style: none; scrollbar-width: none; }
+
+            /* Premium Purple Active States */
+            [data-flux-sidebar-item][data-current] {
+                background-color: color-mix(in srgb, var(--color-violet-600) 20%, transparent) !important;
+                color: white !important;
+                border: 1px solid var(--color-violet-500/20) !important;
+            }
+            [data-flux-sidebar-item][data-current] [data-flux-icon] {
+                color: var(--color-violet-400) !important;
             }
 
         </style>
@@ -204,8 +197,8 @@
                 </flux:dropdown>
             @else
                 <div class="flex flex-col gap-2 p-2">
-                    <flux:button :href="route('login')" variant="primary" size="sm" class="w-full">Login</flux:button>
-                    <flux:button :href="route('register')" variant="ghost" size="sm" class="w-full">Register</flux:button>
+                    <flux:button :href="route('login')" variant="primary" size="sm" class="w-full">{{ __('Login') }}</flux:button>
+                    <flux:button :href="route('register')" variant="ghost" size="sm" class="w-full">{{ __('Register') }}</flux:button>
                 </div>
             @endauth
         </flux:sidebar>
@@ -266,7 +259,7 @@
                     </flux:menu>
                 </flux:dropdown>
             @else
-                <flux:button :href="route('login')" variant="ghost" size="sm">Login</flux:button>
+                <flux:button :href="route('login')" variant="ghost" size="sm">{{ __('Login') }}</flux:button>
             @endauth
         </flux:header>
 

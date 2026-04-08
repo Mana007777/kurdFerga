@@ -22,20 +22,20 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
         <div class="space-y-2">
             <div class="flex items-center gap-3">
                 <div class="px-2 py-0.5 rounded bg-violet-500/10 border border-violet-500/20">
-                    <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">Personnel Ranking</span>
+                    <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">{{ __('Personnel Ranking') }}</span>
                 </div>
                 <div class="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.4)]"></span>
-                    Operational
+                    {{ __('Operational') }}
                 </div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">Global Personnel Rankings</h1>
-            <p class="text-zinc-500 font-mono text-sm tracking-tight">Database integrity: SECURE // Analyzing contributor telemetry and XP distribution.</p>
+            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">{{ __('Global Personnel Rankings') }}</h1>
+            <p class="text-zinc-500 font-mono text-sm tracking-tight">{{ __('Database integrity: SECURE // Analyzing contributor telemetry and XP distribution.') }}</p>
         </div>
 
         <div class="hidden md:flex flex-col items-end text-right">
-            <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest leading-none mb-1">STATION // LEADERSHIP</span>
-            <span class="text-xs font-black text-zinc-400 uppercase tracking-[0.2em]">Sector // Academy</span>
+            <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest leading-none mb-1">{{ __('STATION // LEADERSHIP') }}</span>
+            <span class="text-xs font-black text-zinc-400 uppercase tracking-[0.2em]">{{ __('Sector // Academy') }}</span>
         </div>
     </div>
 
