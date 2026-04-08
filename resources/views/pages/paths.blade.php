@@ -1,83 +1,84 @@
-<?php
-
-use App\Models\Path;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use Livewire\Component;
-
-new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends Component {
-    public function with(): array
-    {
-        return [
-            'categorizedPaths' => Path::query()
-                ->where('is_published', true)
-                ->get()
-                ->groupBy('category'),
-        ];
-    }
-};
-?>
-
-<div class="px-6 py-12 md:px-10 max-w-7xl mx-auto w-full">
-    <!-- Header Section -->
-    <div class="text-center mb-20 relative">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-500/30 text-[10px] font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.2em] mb-6">
-            <flux:icon.map class="w-3.5 h-3.5" />
-            Academy Roadmaps
+<div class="px-8 md:px-12 py-12 max-w-7xl mx-auto w-full space-y-20">
+    <!-- Header Section: Route Briefing -->
+    <div class="text-center md:text-left space-y-4">
+        <div class="inline-flex items-center gap-3">
+            <div class="px-2 py-0.5 rounded bg-violet-500/10 border border-violet-500/20">
+                <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">Map Navigation</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
+                <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse shadow-[0_0_8px_rgba(139,92,246,0.5)]"></span>
+                Route Cache // Active
+            </div>
         </div>
-        <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-6">
-            Choose Your <span class="text-violet-600 dark:text-violet-400">Path</span>
+        <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none uppercase">
+            Choose Your <span class="text-violet-500">Path</span>
         </h1>
-        <p class="text-slate-500 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-            Select a specialized field to view curated learning journeys designed to take you from beginner to professional.
+        <p class="text-zinc-500 font-mono text-sm max-w-2xl">
+            Protocol: Multimodal Curriculum Integration. Select a specialized sector to initialize the learning sequence.
         </p>
     </div>
 
-    <!-- Categories & Paths -->
+    <!-- Categories & Route Modules -->
     <div class="space-y-24">
+        @php $catIndex = 1; @endphp
         @foreach($categorizedPaths as $category => $paths)
-            <div class="relative">
-                <!-- Category Heading -->
-                <div class="flex items-center gap-4 mb-10">
-                    <h2 class="text-2xl font-black text-slate-800 dark:text-white uppercase tracking-tight">
-                        {{ $category }}
-                    </h2>
-                    <div class="h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent dark:from-white/10 dark:to-transparent"></div>
+            <div class="space-y-8">
+                <!-- Section Header -->
+                <div class="flex items-center gap-6">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-[10px] font-mono text-zinc-600">SEC // {{ str_pad($catIndex++, 2, '0', STR_PAD_LEFT) }}</span>
+                        <h2 class="text-2xl font-black text-white uppercase tracking-tight">{{ $category }}</h2>
+                    </div>
+                    <div class="h-px flex-1 bg-zinc-900 border-t border-zinc-950"></div>
                 </div>
 
-                <!-- Paths Grid -->
+                <!-- Route Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($paths as $path)
-                        <a href="{{ route('paths.show', $path->slug) }}" wire:navigate class="group block relative">
-                            <div class="glass-panel h-full rounded-3xl border border-slate-200 dark:border-white/10 p-8 hover:border-violet-500/50 hover:shadow-2xl hover:shadow-violet-500/10 transition-all duration-500 flex flex-col">
-                                <div class="mb-6 flex items-center justify-between">
-                                    <div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center text-violet-600 transition-colors group-hover:bg-violet-500 group-hover:text-white">
-                                        <flux:icon.academic-cap class="w-6 h-6" />
-                                    </div>
-                                    <flux:icon.arrow-right class="w-4 h-4 text-slate-300 group-hover:text-violet-500 transition-all group-hover:translate-x-1" />
+                        <a href="{{ route('paths.show', $path->slug) }}" wire:navigate class="group relative block bg-zinc-950 border border-zinc-800 rounded-2xl p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] h-full flex flex-col">
+                            
+                            {{-- Unit Identity --}}
+                            <div class="flex items-center justify-between mb-8">
+                                <div class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-violet-500 group-hover:bg-violet-500/10 group-hover:border-violet-500/30 transition-all duration-500">
+                                    <flux:icon.map class="w-6 h-6" />
                                 </div>
-                                
-                                <h3 class="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
-                                    {{ $path->title }}
-                                </h3>
-                                
-                                <p class="text-slate-500 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                                    {{ $path->description }}
-                                </p>
-
-                                <div class="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
-                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                        @if($path->playlists_count > 0 || $path->playlists->isNotEmpty())
-                                            {{ $path->playlists->count() }} Playlists
-                                        @else
-                                            Curating Content
-                                        @endif
-                                    </span>
-                                    <span class="px-2 py-1 rounded-md bg-slate-50 dark:bg-white/5 text-[9px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-tighter">
-                                        Mastery Track
-                                    </span>
+                                <div class="text-right">
+                                    <span class="block text-[8px] font-mono text-zinc-600 uppercase">SYS-{{ strtoupper(substr($path->slug, 0, 6)) }}</span>
+                                    <span class="block text-[9px] font-black text-zinc-500 uppercase tracking-widest">Unit Deployment</span>
                                 </div>
                             </div>
+                            
+                            <h3 class="text-2xl font-black text-white leading-tight tracking-tight group-hover:text-violet-400 transition-colors duration-300 uppercase mb-4">
+                                {{ $path->title }}
+                            </h3>
+                            
+                            <p class="text-zinc-500 text-sm font-medium leading-relaxed line-clamp-3 mb-8">
+                                {{ $path->description }}
+                            </p>
+
+                            <div class="mt-auto pt-6 border-t border-zinc-900 flex items-center justify-between">
+                                <div class="flex items-baseline gap-2">
+                                     <span class="text-[10px] font-mono text-white tracking-widest">
+                                        @if($path->playlists_count > 0 || $path->playlists->isNotEmpty())
+                                            {{ str_pad($path->playlists->count(), 2, '0', STR_PAD_LEFT) }} UNITS
+                                        @else
+                                            OFFLINE
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-1.5 px-3 py-1 rounded bg-zinc-900 border border-zinc-800">
+                                    <span class="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em]">Mastery Track</span>
+                                </div>
+                            </div>
+
+                            <!-- Precision Hover Bracket -->
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover:h-12 transition-all duration-300"></div>
+                            
+                            <!-- Corner Brackets -->
+                            <div class="absolute top-4 left-4 w-2 h-2 border-t border-l border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
                     @endforeach
                 </div>
@@ -85,17 +86,33 @@ new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends 
         @endforeach
     </div>
 
-    <!-- Support Section -->
-    <div class="mt-32 glass-panel rounded-[3rem] p-12 lg:p-16 border border-slate-200 dark:border-white/10 text-center relative overflow-hidden">
-        <div class="absolute -top-12 -right-12 w-64 h-64 bg-violet-500/5 rounded-full blur-3xl"></div>
-        <div class="relative z-10">
-            <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-4 uppercase tracking-tight">Need a custom path?</h2>
-            <p class="text-slate-500 dark:text-gray-400 text-lg max-w-xl mx-auto mb-8">
-                Our curriculum team is constantly adding new tracks. If you have a specific technology in mind, let us know.
-            </p>
-            <flux:button variant="primary" class="rounded-2xl px-10 py-4 font-black">
-                Request a Technology
+    <!-- Deployment Request: Technical CTA -->
+    <div class="mt-32 relative overflow-hidden rounded-[2.5rem] bg-zinc-950 border border-zinc-800 p-12 md:p-20 group">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-violet-500/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-violet-500/10 transition-colors duration-1000"></div>
+
+        <div class="relative z-10 flex flex-col items-center text-center space-y-8">
+            <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-600 shadow-inner group-hover:border-violet-500/30 transition-all duration-500">
+                <flux:icon.question-mark-circle class="w-8 h-8" />
+            </div>
+            
+            <div class="space-y-4">
+                <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">Need a custom roadmap?</h2>
+                <p class="text-zinc-500 font-mono text-sm max-w-xl mx-auto">
+                    The deployment team is actively curating technology tracks. If you require a specialized roadmap, initialize a protocol request.
+                </p>
+            </div>
+
+            <flux:button variant="primary" size="lg" class="!rounded-xl !px-12 !py-6 !font-black !text-[11px] !uppercase !tracking-[0.3em] !bg-violet-600 !hover:bg-violet-500 !shadow-xl !shadow-violet-500/20">
+                Request Deployment Protocol
             </flux:button>
         </div>
+
+        <!-- Corner Accents -->
+        <div class="absolute top-8 left-8 w-4 h-4 border-t border-l border-zinc-700"></div>
+        <div class="absolute top-8 right-8 w-4 h-4 border-t border-r border-zinc-700"></div>
+        <div class="absolute bottom-8 left-8 w-4 h-4 border-b border-l border-zinc-700"></div>
+        <div class="absolute bottom-8 right-8 w-4 h-4 border-b border-r border-zinc-700"></div>
     </div>
 </div>
