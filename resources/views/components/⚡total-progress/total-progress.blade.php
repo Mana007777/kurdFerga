@@ -1,4 +1,4 @@
-<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-7 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]"
+<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-black border border-zinc-800 p-7 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]"
      x-data="{
          current: 0,
          target: @entangle('percentage'),
@@ -48,7 +48,7 @@
             </div>
             
             <div class="relative">
-                <select wire:model.live="selectedPlaylistId" class="appearance-none bg-zinc-900/50 text-zinc-300 text-[11px] font-bold tracking-wider rounded-lg py-2 pl-4 pr-10 border border-zinc-800 focus:border-violet-500/50 outline-none transition-all hover:bg-zinc-800/80 cursor-pointer uppercase">
+                <select wire:model.live="selectedPlaylistId" class="appearance-none bg-zinc-950 text-zinc-300 text-[11px] font-bold tracking-wider rounded-lg py-2 pl-4 pr-10 border border-zinc-800 focus:border-violet-500/50 outline-none transition-all hover:bg-zinc-900 cursor-pointer uppercase">
                     @foreach($playlists as $playlist)
                         <option value="{{ $playlist->id }}">{{ str($playlist->title)->limit(12) }}</option>
                     @endforeach

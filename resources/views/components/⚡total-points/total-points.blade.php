@@ -1,4 +1,4 @@
-<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-7 group transition-all duration-500 hover:border-amber-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] h-full"
+<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-black border border-zinc-800 p-7 group transition-all duration-500 hover:border-amber-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] h-full"
      x-data="{
          current: 0,
          target: @entangle('totalPoints'),
@@ -47,7 +47,7 @@
                 </div>
             </div>
             
-            <div class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-amber-500 shadow-inner group-hover:border-amber-500/30 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-zinc-950 border border-zinc-800 flex items-center justify-center text-amber-500 shadow-inner group-hover:border-amber-500/30 transition-colors">
                 <flux:icon.star class="w-5 h-5" variant="mini" />
             </div>
         </div>

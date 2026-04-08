@@ -103,7 +103,7 @@ new #[Title('Activity')] class extends Component {
     
     <!-- Data Grid Array (Contribution Graph) -->
     <div class="w-full">
-        <div class="relative overflow-hidden rounded-[2rem] bg-zinc-950 border border-zinc-800 p-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] group">
+        <div class="relative overflow-hidden rounded-[2rem] bg-black border border-zinc-800 p-8 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] group">
             <!-- Grid Background -->
             <div class="absolute inset-x-0 top-0 h-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
             
@@ -146,7 +146,7 @@ new #[Title('Activity')] class extends Component {
                                     <div class="flex flex-col gap-[4px]">
                                         @foreach($week as $date => $count)
                                             @php
-                                                $bgClass = $count == 0 ? 'bg-zinc-900 border-zinc-800/50' : 
+                                                $bgClass = $count == 0 ? 'bg-zinc-950 border-zinc-800/50' : 
                                                         ($count < 2 ? 'bg-violet-900/40 border-violet-500/20 text-violet-500' : 
                                                         ($count < 4 ? 'bg-violet-800/60 border-violet-400/30 text-violet-400' : 
                                                         ($count < 6 ? 'bg-violet-600/80 border-violet-300/40 text-violet-300' : 'bg-violet-500 border-violet-200 text-white')));
@@ -169,7 +169,7 @@ new #[Title('Activity')] class extends Component {
                     <div class="flex items-center gap-3">
                         <span class="text-[9px] font-bold text-zinc-700 uppercase tracking-widest">Minimal</span>
                         <div class="flex gap-1">
-                            <div class="w-3 h-3 rounded-[1px] bg-zinc-900 border border-zinc-800/50"></div>
+                            <div class="w-3 h-3 rounded-[1px] bg-zinc-950 border border-zinc-800/50"></div>
                             <div class="w-3 h-3 rounded-[1px] bg-violet-900/40 border border-violet-500/20"></div>
                             <div class="w-3 h-3 rounded-[1px] bg-violet-800/60 border border-violet-400/30"></div>
                             <div class="w-3 h-3 rounded-[1px] bg-violet-600/80 border border-violet-300/40"></div>
@@ -192,7 +192,7 @@ new #[Title('Activity')] class extends Component {
     <div class="space-y-8">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-violet-500">
+                <div class="w-12 h-12 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-violet-500">
                     <flux:icon.clipboard-document-list class="w-6 h-6" />
                 </div>
                 <div>
@@ -209,7 +209,7 @@ new #[Title('Activity')] class extends Component {
         </div>
 
         @if($this->watchedVideos->isEmpty())
-            <div class="relative overflow-hidden rounded-[1.5rem] bg-zinc-900/30 border-2 border-dashed border-zinc-800 p-16 flex flex-col items-center justify-center text-center space-y-4">
+            <div class="relative overflow-hidden rounded-[1.5rem] bg-black border-2 border-dashed border-zinc-800 p-16 flex flex-col items-center justify-center text-center space-y-4">
                  <div class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-700 mb-2">
                     <flux:icon.magnifying-glass class="w-6 h-6 animate-pulse" />
                 </div>

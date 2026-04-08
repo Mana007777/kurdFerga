@@ -55,11 +55,11 @@ new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends 
                 <!-- Route Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($paths as $path)
-                        <a href="{{ route('paths.show', $path->slug) }}" wire:navigate class="group relative block bg-zinc-950 border border-zinc-800 rounded-2xl p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] h-full flex flex-col">
+                        <a href="{{ route('paths.show', $path->slug) }}" wire:navigate class="group relative block bg-black border border-zinc-800 rounded-2xl p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] h-full flex flex-col">
                             
                             {{-- Unit Identity --}}
                             <div class="flex items-center justify-between mb-8">
-                                <div class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-violet-500 group-hover:bg-violet-500/10 group-hover:border-violet-500/30 transition-all duration-500">
+                                <div class="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-violet-500 group-hover:bg-violet-500/10 group-hover:border-violet-500/30 transition-all duration-500">
                                     <flux:icon.map class="w-6 h-6" />
                                 </div>
                                 <div class="text-right">
@@ -86,7 +86,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends 
                                         @endif
                                     </span>
                                 </div>
-                                <div class="flex items-center gap-1.5 px-3 py-1 rounded bg-zinc-900 border border-zinc-800">
+                                <div class="flex items-center gap-1.5 px-3 py-1 rounded bg-zinc-950 border border-zinc-800">
                                     <span class="text-[8px] font-black text-zinc-400 uppercase tracking-[0.2em]">Mastery Track</span>
                                 </div>
                             </div>
@@ -107,13 +107,13 @@ new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends 
     </div>
 
     <!-- Deployment Request: Technical CTA -->
-    <div class="mt-32 relative overflow-hidden rounded-[2.5rem] bg-zinc-950 border border-zinc-800 p-12 md:p-20 group">
+    <div class="mt-32 relative overflow-hidden rounded-[2.5rem] bg-black border border-zinc-800 p-12 md:p-20 group">
         <!-- Background Grid -->
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-violet-500/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-violet-500/10 transition-colors duration-1000"></div>
 
         <div class="relative z-10 flex flex-col items-center text-center space-y-8">
-            <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-600 shadow-inner group-hover:border-violet-500/30 transition-all duration-500">
+            <div class="w-16 h-16 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-600 shadow-inner group-hover:border-violet-500/30 transition-all duration-500">
                 <flux:icon.question-mark-circle class="w-8 h-8" />
             </div>
             

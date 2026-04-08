@@ -35,7 +35,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
         </div>
 
         <div class="hidden md:flex flex-col items-end text-right">
-             <span class="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl">
+             <span class="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-xl">
                 {{ count($starredLessons) }} Saved Blocks
             </span>
         </div>
@@ -44,11 +44,11 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
     @if($starredLessons->isNotEmpty())
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($starredLessons as $lesson)
-                <div class="group relative bg-zinc-950 border border-zinc-800 rounded-[2rem] p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] flex flex-col h-full">
+                <div class="group relative bg-black border border-zinc-800 rounded-[2rem] p-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)] flex flex-col h-full">
                     
                     {{-- Module Identity --}}
                     <div class="flex items-start justify-between mb-8">
-                        <div class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-amber-500 group-hover:bg-amber-500/10 transition-colors duration-500">
+                        <div class="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-amber-500 group-hover:bg-amber-500/10 transition-colors duration-500">
                             <flux:icon.star class="w-6 h-6 fill-current" />
                         </div>
                         <div class="text-right">
@@ -73,7 +73,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
                             size="base"
                             icon="play"
                             wire:navigate
-                            class="!rounded-xl !bg-zinc-900 !hover:bg-violet-500 !font-black !text-[9px] !uppercase !tracking-widest !text-zinc-400 hover:!text-white !transition-all"
+                            class="!rounded-xl !bg-zinc-950 !hover:bg-violet-500 !font-black !text-[9px] !uppercase !tracking-widest !text-zinc-400 hover:!text-white !transition-all"
                         >
                             Initialize Block
                         </flux:button>
@@ -94,7 +94,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Starred Videos')] class extends Co
         </div>
     @else
         <!-- Empty State: Database Retrieval Failure -->
-        <div class="relative overflow-hidden rounded-[3rem] bg-zinc-950 border border-zinc-800 p-24 md:p-40 group text-center space-y-8">
+        <div class="relative overflow-hidden rounded-[3rem] bg-black border border-zinc-800 p-24 md:p-40 group text-center space-y-8">
             <!-- Background Grid -->
             <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
             

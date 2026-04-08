@@ -96,7 +96,7 @@ new #[Title('Profile settings')] class extends Component {
         <div class="max-w-2xl">
             <form wire:submit="updateProfileInformation" class="space-y-12">
                 {{-- Bio-Scan Section --}}
-                <div class="flex flex-col md:flex-row items-center gap-10 p-8 rounded-[2rem] bg-zinc-900/50 border border-zinc-900 relative group overflow-hidden">
+                <div class="flex flex-col md:flex-row items-center gap-10 p-8 rounded-[2rem] bg-black border border-zinc-900 relative group overflow-hidden">
                     <div class="absolute inset-0 bg-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     
                     <div class="relative">
@@ -114,7 +114,7 @@ new #[Title('Profile settings')] class extends Component {
                         </div>
                         <div class="space-y-2">
                              <flux:label class="!text-[10px] !font-black !text-zinc-500 !uppercase !tracking-widest">Sync New Bio-Image</flux:label>
-                             <flux:input wire:model="photo" type="file" accept="image/*" class="!bg-zinc-950 !border-zinc-800 !text-[10px] !font-mono !text-zinc-400" />
+                             <flux:input wire:model="photo" type="file" accept="image/*" class="!bg-black !border-zinc-800 !text-[10px] !font-mono !text-zinc-400" />
                              <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest">Protocol: Max 1024KB // Format: JPG-PNG-WEBP</p>
                         </div>
                     </div>

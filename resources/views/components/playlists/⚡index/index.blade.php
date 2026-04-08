@@ -21,7 +21,7 @@
                 icon="magnifying-glass" 
                 clearable 
                 placeholder="Protocol Search..." 
-                class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs !py-3 tracking-widest focus:!border-violet-500/50"
+                class="!bg-black !border-zinc-800 !text-white !font-mono !text-xs !py-3 tracking-widest focus:!border-violet-500/50"
             />
             <div class="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-zinc-700"></div>
         </div>
@@ -34,17 +34,17 @@
                 <a
                     href="{{ route('playlists.show', $playlist) }}"
                     wire:navigate
-                    class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)]"
+                    class="group relative flex flex-col bg-black border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)]"
                 >
                     <!-- Visual Header (Thumbnail or Unit Label) -->
-                    <div class="relative h-44 overflow-hidden border-b border-zinc-900 flex items-center justify-center bg-zinc-900/50">
+                    <div class="relative h-44 overflow-hidden border-b border-zinc-900 flex items-center justify-center bg-black">
                         @if($playlist->thumbnail)
                             <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" alt="{{ $playlist->title }}" />
                         @else
                              <flux:icon.command-line class="w-16 h-16 text-zinc-800" />
                         @endif
                         
-                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                         
                         <!-- Unit ID Badge -->
                         <div class="absolute top-4 left-4 flex flex-col gap-0.5">
@@ -53,7 +53,7 @@
                         </div>
                         
                         <!-- Status Pulse -->
-                        <div class="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-0.5 rounded bg-zinc-950/80 border border-zinc-800 backdrop-blur-sm">
+                        <div class="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/80 border border-zinc-800 backdrop-blur-sm">
                             <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
                             <span class="text-[8px] font-black text-zinc-400 uppercase tracking-widest">Active</span>
                         </div>
@@ -69,11 +69,11 @@
                         </div>
 
                         <div class="mt-auto grid grid-cols-2 gap-2">
-                            <div class="bg-zinc-900/50 border border-zinc-800/50 rounded-lg p-2 flex flex-col justify-center">
+                            <div class="bg-zinc-950 border border-zinc-800/50 rounded-lg p-2 flex flex-col justify-center">
                                 <span class="text-[8px] font-black text-zinc-600 uppercase tracking-widest mb-0.5">Integration</span>
                                 <span class="text-xs font-mono text-white tracking-widest">{{ $playlist->lessons_count }} BLOCKS</span>
                             </div>
-                            <div class="bg-zinc-900/50 border border-zinc-800/50 rounded-lg p-2 flex flex-col justify-center">
+                            <div class="bg-zinc-950 border border-zinc-800/50 rounded-lg p-2 flex flex-col justify-center">
                                 <span class="text-[8px] font-black text-zinc-600 uppercase tracking-widest mb-0.5">Level</span>
                                 <span class="text-xs font-mono text-zinc-300 tracking-widest uppercase truncate">{{ $playlist->level ?? 'BEGINNER' }}</span>
                             </div>
@@ -98,8 +98,8 @@
             </div>
         @endif
     @else
-        <div class="relative overflow-hidden rounded-[2rem] bg-zinc-900/30 border-2 border-dashed border-zinc-800 p-24 flex flex-col items-center justify-center text-center space-y-6">
-             <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-700 mb-2">
+        <div class="relative overflow-hidden rounded-[2rem] bg-black border-2 border-dashed border-zinc-800 p-24 flex flex-col items-center justify-center text-center space-y-6">
+             <div class="w-16 h-16 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-700 mb-2">
                 <flux:icon.command-line class="w-8 h-8 animate-pulse" />
             </div>
             <div class="space-y-1">
