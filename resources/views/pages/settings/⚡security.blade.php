@@ -95,7 +95,7 @@ new #[Title('Security settings')] class extends Component {
                 <div class="space-y-8">
                     <div class="flex items-center gap-3">
                         <flux:icon.key class="w-5 h-5 text-violet-500" />
-                        <h2 class="text-sm font-black text-zinc-500 uppercase tracking-widest">Update Data encryption</h2>
+                        <h2 class="text-sm font-black text-zinc-500 uppercase tracking-widest">{{ __('Update Data encryption') }}</h2>
                     </div>
 
                     <div class="grid grid-cols-1 gap-6">
@@ -109,7 +109,7 @@ new #[Title('Security settings')] class extends Component {
                                 viewable
                                 class="!bg-zinc-950 !border-zinc-800 !text-white !font-black !h-14 !px-6 !rounded-xl focus:!border-violet-500 transition-all"
                             />
-                            <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">Current authorization key.</p>
+                            <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">{{ __('Current authorization key.') }}</p>
                         </div>
 
                         <div class="space-y-2">
@@ -122,7 +122,7 @@ new #[Title('Security settings')] class extends Component {
                                 viewable
                                 class="!bg-zinc-950 !border-zinc-800 !text-white !font-black !h-14 !px-6 !rounded-xl focus:!border-violet-500 transition-all"
                             />
-                            <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">Recommended: 16+ characters // High complexity.</p>
+                            <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">{{ __('Recommended: 16+ characters // High complexity.') }}</p>
                         </div>
 
                         <div class="space-y-2">
@@ -135,18 +135,18 @@ new #[Title('Security settings')] class extends Component {
                                 viewable
                                 class="!bg-zinc-950 !border-zinc-800 !text-white !font-black !h-14 !px-6 !rounded-xl focus:!border-violet-500 transition-all"
                             />
-                            <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">Security redundancy check.</p>
+                            <p class="text-[8px] font-mono text-zinc-600 uppercase tracking-widest pl-2">{{ __('Security redundancy check.') }}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-6 pt-6 border-t border-zinc-900">
                     <flux:button variant="filled" type="submit" class="!px-12 !py-6 !bg-zinc-950 !hover:bg-violet-600 !text-white !font-black !text-[11px] !uppercase !tracking-[0.4em] !rounded-2xl !shadow-xl !transition-all">
-                        Sync New Key
+                        {{ __('Sync New Key') }}
                     </flux:button>
 
                     <x-action-message class="font-mono text-[9px] text-emerald-500 uppercase tracking-widest" on="password-updated">
-                        [Key Updated]
+                        {{ __('[Key Updated]') }}
                     </x-action-message>
                 </div>
             </form>
@@ -156,7 +156,7 @@ new #[Title('Security settings')] class extends Component {
                 <div class="pt-20 border-t border-zinc-900 space-y-12">
                      <div class="flex items-center gap-3">
                         <flux:icon.shield-check class="w-5 h-5 text-emerald-500" />
-                        <h2 class="text-sm font-black text-zinc-500 uppercase tracking-widest">Multi-Layer Protocol (2FA)</h2>
+                        <h2 class="text-sm font-black text-zinc-500 uppercase tracking-widest">{{ __('Multi-Layer Protocol (2FA)') }}</h2>
                     </div>
 
                     <div class="bg-zinc-950 border border-zinc-800 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group">
@@ -166,10 +166,10 @@ new #[Title('Security settings')] class extends Component {
                             @if ($twoFactorEnabled)
                                 <div class="space-y-6">
                                     <div class="flex items-center gap-2 px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 w-fit">
-                                        <span class="text-[9px] font-black text-emerald-500 uppercase tracking-widest animate-pulse">2FA-ACTIVE</span>
+                                        <span class="text-[9px] font-black text-emerald-500 uppercase tracking-widest animate-pulse">{{ __('2FA-ACTIVE') }}</span>
                                     </div>
                                     <p class="text-zinc-500 font-mono text-xs uppercase tracking-tight leading-relaxed">
-                                        You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your mobile unit.
+                                        {{ __('You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your mobile unit.') }}
                                     </p>
 
                                     <div class="flex justify-start">
@@ -178,7 +178,7 @@ new #[Title('Security settings')] class extends Component {
                                             wire:click="disable"
                                             class="!text-red-500 hover:!bg-red-500/10 !font-black !text-[10px] !uppercase !tracking-widest"
                                         >
-                                            Disable 2FA Layer
+                                            {{ __('Disable 2FA Layer') }}
                                         </flux:button>
                                     </div>
 
@@ -187,10 +187,10 @@ new #[Title('Security settings')] class extends Component {
                             @else
                                 <div class="space-y-6">
                                     <div class="flex items-center gap-2 px-3 py-1 rounded bg-zinc-950 border border-zinc-800 w-fit">
-                                        <span class="text-[9px] font-black text-zinc-500 uppercase tracking-widest">2FA-OFFLINE</span>
+                                        <span class="text-[9px] font-black text-zinc-500 uppercase tracking-widest">{{ __('2FA-OFFLINE') }}</span>
                                     </div>
                                     <p class="text-zinc-500 font-mono text-xs uppercase tracking-tight leading-relaxed">
-                                        When you enable multi-layer authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a dedicated TOTP-supported application.
+                                        {{ __('When you enable multi-layer authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a dedicated TOTP-supported application.') }}
                                     </p>
 
                                     <flux:modal.trigger name="two-factor-setup-modal">
@@ -199,7 +199,7 @@ new #[Title('Security settings')] class extends Component {
                                             wire:click="$dispatch('start-two-factor-setup')"
                                             class="!bg-emerald-600 !hover:bg-emerald-500 !text-white !font-black !text-[10px] !uppercase !tracking-widest !rounded-xl !px-10 !py-4"
                                         >
-                                            Initialize 2FA Sequence
+                                            {{ __('Initialize 2FA Sequence') }}
                                         </flux:button>
                                     </flux:modal.trigger>
 

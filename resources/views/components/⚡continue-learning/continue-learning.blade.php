@@ -23,7 +23,7 @@
                 <div class="flex items-center gap-4">
                     <div class="flex items-center gap-2 px-3 py-1 rounded-md bg-violet-500/10 border border-violet-500/20">
                         <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span>
-                        <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">Active Mission</span>
+                        <span class="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em]">{{ __('Active Mission') }}</span>
                     </div>
                     <div class="h-px flex-1 bg-zinc-950"></div>
                     <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">{{ $playlist->title }} // UNIT-{{ str_pad($playlist->id, 3, '0', STR_PAD_LEFT) }}</span>
@@ -33,7 +33,7 @@
                     <h2 class="text-3xl md:text-4xl font-black text-white tracking-tighter drop-shadow-sm group-hover:text-violet-400 transition-colors duration-300">
                         {{ $lesson->title }}
                     </h2>
-                    <p class="text-zinc-500 font-mono text-xs uppercase tracking-widest">Protocol: Direct Learning Integration</p>
+                    <p class="text-zinc-500 font-mono text-xs uppercase tracking-widest">{{ __('Protocol: Direct Learning Integration') }}</p>
                 </div>
 
                 <!-- Segmented Linear Progress (Dummy logic for visual) -->
@@ -49,10 +49,10 @@
         <!-- Terminal Action -->
         <div class="flex-shrink-0 flex flex-col items-end gap-3 w-full md:w-auto">
             <a href="{{ route('playlists.show', $playlist) }}" wire:navigate class="group/btn relative inline-flex items-center gap-4 px-10 py-4 font-black text-white transition-all duration-300 bg-zinc-950 border border-zinc-800 rounded-xl hover:border-violet-500/50 hover:bg-zinc-900 shadow-xl">
-                <span class="text-[11px] font-black uppercase tracking-[0.3em]">Resume Integration</span>
+                <span class="text-[11px] font-black uppercase tracking-[0.3em]">{{ __('Resume Integration') }}</span>
                 <flux:icon.arrow-right class="w-5 h-5 group-hover/btn:translate-x-1.5 transition-transform text-violet-500" />
             </a>
-            <span class="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mr-2">Authorization: [Approved]</span>
+            <span class="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mr-2">{{ __('Authorization: [Approved]') }}</span>
         </div>
     </div>
 
@@ -69,11 +69,11 @@
              <flux:icon.command-line class="w-8 h-8" />
         </div>
         <div class="space-y-1">
-            <h2 class="text-xl font-black text-white tracking-tight uppercase tracking-[0.2em]">Queue Neutralized</h2>
-            <p class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">Awaiting Next Directive</p>
+            <h2 class="text-xl font-black text-white tracking-tight uppercase tracking-[0.2em]">{{ __('Queue Neutralized') }}</h2>
+            <p class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">{{ __('Awaiting Next Directive') }}</p>
         </div>
         <a href="{{ route('playlists.index') }}" wire:navigate class="inline-flex items-center gap-3 px-8 py-3 rounded-xl bg-violet-600 text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-violet-500 transition-colors shadow-lg shadow-violet-500/20">
-            Initialize New Mission
+            {{ __('Initialize New Mission') }}
         </a>
     </div>
 </div>

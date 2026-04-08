@@ -42,8 +42,8 @@
                     <div class="w-1 h-1 bg-emerald-500/40 rounded-full"></div>
                 </div>
                 <div>
-                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">Module // 02</h3>
-                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Milestones</h4>
+                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">{{ __('Module') }} // 02</h3>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">{{ __('Milestones') }}</h4>
                 </div>
             </div>
             
@@ -55,12 +55,12 @@
         {{-- Stats Display --}}
         <div class="flex flex-1 items-center justify-center relative py-6">
             <div class="flex flex-col items-center justify-center text-center">
-                <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Authenticated</div>
+                <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">{{ __('Authenticated') }}</div>
                 <div class="font-mono text-8xl font-black text-white tracking-tighter leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                     <span x-text="current"></span>
                 </div>
                 <div class="mt-4 px-4 py-1.5 rounded-lg bg-emerald-500/5 text-emerald-500 border border-emerald-500/20 text-[10px] font-black uppercase tracking-[0.2em]">
-                    Playlists Mastered
+                    {{ __('Playlists Mastered') }}
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
 
         {{-- Footer Status --}}
         <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.15em]">
-            <span class="text-zinc-500">Sector: 7G</span>
+            <span class="text-zinc-500">{{ __('Sector') }}: 7G</span>
             <span class="text-zinc-600 font-mono">ID: SEC-2938-X</span>
         </div>
 

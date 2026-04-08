@@ -42,8 +42,8 @@
                     <div class="w-1 h-1 bg-violet-500/40 rounded-full"></div>
                 </div>
                 <div>
-                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">Module // 01</h3>
-                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Learning Progress</h4>
+                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">{{ __('Module') }} // 01</h3>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">{{ __('Learning Progress') }}</h4>
                 </div>
             </div>
             
@@ -95,7 +95,7 @@
                 
                 {{-- Data Readout --}}
                 <div class="flex flex-col items-center justify-center z-10">
-                    <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Completion</div>
+                    <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">{{ __('Completion') }}</div>
                     <div class="font-mono text-5xl font-black text-white tracking-tighter leading-none">
                         <span x-text="current"></span><span class="text-xl font-normal text-zinc-600">%</span>
                     </div>
@@ -111,9 +111,9 @@
 
         {{-- Footer Telemetry --}}
         <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.15em]">
-            <span class="text-zinc-500">Telemetry: [Active]</span>
+            <span class="text-zinc-500">{{ __('Telemetry: [Active]') }}</span>
             <div class="flex gap-1.5 items-center">
-                <span class="text-violet-500">Live Status</span>
+                <span class="text-violet-500">{{ __('Live Status') }}</span>
                 <div class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></div>
             </div>
         </div>

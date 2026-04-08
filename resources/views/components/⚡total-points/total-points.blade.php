@@ -42,8 +42,8 @@
                     <div class="w-1 h-1 bg-amber-500/40 rounded-full"></div>
                 </div>
                 <div>
-                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">Module // 03</h3>
-                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Achievements</h4>
+                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">{{ __('Module') }} // 03</h3>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">{{ __('Achievements') }}</h4>
                 </div>
             </div>
             
@@ -55,12 +55,12 @@
         {{-- Stats Display --}}
         <div class="flex flex-1 items-center justify-center relative py-6">
             <div class="flex flex-col items-center justify-center text-center">
-                <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2 italic">Scanning Data...</div>
+                <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2 italic">{{ __('Scanning Data...') }}</div>
                 <div class="font-mono text-8xl font-black text-white tracking-tighter leading-none decoration-amber-500/20 underline underline-offset-8">
                     <span x-text="current"></span>
                 </div>
                 <div class="mt-4 px-4 py-1.5 rounded-lg bg-amber-500/5 text-amber-500 border border-amber-500/20 text-[10px] font-black uppercase tracking-[0.2em]">
-                    Total XP Accumulation
+                    {{ __('Total XP Accumulation') }}
                 </div>
             </div>
 
@@ -70,10 +70,10 @@
 
         {{-- Footer Rank --}}
         <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.15em]">
-            <span class="text-zinc-500">Global Rank: [Analyzing]</span>
+            <span class="text-zinc-500">{{ __('Global Rank: [Analyzing]') }}</span>
             <div class="flex items-center gap-1 text-amber-500">
                 <span class="w-1 h-1 rounded-full bg-amber-500 animate-ping"></span>
-                <span>Tier 1 Elite</span>
+                <span>{{ __('Tier 1 Elite') }}</span>
             </div>
         </div>
 
