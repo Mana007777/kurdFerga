@@ -1,3 +1,94 @@
+<?php
+
+use App\Concerns\ProfileValidationRules;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Livewire\WithFileUploads;
+
+new #[Title('Profile settings')] class extends Component {
+    use ProfileValidationRules, WithFileUploads;
+
+    public string $name = '';
+    public string $email = '';
+    public $photo;
+
+    /**
+     * Mount the component.
+     */
+    public function mount(): void
+    {
+        $this->name = Auth::user()->name;
+        $this->email = Auth::user()->email;
+    }
+
+    /**
+     * Update the profile information for the currently authenticated user.
+     */
+    public function updateProfileInformation(): void
+    {
+        $user = Auth::user();
+
+        $validated = $this->validate(array_merge(
+            $this->profileRules($user->id),
+            ['photo' => ['nullable', 'image', 'max:1024']]
+        ));
+
+        if ($this->photo) {
+            $user->profile_photo_path = $this->photo->store('profile-photos', 'public');
+        }
+
+        $user->fill([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+        ]);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        $this->dispatch('profile-updated', name: $user->name);
+    }
+
+    /**
+     * Send an email verification notification to the current user.
+     */
+    public function resendVerificationNotification(): void
+    {
+        $user = Auth::user();
+
+        if ($user->hasVerifiedEmail()) {
+            $this->redirectIntended(default: route('dashboard', absolute: false));
+
+            return;
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        Session::flash('status', 'verification-link-sent');
+    }
+
+    #[Computed]
+    public function hasUnverifiedEmail(): bool
+    {
+        return Auth::user() instanceof MustVerifyEmail && ! Auth::user()->hasVerifiedEmail();
+    }
+
+    #[Computed]
+    public function showDeleteUser(): bool
+    {
+        return ! Auth::user() instanceof MustVerifyEmail
+            || (Auth::user() instanceof MustVerifyEmail && Auth::user()->hasVerifiedEmail());
+    }
+}; ?>
+
 <section class="w-full">
     <flux:heading class="sr-only">{{ __('Profile settings') }}</flux:heading>
 

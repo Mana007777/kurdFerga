@@ -1,3 +1,12 @@
+<?php
+
+use Livewire\Component;
+use Livewire\Attributes\Title;
+
+new #[Title('Appearance settings')] class extends Component {
+    //
+}; ?>
+
 <section class="w-full">
     <flux:heading class="sr-only">{{ __('Appearance settings') }}</flux:heading>
 
