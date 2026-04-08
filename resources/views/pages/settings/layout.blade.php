@@ -15,7 +15,6 @@
                     $navItems = [
                         ['route' => 'profile.edit', 'label' => 'Personnel Dossier', 'icon' => 'user-circle', 'id' => '01'],
                         ['route' => 'security.edit', 'label' => 'Security Protocol', 'icon' => 'shield-check', 'id' => '02'],
-                        ['route' => 'appearance.edit', 'label' => 'Interface Specs', 'icon' => 'swatch', 'id' => '03'],
                     ];
                 @endphp
 
