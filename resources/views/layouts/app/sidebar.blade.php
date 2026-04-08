@@ -125,7 +125,7 @@
                                 <flux:sidebar.item icon="trophy" :href="route('leaderboard')" :current="request()->routeIs('leaderboard')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
                                     <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
                                     <span class="flex items-center justify-between w-full">
-                                        Leaderboard
+                                        {{ __('Leaderboard') }}
                                         <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[RANK]</span>
                                     </span>
                                 </flux:sidebar.item>
@@ -140,18 +140,33 @@
                     <flux:sidebar.item icon="map" :href="route('paths.index')" :current="request()->routeIs('paths.index')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
                         <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
                          <span class="flex items-center justify-between w-full">
-                            Learning Paths
+                            {{ __('Learning Paths') }}
                             <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[MAP]</span>
                         </span>
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-2 !text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                    <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-2 !text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-500">
                         <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
                          <span class="flex items-center justify-between w-full">
-                            View All Playlists
+                            {{ __('View All Playlists') }}
                              <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ALL]</span>
                         </span>
                     </flux:sidebar.item>
+
+                    <div class="mb-4">
+                        <div class="flex items-center gap-2 px-3 mb-2 mt-8">
+                            <span class="text-[9px] font-mono text-zinc-600">LOC // 04</span>
+                            <div class="h-[1px] flex-1 bg-zinc-800/50"></div>
+                        </div>
+                        <div class="px-3 flex items-center gap-2">
+                            <a href="{{ route('lang.switch', 'en') }}" class="flex-1 py-2 rounded-lg text-center text-[10px] font-black uppercase tracking-widest transition-all {{ app()->getLocale() === 'en' ? 'bg-violet-600 text-white shadow-[0_0_15px_rgba(139,92,246,0.5)]' : 'bg-zinc-900 text-zinc-500 hover:bg-zinc-800' }}">
+                                EN
+                            </a>
+                            <a href="{{ route('lang.switch', 'ckb') }}" class="flex-1 py-2 rounded-lg text-center text-[10px] font-black uppercase tracking-widest transition-all {{ app()->getLocale() === 'ckb' ? 'bg-violet-600 text-white shadow-[0_0_15px_rgba(139,92,246,0.5)]' : 'bg-zinc-900 text-zinc-500 hover:bg-zinc-800' }}">
+                                KU
+                            </a>
+                        </div>
+                    </div>
                 </flux:sidebar.nav>
 
             <flux:spacer />

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
@@ -40,5 +41,7 @@ Route::middleware(['auth'])->group(function () {
         Route::livewire('/{course}/playlist', 'admin.courses.playlist')->name('playlist');
     });
 });
+
+Route::get('lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 require __DIR__.'/settings.php';
