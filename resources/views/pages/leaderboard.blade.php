@@ -1,3 +1,21 @@
+<?php
+
+use App\Models\User;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+
+new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Component {
+    public function with(): array
+    {
+        return [
+            'topUsers' => User::orderByDesc('pts')->limit(3)->get(),
+            'otherUsers' => User::orderByDesc('pts')->skip(3)->limit(97)->get(),
+        ];
+    }
+};
+?>
+
 <div class="px-8 md:px-12 py-12 max-w-7xl mx-auto w-full space-y-20">
     <!-- Header Section: Mission Briefing -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
