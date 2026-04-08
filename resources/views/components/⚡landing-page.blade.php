@@ -17,6 +17,14 @@ new #[Layout('layouts.base')] class extends Component
             ->get();
     }
 
+    #[Computed]
+    public function topics()
+    {
+        return Playlist::where('is_published', true)
+            ->orderBy('title')
+            ->get();
+    }
+
     public function getStarted()
     {
         $this->redirectRoute('register');
@@ -24,7 +32,7 @@ new #[Layout('layouts.base')] class extends Component
 };
 ?>
 
-<div x-data="{ mounted: false }" x-init="setTimeout(() => mounted = true, 50)" class="min-h-screen bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-300 font-sans selection:bg-violet-500 selection:text-white overflow-x-hidden relative">
+<div x-data="{ mounted: false, showTopics: false, activeTopic: null }" x-init="setTimeout(() => mounted = true, 50)" class="min-h-screen bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-300 font-sans selection:bg-violet-500 selection:text-white overflow-x-hidden relative">
     
     <style>
         @keyframes shine {
@@ -118,11 +126,11 @@ new #[Layout('layouts.base')] class extends Component
                         </a>
                         
                         <nav class="hidden md:flex gap-8">
-                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
+                            <button @click="showTopics = true" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group cursor-pointer">
                                 Topics
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-violet-500 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
-                            </a>
-                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
+                            </button>
+                            <a href="#latest" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
                                 Playlists
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-violet-500 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
@@ -321,6 +329,79 @@ new #[Layout('layouts.base')] class extends Component
                 </div>
             </div>
         </section>
+
+        {{-- Topics Modal --}}
+        <flux:modal x-model="showTopics" variant="flyout" class="max-w-4xl">
+            <div class="space-y-6">
+                <div>
+                    <flux:heading size="xl">Explore Topics</flux:heading>
+                    <flux:text>Choose a playlist to learn more about the topic.</flux:text>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div class="space-y-2 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                        @foreach($this->topics as $topic)
+                            <button 
+                                @click="activeTopic = {{ json_encode($topic) }}"
+                                :class="activeTopic?.id === {{ $topic->id }} ? 'bg-violet-50 dark:bg-violet-900/30 border-violet-200 dark:border-violet-700' : 'hover:bg-slate-50 dark:hover:bg-white/5 border-transparent'"
+                                class="w-full text-left p-4 rounded-xl border transition-all duration-200 group flex items-center justify-between"
+                            >
+                                <span class="font-bold text-slate-800 dark:text-gray-200 group-hover:text-violet-600 dark:group-hover:text-violet-400" :class="activeTopic?.id === {{ $topic->id }} && 'text-violet-600 dark:text-violet-400'">
+                                    {{ $topic->title }}
+                                </span>
+                                <flux:icon icon="chevron-right" variant="micro" class="text-slate-400 group-hover:text-violet-500" />
+                            </button>
+                        @endforeach
+                    </div>
+
+                    <div class="sticky top-0">
+                        <div x-show="!activeTopic" class="glass-panel rounded-3xl p-8 min-h-[400px] flex flex-col items-center justify-center text-center border-dashed border-2 border-slate-200 dark:border-white/10">
+                            <div class="w-16 h-16 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mb-6">
+                                <flux:icon icon="book-open" class="w-8 h-8 text-slate-400" />
+                            </div>
+                            <flux:heading>Select a Topic</flux:heading>
+                            <flux:text>The introduction and overview will appear here.</flux:text>
+                        </div>
+
+                        <div x-show="activeTopic" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-6">
+                            <div class="relative group">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-plum-600 rounded-[2rem] blur opacity-25"></div>
+                                <div class="relative p-8 bg-white dark:bg-gray-900 border border-slate-200 dark:border-white/10 rounded-[2rem] shadow-xl">
+                                    <h3 class="text-2xl font-black text-zinc-900 dark:text-white mb-4 leading-tight" x-text="activeTopic?.title"></h3>
+                                    
+                                    <div class="flex items-center gap-2 mb-6">
+                                        <div class="h-1 w-8 bg-violet-500 rounded-full"></div>
+                                        <span class="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest">Introduction</span>
+                                    </div>
+
+                                    <div class="relative">
+                                        <flux:icon icon="chat-bubble-bottom-center-text" variant="micro" class="absolute -left-1 -top-1 w-12 h-12 text-violet-500/10" />
+                                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed font-medium text-lg relative z-10" x-text="activeTopic?.description"></p>
+                                    </div>
+
+                                    <div class="mt-8 pt-8 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                        <div class="flex -space-x-2">
+                                            <div class="w-8 h-8 rounded-full border-2 border-white dark:border-gray-900 bg-slate-200"></div>
+                                            <div class="w-8 h-8 rounded-full border-2 border-white dark:border-gray-900 bg-slate-300"></div>
+                                            <div class="w-8 h-8 rounded-full border-2 border-white dark:border-gray-900 bg-slate-400 flex items-center justify-center text-[10px] font-bold text-white">+12</div>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-400 uppercase">Interactive Masterclass</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a :href="'/playlists/' + activeTopic?.slug" class="relative group block w-full">
+                                <div class="absolute -inset-0.5 bg-gradient-to-r from-violet-600 to-plum-600 rounded-2xl blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
+                                <div class="relative flex items-center justify-center gap-3 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold rounded-2xl hover:scale-[1.01] transition-all">
+                                    <span>Start Learning Now</span>
+                                    <flux:icon icon="arrow-right" variant="micro" class="w-4 h-4" />
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </flux:modal>
     </main>
 
     
