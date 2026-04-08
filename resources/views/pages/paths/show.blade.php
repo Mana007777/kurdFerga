@@ -126,11 +126,11 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
         <p class="text-violet-100 text-xl mb-12 relative z-10 max-w-2xl mx-auto font-medium">Start the first playlist of this path and track your progress all the way to mastery.</p>
         
         @auth
-           <flux:button :href="route('playlists.show', $path->playlists->first()->slug)" variant="white" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl">
+           <flux:button :href="route('playlists.show', $path->playlists->first()->slug)" variant="primary" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl !bg-white !text-violet-600 border-none">
                 Start Step 1
             </flux:button>
         @else
-            <flux:button :href="route('register')" variant="white" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl">
+            <flux:button :href="route('register')" variant="primary" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl !bg-white !text-violet-600 border-none">
                 Create Account To Track Progress
             </flux:button>
         @endauth
