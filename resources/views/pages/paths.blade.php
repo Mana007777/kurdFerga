@@ -1,3 +1,23 @@
+<?php
+
+use App\Models\Path;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+
+new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends Component {
+    public function with(): array
+    {
+        return [
+            'categorizedPaths' => Path::query()
+                ->where('is_published', true)
+                ->get()
+                ->groupBy('category'),
+        ];
+    }
+};
+?>
+
 <div class="px-8 md:px-12 py-12 max-w-7xl mx-auto w-full space-y-20">
     <!-- Header Section: Route Briefing -->
     <div class="text-center md:text-left space-y-4">
@@ -104,7 +124,7 @@
                 </p>
             </div>
 
-            <flux:button variant="primary" size="lg" class="!rounded-xl !px-12 !py-6 !font-black !text-[11px] !uppercase !tracking-[0.3em] !bg-violet-600 !hover:bg-violet-500 !shadow-xl !shadow-violet-500/20">
+            <flux:button variant="filled" size="base" class="!rounded-xl !px-12 !py-6 !font-black !text-[11px] !uppercase !tracking-[0.3em] !bg-violet-600 !hover:bg-violet-500 !shadow-xl !shadow-violet-500/20">
                 Request Deployment Protocol
             </flux:button>
         </div>
