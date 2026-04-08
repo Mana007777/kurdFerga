@@ -80,7 +80,7 @@ new #[Layout('layouts.base')] class extends Component
             100% { transform: translateX(-50%); }
         }
         .animate-scroll-left {
-            animation: scroll-left 15s linear infinite;
+            animation: scroll-left 10s linear infinite;
         }
         .pause-on-hover:hover {
             animation-play-state: paused;
