@@ -23,7 +23,7 @@
     "Get Started": "دەست پێ بکە",
     "Direct Feed Active": "فیدی ڕاستەوخۆ چالاکە",
     "Curriculum v2.4": "پڕۆگرام ڤێرژن ٢.٤",
-    "Artisanal <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500\">Knowledge</span><br /> Deployment": "پەرەپێدانی <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500\">زانیاری</span><br /> هونەری",
+    "KURDISH <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500\">FERGA</span><br />": "فێرگەی <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500\">کوردی</span><br />",
     "High-frequency, precision-engineered training for modern web architects. Cinematic curriculum for the 0.1%.": "فێربوونی ورد و پێشکەوتوو بۆ تەلارسازانی وێبی سەردەم. پڕۆگرامی سینەمایی بۆ ٠.١٪ ی فێرخوازان.",
     "Initialize Training": "دەستپێکردنی ڕاهێنان",
     "System Database": "داتابەیسی سیستەم",
@@ -45,8 +45,8 @@
     "Mission Logs": "تۆماری چالاکییەکان",
     "Sequence Archive: Historical Data Transmission & Activity Tracking": "ئەرشیفی زنجیرەیی: گواستنەوەی داتای مێژوویی و چاودێری چالاکی",
     "Station": "وێستگە",
-    "Sector // Academy": "کەرتی // ئەکادیمی",
-    "Learning Heatmap // Annual Cycle": "نەخشەی گەرمی فێربوون // خولی ساڵانە",
+    "Sector // Academy": "کەرت // ئەکادیمی",
+    "Learning Heatmap // Annual Cycle": "فەربوونی چڕ // خولی ساڵانە",
     "Sun": "یەکشەممە",
     "Mon": "دووشەممە",
     "Tue": "سێشەممە",
@@ -187,6 +187,6 @@
     "Disable 2FA Layer": "ناچالاککردنی چینی 2FA",
     "2FA-OFFLINE": "2FA-ناچالاکە",
     "When you enable multi-layer authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a dedicated TOTP-supported application.": "کاتێک چینی فرە-پشکنین چالاک دەکەیت، لە کاتی چوونە ژوورەوەدا داوای کۆدی ئاسایشت لێ دەکرێت. ئەم کۆدە لە ڕێگەی ئەپڵیکەیشنێکی تایبەتی TOTP وەردەگریت.",
-    "Initialize 2FA Sequence": "دەستپێکردنی زنجیرەی 2FA",
-    "Command": "فەرماندەیی"
+    "Initialize 2FA Sequence": "توفاکتەر",
+    "Command": "کۆماند"
 }

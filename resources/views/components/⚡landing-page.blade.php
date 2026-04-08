@@ -151,7 +151,7 @@ new #[Layout('layouts.base')] class extends Component
             </div>
             
             <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] mb-10 max-w-5xl transition-all duration-1000 delay-500 ease-out text-white uppercase">
-                {!! __('Artisanal <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500">Knowledge</span><br /> Deployment') !!}
+                {!! __('KURDISH <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500">FERGA</span><br />') !!}
             </h1>
             
             <p :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="text-sm md:text-lg text-zinc-500 max-w-2xl mb-16 font-mono transition-all duration-1000 delay-700 ease-out leading-relaxed tracking-tight uppercase">
