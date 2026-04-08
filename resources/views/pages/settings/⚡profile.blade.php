@@ -102,7 +102,7 @@ new #[Title('Profile settings')] class extends Component {
                     <div class="relative">
                         <div class="absolute -inset-4 border border-violet-500/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
                         <div class="absolute -inset-2 border border-violet-500/40 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-                        <flux:avatar src="{{ $this->photo ? $this->photo->temporaryUrl() : auth()->user()->profilePhotoUrl() }}" size="xl" class="!w-32 !h-32 shadow-[0_0_30px_rgba(139,92,246,0.3)] relative z-10" />
+                        <flux:avatar src="{{ $this->photo ? $this->photo->temporaryUrl() : auth()->user()->profilePhotoUrl() }}" size="xl" class="!w-32 !h-32 !rounded-full shadow-[0_0_30px_rgba(139,92,246,0.3)] relative z-10" />
                     </div>
 
                     <div class="flex-1 space-y-4">
