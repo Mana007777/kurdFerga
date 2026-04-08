@@ -101,7 +101,7 @@ new #[Layout('layouts.base')] class extends Component
     </style>
 
     
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50 dark:bg-gray-950">
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-zinc-950">
         <div class="absolute inset-0 z-0 bg-dot-pattern opacity-5 dark:opacity-[0.03] pointer-events-none"></div>
     </div>
 
@@ -145,7 +145,7 @@ new #[Layout('layouts.base')] class extends Component
                         <a href="/login" class="text-sm font-bold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white transition-colors dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] px-3 py-1.5 rounded-lg">Sign In</a>
                         <button wire:click="getStarted" class="relative group overflow-hidden rounded-full p-[1px]">
                             <span class="absolute inset-0 bg-gradient-to-r from-lavender via-violet to-plum opacity-70 group-hover:opacity-100 group-hover:rotate-180 transition-all duration-700 ease-linear rounded-full"></span>
-                            <div class="relative flex items-center gap-2 bg-white dark:bg-gray-950 px-6 py-2.5 rounded-full transition-all duration-300 group-hover:bg-opacity-0">
+                            <div class="relative flex items-center gap-2 bg-white dark:bg-zinc-950 px-6 py-2.5 rounded-full transition-all duration-300 group-hover:bg-opacity-0">
                                 <span class="text-sm font-bold text-zinc-800 dark:text-white group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">Get Started</span>
                             </div>
                         </button>
@@ -405,7 +405,7 @@ new #[Layout('layouts.base')] class extends Component
     </main>
 
     
-    <footer class="mt-32 border-t border-zinc-200 dark:border-white/5 bg-slate-50 dark:bg-gray-950 py-16 relative overflow-hidden z-20">
+    <footer class="mt-32 border-t border-zinc-200 dark:border-white/5 bg-slate-50 dark:bg-zinc-950 py-16 relative overflow-hidden z-20">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/10 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="flex flex-col items-center justify-center text-center">

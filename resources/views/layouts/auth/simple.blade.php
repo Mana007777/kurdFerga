@@ -6,7 +6,7 @@
     <body class="min-h-screen bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500 selection:text-white">
 
         <!-- Animated Background Orbs -->
-        <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50 dark:bg-gray-950">
+        <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-zinc-950">
             <div class="absolute inset-0 z-0 bg-dot-pattern opacity-5 dark:opacity-[0.03] pointer-events-none"></div>
         </div>
 

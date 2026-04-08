@@ -46,7 +46,7 @@
 
         </style>
 
-        <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50 dark:bg-gray-950">
+        <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-zinc-950">
             <div class="absolute inset-0 z-0 bg-dot-pattern opacity-5 dark:opacity-[0.03] pointer-events-none"></div>
         </div>
 

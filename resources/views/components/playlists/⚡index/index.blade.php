@@ -34,60 +34,48 @@
                 <a
                     href="{{ route('playlists.show', $playlist) }}"
                     wire:navigate
-                    class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(139,92,246,0.3)]"
+                    class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-[2.5rem] pt-16 pb-10 px-8 transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_50px_-12px_rgba(139,92,246,0.5)] mt-12"
                 >
-                    <!-- Visual Header (Thumbnail or Unit Label) -->
-                    <div class="relative h-44 overflow-hidden border-b border-zinc-900 flex items-center justify-center bg-zinc-950">
-                        @if($playlist->thumbnail)
-                            <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" alt="{{ $playlist->title }}" />
-                        @else
-                             <flux:icon.command-line class="w-16 h-16 text-zinc-800" />
-                        @endif
-                        
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                        
-                        <!-- Unit ID Badge -->
-                        <div class="absolute top-4 left-4 flex flex-col gap-0.5">
-                            <span class="text-[9px] font-black text-violet-500 uppercase tracking-[0.2em]">Unit // {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
-                            <span class="text-[8px] font-mono text-zinc-600 uppercase">SYS-{{ strtoupper(substr($playlist->slug, 0, 4)) }}</span>
+                    {{-- Circular Bio-Link Icon (Overlapping Border) --}}
+                    <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full p-1 bg-zinc-950 border border-zinc-800 shadow-xl z-20 group-hover:border-violet-500/50 transition-colors duration-500">
+                        <div class="w-full h-full rounded-full border-2 border-zinc-900 overflow-hidden bg-zinc-900 flex items-center justify-center">
+                            @if($playlist->thumbnail)
+                                <img src="{{ str_starts_with($playlist->thumbnail, 'http') ? $playlist->thumbnail : asset('storage/' . $playlist->thumbnail) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $playlist->title }}" />
+                            @else
+                                 <flux:icon.command-line class="w-10 h-10 text-zinc-700 group-hover:text-violet-500 transition-colors duration-500" />
+                            @endif
                         </div>
-                        
-                        <!-- Status Pulse -->
-                        <div class="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-0.5 rounded bg-zinc-950/80 border border-zinc-800 backdrop-blur-sm">
-                            <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
-                            <span class="text-[8px] font-black text-zinc-400 uppercase tracking-widest">Active</span>
+                        {{-- Orbital Ring --}}
+                        <div class="absolute inset-[-4px] rounded-full border border-violet-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    </div>
+
+                    {{-- Module Header --}}
+                    <div class="text-center space-y-2 mb-8">
+                        <h3 class="text-2xl font-black text-white leading-tight tracking-tighter uppercase group-hover:text-violet-400 transition-colors duration-300">
+                            {{ $playlist->title }}
+                        </h3>
+                        <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">Lead // {{ $playlist->author_name ?? 'Command' }}</p>
+                    </div>
+
+                    {{-- Hardware Spec List --}}
+                    <div class="space-y-4 pt-6 border-t border-zinc-900">
+                        <div class="flex items-center gap-4 text-zinc-400 group/item">
+                            <flux:icon.queue-list class="w-4 h-4 text-zinc-600 group-hover/item:text-violet-500 transition-colors" />
+                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->lessons_count }} Episodes</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-zinc-400 group/item">
+                            <flux:icon.academic-cap class="w-4 h-4 text-zinc-600 group-hover/item:text-emerald-500 transition-colors" />
+                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->level ?? 'Mastery' }}</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-zinc-400 group/item">
+                            <flux:icon.tag class="w-4 h-4 text-zinc-600 group-hover/item:text-amber-500 transition-colors" />
+                            <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->category ?? 'Platform' }}</span>
                         </div>
                     </div>
 
-                    <!-- Module Content -->
-                    <div class="p-6 space-y-6 flex-1 flex flex-col relative">
-                        <div class="space-y-1">
-                            <h3 class="text-xl font-black text-white leading-tight tracking-tight group-hover:text-violet-400 transition-colors duration-300 uppercase">
-                                {{ $playlist->title }}
-                            </h3>
-                            <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Lead: {{ $playlist->author_name ?? 'Ferga Command' }}</p>
-                        </div>
-
-                        <div class="mt-auto grid grid-cols-2 gap-2">
-                            <div class="bg-zinc-950 border border-zinc-800/50 rounded-lg p-2 flex flex-col justify-center">
-                                <span class="text-[8px] font-black text-zinc-600 uppercase tracking-widest mb-0.5">Integration</span>
-                                <span class="text-xs font-mono text-white tracking-widest">{{ $playlist->lessons_count }} BLOCKS</span>
-                            </div>
-                            <div class="bg-zinc-950 border border-zinc-800/50 rounded-lg p-2 flex flex-col justify-center">
-                                <span class="text-[8px] font-black text-zinc-600 uppercase tracking-widest mb-0.5">Level</span>
-                                <span class="text-xs font-mono text-zinc-300 tracking-widest uppercase truncate">{{ $playlist->level ?? 'BEGINNER' }}</span>
-                            </div>
-                        </div>
-
-                        <!-- Precision Hover Bracket -->
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover:h-12 transition-all duration-300"></div>
-                    </div>
-
-                    <!-- Edge Brackets -->
-                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    {{-- Side Hardware Brackets --}}
+                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-violet-600 group-hover:h-16 transition-all duration-500"></div>
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[1px] h-0 bg-zinc-800 group-hover:h-16 transition-all duration-500"></div>
                 </a>
             @endforeach
         </div>

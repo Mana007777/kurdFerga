@@ -46,9 +46,9 @@
         --color-accent-foreground: var(--color-neutral-800);
 
         /* Default background and foreground colors for dark mode */
-        --color-canvas-base: var(--color-gray-900);
-        --color-canvas-card: var(--color-gray-800);
-        --color-canvas-border: var(--color-gray-700);
+        --color-canvas-base: var(--color-zinc-950);
+        --color-canvas-card: var(--color-zinc-900);
+        --color-canvas-border: var(--color-zinc-800);
     }
 }
 
