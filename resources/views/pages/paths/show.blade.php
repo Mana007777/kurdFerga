@@ -46,8 +46,13 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
 
             @php
                 $roadmapData = is_array($path->roadmap) ? $path->roadmap : [];
-                $stepsData = $path->playlists->isNotEmpty() ? $path->playlists : collect($roadmapData['steps'] ?? []);
-                $totalSteps = $stepsData->count();
+                $hasRoadmapSteps = !empty($roadmapData['steps']);
+                
+                // Prioritize Roadmap JSON steps, then fallback to database playlists
+                $steps = $hasRoadmapSteps ? collect($roadmapData['steps']) : $path->playlists;
+                $isDatabaseSteps = !$hasRoadmapSteps && $path->playlists->isNotEmpty();
+                
+                $totalSteps = $steps->count();
                 $totalLessons = $path->playlists->sum(fn($p) => $p->lessons->count());
             @endphp
 
@@ -124,10 +129,6 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
         <div class="absolute left-8 lg:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-violet-500/50 via-plum-500/50 to-transparent rounded-full hidden md:block"></div>
         
         <div class="space-y-24">
-            @php
-                $isDatabaseSteps = $path->playlists->isNotEmpty();
-                $steps = $isDatabaseSteps ? $path->playlists : collect($roadmapData['steps'] ?? []);
-            @endphp
 
             @foreach($steps as $index => $step)
                 <div class="relative flex flex-col md:flex-row items-center gap-12 group">
@@ -205,6 +206,46 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
             @endforeach
         </div>
     </div>
+
+    <!-- Related Playlists (only show as secondary resources if roadmap steps were primary) -->
+    @if($hasRoadmapSteps && $path->playlists->isNotEmpty())
+        <div class="mt-40">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-10 w-2 bg-violet-600 rounded-full"></div>
+                <flux:heading level="2" class="font-black !text-slate-900 dark:!text-white text-4xl tracking-tight">
+                    Premium Academy Playlists
+                </h4>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($path->playlists as $playlist)
+                    <a href="{{ route('playlists.show', $playlist->slug) }}" wire:navigate class="glass-panel p-6 rounded-[2.5rem] border border-slate-200 dark:border-white/10 hover:-translate-y-2 transition-transform duration-500 group relative overflow-hidden">
+                        <div class="absolute -top-12 -right-12 w-24 h-24 bg-violet-500/5 rounded-full blur-2xl group-hover:bg-violet-500/10 transition-colors"></div>
+                        
+                        <div class="aspect-video rounded-[1.5rem] overflow-hidden mb-6 relative shadow-lg">
+                            <img src="{{ $playlist->thumbnail ?? 'https://placehold.co/600x400/1e1b4b/white?text=' . urlencode($playlist->title) }}" class="w-full h-full object-cover">
+                            <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                                <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[9px] font-black text-white uppercase tracking-widest border border-white/20">
+                                    {{ $playlist->lessons->count() }} Lessons
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 bg-violet-600/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <flux:icon.play class="w-12 h-12 text-white drop-shadow-2xl" variant="mini" />
+                            </div>
+                        </div>
+
+                        <h4 class="text-2xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-violet-500 transition-colors tracking-tight">{{ $playlist->title }}</h4>
+                        <p class="text-slate-500 dark:text-gray-400 text-sm font-medium line-clamp-2 leading-relaxed mb-6">{{ $playlist->description }}</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-6 border-t border-slate-100 dark:border-white/5">
+                             <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ $playlist->level }}</span>
+                             <flux:icon.arrow-right class="w-5 h-5 text-slate-300 group-hover:text-violet-500 group-hover:translate-x-1 transition-all" />
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    @endif
 
     <!-- Final Call to Action -->
     <div class="mt-32 text-center bg-violet-600 dark:bg-violet-500 rounded-[3rem] p-12 lg:p-20 relative overflow-hidden shadow-2xl">
