@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
+    <body class="min-h-screen bg-zinc-950 text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
         <style>
             @keyframes scrollGrid {
                 0% { transform: translateY(0); }
@@ -51,7 +51,7 @@
         </div>
 
         <div class="relative z-10 flex min-h-screen">
-            <flux:sidebar sticky stashable collapsible class="relative border-e border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+            <flux:sidebar sticky stashable collapsible class="relative border-e border-zinc-800 bg-zinc-950">
                 <flux:sidebar.header class="flex items-center justify-between">
                     <x-app-logo :sidebar="true" :href="auth()->check() ? route('dashboard') : route('home')" wire:navigate />
                     <flux:sidebar.toggle class="hidden lg:flex" icon="chevron-left" />
@@ -60,42 +60,97 @@
 
                 <flux:sidebar.nav>
                     @auth
-                        <flux:sidebar.group :heading="__('Platform')" class="grid w-full">
-                            <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate class="dark:text-gray-400 dark:hover:text-white">
-                                {{ __('Dashboard') }}
-                            </flux:sidebar.item>
-                            <flux:sidebar.item icon="chart-bar" :href="route('activity')" :current="request()->routeIs('activity')" wire:navigate class="dark:text-gray-400 dark:hover:text-white">
-                                {{ __('Activity') }}
-                            </flux:sidebar.item>
-                            <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->requestUri === '/profile'" wire:navigate class="dark:text-gray-400 dark:hover:text-white">
-                                {{ __('My Profile') }}
-                            </flux:sidebar.item>
-                            <flux:sidebar.item icon="star" :href="route('stars.index')" :current="request()->routeIs('stars.index')" wire:navigate class="dark:text-gray-400 dark:hover:text-white">
-                                {{ __('Starred Videos') }}
-                            </flux:sidebar.item>
-                        </flux:sidebar.group>
-
-                        @if(auth()->user()->isAdmin())
-                            <flux:sidebar.group :heading="__('Administration')" class="grid w-full mt-4 dark:text-gray-500">
-                                <flux:sidebar.item icon="academic-cap" :href="route('admin.playlists.index')" :current="request()->routeIs('admin.playlists.*')" wire:navigate class="dark:text-gray-400 dark:hover:text-white">
-                                    {{ __('Curriculum') }}
+                        {{-- Section: Navigation --}}
+                        <div class="mb-4">
+                             <div class="flex items-center gap-2 px-3 mb-2">
+                                <span class="text-[9px] font-mono text-zinc-600">NAV // 01</span>
+                                <div class="h-[1px] flex-1 bg-zinc-800/50"></div>
+                            </div>
+                            <flux:sidebar.group :heading="__('Platform')" class="grid w-full !gap-1">
+                                <flux:sidebar.item icon="command-line" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                    <span class="flex items-center justify-between w-full">
+                                        {{ __('Dashboard') }}
+                                        <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ID:001]</span>
+                                    </span>
+                                </flux:sidebar.item>
+                                <flux:sidebar.item icon="chart-bar-square" :href="route('activity')" :current="request()->routeIs('activity')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                    <span class="flex items-center justify-between w-full">
+                                        {{ __('Activity') }}
+                                        <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ID:002]</span>
+                                    </span>
+                                </flux:sidebar.item>
+                                <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->requestUri === '/profile'" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                    <span class="flex items-center justify-between w-full">
+                                        {{ __('My Profile') }}
+                                        <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[SYS]</span>
+                                    </span>
+                                </flux:sidebar.item>
+                                <flux:sidebar.item icon="star" :href="route('stars.index')" :current="request()->routeIs('stars.index')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                    <span class="flex items-center justify-between w-full">
+                                        {{ __('Starred Videos') }}
+                                        <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[FAV]</span>
+                                    </span>
                                 </flux:sidebar.item>
                             </flux:sidebar.group>
+                        </div>
+
+                        @if(auth()->user()->isAdmin())
+                             <div class="mb-4">
+                                <div class="flex items-center gap-2 px-3 mb-2 mt-6">
+                                    <span class="text-[9px] font-mono text-zinc-600">CMD // 02</span>
+                                    <div class="h-[1px] flex-1 bg-zinc-800/50"></div>
+                                </div>
+                                <flux:sidebar.group :heading="__('Administration')" class="grid w-full !gap-1">
+                                    <flux:sidebar.item icon="academic-cap" :href="route('admin.playlists.index')" :current="request()->routeIs('admin.playlists.*')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                        <span class="flex items-center justify-between w-full">
+                                            {{ __('Curriculum') }}
+                                            <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ROOT]</span>
+                                        </span>
+                                    </flux:sidebar.item>
+                                </flux:sidebar.group>
+                            </div>
                         @endif
 
-                        <flux:sidebar.group :heading="__('Community')" class="grid w-full mt-4 dark:text-gray-500">
-                            <flux:sidebar.item icon="trophy" :href="route('leaderboard')" :current="request()->routeIs('leaderboard')" wire:navigate class="dark:text-gray-400 dark:hover:text-white">
-                                Leaderboard
-                            </flux:sidebar.item>
-                        </flux:sidebar.group>
+                        <div class="mb-4">
+                            <div class="flex items-center gap-2 px-3 mb-2 mt-6">
+                                <span class="text-[9px] font-mono text-zinc-600">NET // 03</span>
+                                <div class="h-[1px] flex-1 bg-zinc-800/50"></div>
+                            </div>
+                            <flux:sidebar.group :heading="__('Community')" class="grid w-full !gap-1">
+                                <flux:sidebar.item icon="trophy" :href="route('leaderboard')" :current="request()->routeIs('leaderboard')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                    <span class="flex items-center justify-between w-full">
+                                        Leaderboard
+                                        <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[RANK]</span>
+                                    </span>
+                                </flux:sidebar.item>
+                            </flux:sidebar.group>
+                        </div>
                     @endauth
 
-                    <flux:sidebar.item icon="map" :href="route('paths.index')" :current="request()->routeIs('paths.index')" wire:navigate class="mt-4 dark:text-gray-400 dark:hover:text-white">
-                        Learning Paths
+                    <div class="px-3 mb-2 mt-8">
+                         <div class="h-[1px] w-full bg-zinc-800/50"></div>
+                    </div>
+
+                    <flux:sidebar.item icon="map" :href="route('paths.index')" :current="request()->routeIs('paths.index')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                         <span class="flex items-center justify-between w-full">
+                            Learning Paths
+                            <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[MAP]</span>
+                        </span>
                     </flux:sidebar.item>
 
-                    <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-2 dark:text-gray-400 dark:hover:text-white">
-                        View All Playlists
+                    <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-2 !text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                         <span class="flex items-center justify-between w-full">
+                            View All Playlists
+                             <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ALL]</span>
+                        </span>
                     </flux:sidebar.item>
                 </flux:sidebar.nav>
 
@@ -109,7 +164,7 @@
                         :avatar="auth()->user()->profilePhotoUrl()"
                         :src="auth()->user()->profilePhotoUrl()"
                         icon-trailing="chevron-up"
-                        class="cursor-pointer hover:bg-white/5 rounded-xl transition-colors"
+                        class="cursor-pointer hover:bg-white/5 rounded-xl transition-colors border border-transparent hover:border-zinc-800 p-2"
                     />
 
                     <flux:menu>
