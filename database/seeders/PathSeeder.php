@@ -160,7 +160,7 @@ class PathSeeder extends Seeder
                         'title' => $title,
                         'category' => $category,
                         'description' => $this->getRoadmapDescription($title, $category),
-                        'roadmap' => $this->getRoadmapSteps($title, $category),
+                        'roadmap' => $this->getDetailedRoadmap($title, $category),
                         'is_published' => true,
                     ]
                 );
@@ -168,61 +168,153 @@ class PathSeeder extends Seeder
         }
     }
 
-    private function getRoadmapSteps(string $title, string $category): array
+    private function getDetailedRoadmap(string $title, string $category): array
     {
+        $base = [
+            'objectives' => [
+                "Master the core principles of {$title}.",
+                "Understand industry-standard workflows in the {$category} field.",
+                'Build a professional portfolio demonstrating specialized skills.',
+            ],
+            'technologies' => ['Industry Standard Tools', 'Core Programming', 'Project Management'],
+            'steps' => [
+                ['title' => 'Foundational Phase', 'description' => "Introduction to the history and core concepts of {$title}."],
+                ['title' => 'Core Technical Skills', 'description' => "Deep dive into the essential tools and languages used in {$category}."],
+                ['title' => 'Advanced Specialization', 'description' => 'Mastering complex patterns and high-level technical requirements.'],
+                ['title' => 'Real-world Application', 'description' => 'Building and deploying industrial-grade projects.'],
+                ['title' => 'Professional Proficiency', 'description' => 'Final polish, industry standards, and interview preparation.'],
+            ],
+        ];
+
         return match ($title) {
             'Frontend Development' => [
-                ['title' => 'HTML5 & Modern CSS', 'description' => 'Master semantic structure, Flexbox, Grid, and responsive design fundamentals.'],
-                ['title' => 'JavaScript Logic', 'description' => 'Deep dive into ES6+, Async/Await, DOM manipulation, and browser APIs.'],
-                ['title' => 'The Toolchain', 'description' => 'Learn NPM, Vite, and utility-first CSS frameworks like Tailwind CSS.'],
-                ['title' => 'Framework Mastery', 'description' => 'Choose React, Vue, or Livewire to build dynamic, component-based UIs.'],
-                ['title' => 'Advanced Frontend', 'description' => 'Focus on state management, accessibility (ARIA), and performance optimization.'],
+                'objectives' => [
+                    'Build lightning-fast, highly interactive user interfaces.',
+                    'Master modern reactive frameworks like React, Vue, or Livewire.',
+                    'Ensure 100% accessible and responsive design cross-browser.',
+                    'Optimize web applications for Core Web Vitals and SEO.',
+                ],
+                'technologies' => ['HTML5', 'CSS3/Tailwind', 'JavaScript ES6+', 'React/Vue/Livewire', 'Vite', 'TypeScript'],
+                'steps' => [
+                    ['title' => 'Semantic HTML & Modern CSS', 'description' => 'Master Flexbox, CSS Grid, and responsive patterns without frameworks.'],
+                    ['title' => 'JavaScript Logic Core', 'description' => 'Async/Await, DOM manipulation, JSON handling, and functional programming.'],
+                    ['title' => 'The Modern Build Tooling', 'description' => 'Learn NPM environment, Vite configuration, and PostCSS processing.'],
+                    ['title' => 'State & UI Frameworks', 'description' => 'Component architecture, hooks/props, and global state management.'],
+                    ['title' => 'API Orchestration', 'description' => 'Connecting to REST/GraphQL backends and handling async data streams.'],
+                    ['title' => 'Performance & Accessibility', 'description' => 'Mastering Lighthouse scores, ARIA compliance, and lazy loading.'],
+                    ['title' => 'Testing & Production', 'description' => 'Writing unit tests with Jest/Vitest and deploying to Vercel/Netlify.'],
+                ],
             ],
             'Backend Development' => [
-                ['title' => 'Core Language', 'description' => 'Master PHP or Node.js logic, OOP principles, and control flow.'],
-                ['title' => 'The Framework', 'description' => 'Learn Laravel or Express.js for robust, scalable server-side development.'],
-                ['title' => 'Data Persistence', 'description' => 'Master SQL migrations, relationships, indexing, and ORM patterns.'],
-                ['title' => 'API & Security', 'description' => 'Build REST/GraphQL APIs with secure authentication and middleware.'],
-                ['title' => 'Deployment & CI/CD', 'description' => 'Automate deployments to cloud environments using modern CI/CD tools.'],
+                'objectives' => [
+                    'Architect scalable database schemas and server logic.',
+                    'Build high-performance REST and GraphQL APIs.',
+                    'Implement professional authentication and security protocols.',
+                    'Master server-side state management and caching strategies.',
+                ],
+                'technologies' => ['Laravel (PHP)', 'Node.js', 'PostgreSQL/MySQL', 'Redis', 'Docker', 'REST/GraphQL'],
+                'steps' => [
+                    ['title' => 'Server Logic Foundations', 'description' => 'Master request-response cycles, routing, and controller logic.'],
+                    ['title' => 'Relational Data Mastery', 'description' => 'Eloquent ORM, complex joins, indexing, and data normalization.'],
+                    ['title' => 'Security & Auth', 'description' => 'Passport/Sanctum implementation, JWT, and defense against OWASP top 10.'],
+                    ['title' => 'Real-time Systems', 'description' => 'WebSockets, broadcasting, and event-driven architecture.'],
+                    ['title' => 'Caching & Performance', 'description' => 'Redis implementation, query optimization, and job queues.'],
+                    ['title' => 'Cloud & Infrastructure', 'description' => 'Dockerizing apps and managing Nginx/Apache configurations.'],
+                ],
             ],
             'Full-Stack Development' => [
-                ['title' => 'Frontend Foundations', 'description' => 'Build responsive UIs that provide intuitive user experiences.'],
-                ['title' => 'Backend Integration', 'description' => 'Connect your frontend to secure, performant server-side logic.'],
-                ['title' => 'Full-Lifecycle Mastery', 'description' => 'Manage the entire stack from database schema to cloud hosting.'],
+                'objectives' => [
+                    'Bridge the gap between client and server seamlessly.',
+                    'Understand the full lifecycle of a digital product.',
+                    'Deploy and maintain self-sustaining web applications.',
+                ],
+                'technologies' => ['TALL Stack', 'MERN Stack', 'PostgreSQL', 'Docker', 'GitHub Actions'],
+                'steps' => [
+                    ['title' => 'Frontend Sync', 'description' => 'Build reactive interfaces that interact perfectly with server state.'],
+                    ['title' => 'Backend Core', 'description' => 'Set up scalable server logic and automated data management.'],
+                    ['title' => 'The Bridge (API Layer)', 'description' => 'Design clean contracts between the UI and the data server.'],
+                    ['title' => 'DevOps & Deployment', 'description' => 'Automate the build, test, and release cycle across environments.'],
+                    ['title' => 'Maintenance at Scale', 'description' => 'Implement monitoring, logging, and horizontal scaling strategies.'],
+                ],
             ],
-            'Game Development' => [
-                ['title' => 'Engine Core', 'description' => 'Master Unity with C# or Unreal Engine with C++.'],
-                ['title' => '3D Transformation', 'description' => 'Learn the mathematics of vectors, matrices, and spatial physics.'],
-                ['title' => 'Game Loop Logic', 'description' => 'Implement game mechanics, object pooling, and input handling.'],
-                ['title' => 'Shaders & Effects', 'description' => 'Create immersive visuals using particle systems and vertex shaders.'],
-            ],
-            'Blockchain & Web3' => [
-                ['title' => 'Decentralization', 'description' => 'Understand how distributed ledgers and consensus algorithms work.'],
-                ['title' => 'Smart Contracts', 'description' => 'Master Solidity to build secure and audited on-chain protocols.'],
-                ['title' => 'DApp Integration', 'description' => 'Connect decentralized protocols to modern web interfaces.'],
-            ],
-            'Artificial Intelligence & Machine Learning' => [
-                ['title' => 'Data Science Foundations', 'description' => 'Master Python, NumPy, and Pandas for data manipulation.'],
-                ['title' => 'Classical ML', 'description' => 'Learn supervised and unsupervised modeling with Scikit-learn.'],
-                ['title' => 'Deep Learning', 'description' => 'Build neural networks using PyTorch or TensorFlow frameworks.'],
-                ['title' => 'LLMs & Modern AI', 'description' => 'Explore transformer architectures and the future of generative AI.'],
+            'Game Programming (Unity, Unreal Engine)' => [
+                'objectives' => [
+                    'Master the mathematics of 3D spatial transformations.',
+                    'Write high-performance gameplay systems in C# or C++.',
+                    'Implement complex AI and physics-based interactions.',
+                ],
+                'technologies' => ['Unity/Unreal', 'C#/C++', 'HLSL Shaders', 'DirectX/Vulkan', 'Blender Integration'],
+                'steps' => [
+                    ['title' => 'Mathematical Foundations', 'description' => 'Vectors, Quaternions, and Dot/Cross products in 3D space.'],
+                    ['title' => 'Game Engine Architecture', 'description' => 'Mastering the Game Loop, Component systems, and Scene Graphs.'],
+                    ['title' => 'Gameplay Scripting', 'description' => 'Implementing player controllers, weapon systems, and inventory logic.'],
+                    ['title' => 'AI & Pathfinding', 'description' => 'NavMeshes, Behavior Trees, and Finite State Machines.'],
+                    ['title' => 'Physics & Collision', 'description' => 'RigidBody physics, raycasting, and trigger-based events.'],
+                    ['title' => 'Rendering & VFX', 'description' => 'Shader development and particle systems for immersive visuals.'],
+                ],
             ],
             'Cybersecurity' => [
-                ['title' => 'Defensive Basics', 'description' => 'Learn networking protocols and the CIA triad of security.'],
-                ['title' => 'Ethical Hacking', 'description' => 'Study penetration testing methods to identify system vulnerabilities.'],
-                ['title' => 'Security Engineering', 'description' => 'Design systems that are inherently secure by default.'],
+                'objectives' => [
+                    'Identify and mitigate advanced system vulnerabilities.',
+                    'Design impenetrable network architectures.',
+                    'Conduct professional digital forensics and incident response.',
+                ],
+                'technologies' => ['Kali Linux', 'Metasploit', 'Wireshark', 'Burp Suite', 'Python Automation'],
+                'steps' => [
+                    ['title' => 'Networking Deep Dive', 'description' => 'Mastering TCP/IP, OSI model, and network protocol analysis.'],
+                    ['title' => 'Offensive Fundamentals', 'description' => 'Information gathering, OSINT, and vulnerability scanning.'],
+                    ['title' => 'Exploitation Mechanics', 'description' => 'Buffer overflows, SQL injection, and XSS exploitation.'],
+                    ['title' => 'Defensive Hardening', 'description' => 'Firewall configuration, IDS/IPS tuning, and OS hardening.'],
+                    ['title' => 'Governance & Compliance', 'description' => 'Studying ISO 27001, SOC2, and legal framework requirements.'],
+                ],
+            ],
+            'Artificial Intelligence & Machine Learning' => [
+                'objectives' => [
+                    'Design and train sophisticated neural network models.',
+                    'Process and analyze massive datasets for predictive insights.',
+                    'Implement modern NLP and Computer Vision solutions.',
+                ],
+                'technologies' => ['Python', 'PyTorch/TensorFlow', 'CUDA', 'Scikit-learn', 'HuggingFace'],
+                'steps' => [
+                    ['title' => 'Computational Math', 'description' => 'Linear Algebra, Calculus, and Probability for AI modeling.'],
+                    ['title' => 'Data Engineering for AI', 'description' => 'ETL pipelines, data cleaning, and feature engineering at scale.'],
+                    ['title' => 'Statistical Learning', 'description' => 'Regression, decision trees, and ensemble methods.'],
+                    ['title' => 'Deep Learning Foundations', 'description' => 'Backpropagation, activation functions, and gradient descent.'],
+                    ['title' => 'Vision & Language', 'description' => 'CNNs for image processing and Transformers for NLP.'],
+                    ['title' => 'Reinforcement Learning', 'description' => 'Training agents through environmental feedback loops.'],
+                ],
             ],
             'Cloud Architecture (AWS, Azure, GCP)' => [
-                ['title' => 'Compute & Networking', 'description' => 'Master EC2, VPCs, and global traffic management.'],
-                ['title' => 'Serverless & Scale', 'description' => 'Build infinitely scalable apps using Lambda and managed DBs.'],
-                ['title' => 'Infrastructure as Code', 'description' => 'Provision and manage entire clouds using Terraform or Pulumi.'],
+                'objectives' => [
+                    'Architect globally distributed, high-availability clouds.',
+                    'Optimize cloud spend while maximizing performance.',
+                    'Implement zero-trust security in multi-cloud environments.',
+                ],
+                'technologies' => ['AWS/Azure/GCP', 'Terraform', 'Kubernetes', 'Serverless', 'IAM'],
+                'steps' => [
+                    ['title' => 'Cloud Core Services', 'description' => 'Mastering VPCs, EC2, S3, and managed database systems.'],
+                    ['title' => 'Infrastructure as Code', 'description' => 'Deep dive into Terraform and CloudFormation for automation.'],
+                    ['title' => 'The Serverless Paradigm', 'description' => 'Building infinitely scalable apps with Lambda and Functions.'],
+                    ['title' => 'Cloud Security (IAM)', 'description' => 'Mastering identity management and complex permission policies.'],
+                    ['title' => 'Cost & Lifecycle Management', 'description' => 'Monitoring cloud costs and automating resource lifecycles.'],
+                ],
             ],
-            default => [
-                ['title' => 'Introductory Concepts', 'description' => "Understand the fundamental landscape of {$title}."],
-                ['title' => 'Intermediate Workflow', 'description' => "Master the core tools and standard industry practices for {$category}."],
-                ['title' => 'Advanced Specialization', 'description' => 'Deep dive into edge cases, optimization, and complex implementations.'],
-                ['title' => 'Industry Mastery', 'description' => 'Apply your skills to professional-grade projects and career readiness.'],
+            'Blockchain & Web3' => [
+                'objectives' => [
+                    'Write secure, gas-optimized Smart Contracts.',
+                    'Build decentralized apps (DApps) with Web3 integrations.',
+                    'Understand cryptographic primitives and DeFi mechanics.',
+                ],
+                'technologies' => ['Solidity', 'Ethereum/EVM', 'Ethers.js', 'IPFS', 'Hardhat'],
+                'steps' => [
+                    ['title' => 'Cryptographic Primitives', 'description' => 'Hashing, Public-Key signatures, and Merkle Trees.'],
+                    ['title' => 'Blockchain Internals', 'description' => 'Consensus algorithms, P2P networking, and gas mechanics.'],
+                    ['title' => 'Solidity Mastery', 'description' => 'Writing, testing, and auditing Ethereum smart contracts.'],
+                    ['title' => 'DeFi Architecture', 'description' => 'Building AMMs, lending protocols, and yield strategies.'],
+                    ['title' => 'DApp Frontend Bridge', 'description' => 'Connecting modern UIs to decentralized smart contracts.'],
+                ],
             ],
+            default => $base,
         };
     }
 
@@ -276,9 +368,7 @@ class PathSeeder extends Seeder
             'Performance Testing' => 'Stress test your limits. Master load testing and spike testing using JMeter or k6 to ensure your app can handle the traffic.',
             'Data Engineering' => 'The plumbing of the data world. Learn to build data pipelines, manage big data with Spark/Hadoop, and design robust data warehouses.',
             'Data Pipelines' => 'Move and transform data at scale. Master Airflow, Kafka, and ETL processes to ensure data is where it needs to be.',
-            'AI & Machine Learning' => 'The core of modern intelligence. Understand the foundations of statistical learning, neural networks, and their real-world applications.',
             'Artificial Intelligence & Machine Learning' => 'The core of modern intelligence. Understand the foundations of statistical learning, neural networks, and their real-world applications.',
-            'Blockchain & Web3' => 'The future of decentralized finance and apps. Master Solidity, learn about dApps, smart contracts, and the mechanics of Ethereum and other L1s.',
             'Cybersecurity' => 'The complete guide to digital defense. From ethical hacking to network security and threat analysis.',
             'DevOps & SRE' => 'Master the culture of automation. Combine development and operations to ship high-quality software faster and more reliably.',
             'Data Science & Analytics' => 'Turn data into insights. Master Python/R, statistical modeling, and data visualization to drive business decisions.',

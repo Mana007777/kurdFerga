@@ -44,16 +44,21 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                 {{ $path->description }}
             </p>
 
+            @php
+                $roadmapData = is_array($path->roadmap) ? $path->roadmap : [];
+                $totalSteps = $path->playlists->isNotEmpty() ? $path->playlists->count() : count($roadmapData['steps'] ?? []);
+                $totalLessons = $path->playlists->sum(fn($p) => $p->lessons->count());
+            @endphp
+
             <div class="mt-10 flex flex-wrap gap-4">
                 <div class="flex items-center gap-3 glass-panel rounded-2xl px-5 py-3 border border-slate-200 dark:border-white/10">
                     <span class="text-2xl font-black text-violet-600 dark:text-violet-400">
-                        {{ $path->playlists->isNotEmpty() ? $path->playlists->count() : count($path->roadmap ?? []) }}
+                        {{ $totalSteps }}
                     </span>
                     <span class="text-xs font-black text-slate-400 uppercase tracking-widest leading-tight">Curated<br>Steps</span>
                 </div>
                 <div class="flex items-center gap-3 glass-panel rounded-2xl px-5 py-3 border border-slate-200 dark:border-white/10">
-                    @php $totalLessons = $path->playlists->sum(fn($p) => $p->lessons->count()); @endphp
-                    <span class="text-2xl font-black text-violet-600 dark:text-violet-400">{{ $totalLessons > 0 ? $totalLessons : count($path->roadmap ?? []) }}</span>
+                    <span class="text-2xl font-black text-violet-600 dark:text-violet-400">{{ $totalLessons > 0 ? $totalLessons : $totalSteps }}</span>
                     <span class="text-xs font-black text-slate-400 uppercase tracking-widest leading-tight">
                         {{ $path->playlists->isNotEmpty() ? 'Lessons To' : 'Milestones' }}<br>Complete
                     </span>
