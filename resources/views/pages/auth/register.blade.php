@@ -21,7 +21,7 @@
                     autofocus
                     autocomplete="name"
                     :placeholder="__('Operator Name')"
-                    class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest"
+                    class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest focus:!border-violet-500/50"
                 />
 
                 <!-- Email Address -->
@@ -33,7 +33,7 @@
                     required
                     autocomplete="email"
                     placeholder="operator@intellbase.net"
-                    class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest"
+                    class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest focus:!border-violet-500/50"
                 />
 
                 <!-- Password -->
@@ -45,7 +45,7 @@
                     autocomplete="new-password"
                     :placeholder="__('Secure Sequence')"
                     viewable
-                    class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest"
+                    class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest focus:!border-violet-500/50"
                 />
 
                 <!-- Confirm Password -->
@@ -57,12 +57,12 @@
                     autocomplete="new-password"
                     :placeholder="__('Repeat Access Key')"
                     viewable
-                    class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest"
+                    class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest focus:!border-violet-500/50"
                 />
 
                 <div class="flex items-center justify-end mt-4">
-                    <button type="submit" class="w-full relative group/btn h-12 bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_-5px_rgba(255,255,255,0.2)]">
-                        <span class="relative z-10 text-[11px] font-black text-zinc-950 uppercase tracking-[0.2em]">{{ __('Initialize Registration') }}</span>
+                    <button type="submit" class="w-full relative group/btn h-12 bg-violet-600 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_-5px_rgba(139,92,246,0.3)]">
+                        <span class="relative z-10 text-[11px] font-black text-white uppercase tracking-[0.2em]">{{ __('Initialize Registration') }}</span>
                     </button>
                 </div>
             </form>

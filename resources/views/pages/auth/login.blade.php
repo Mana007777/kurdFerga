@@ -22,7 +22,7 @@
                     autofocus
                     autocomplete="email"
                     placeholder="operator@intellbase.net"
-                    class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest"
+                    class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest focus:!border-violet-500/50"
                 />
 
                 <!-- Password -->
@@ -35,7 +35,7 @@
                         autocomplete="current-password"
                         placeholder="••••••••"
                         viewable
-                        class="!bg-zinc-900/50 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest"
+                        class="!bg-zinc-950 !border-zinc-800 !text-white !font-mono !text-xs tracking-widest focus:!border-violet-500/50"
                     />
 
                     @if (Route::has('password.request'))
@@ -51,8 +51,8 @@
                 <flux:checkbox name="remember" :label="__('Maintain Persistence')" :checked="old('remember')" class="!text-zinc-500 !text-[10px] font-black uppercase tracking-widest" />
 
                 <div class="flex items-center justify-end mt-4">
-                    <button type="submit" class="w-full relative group/btn h-12 bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_-5px_rgba(255,255,255,0.2)]">
-                        <span class="relative z-10 text-[11px] font-black text-zinc-950 uppercase tracking-[0.2em]">{{ __('Initialize Session') }}</span>
+                    <button type="submit" class="w-full relative group/btn h-12 bg-violet-600 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_-5px_rgba(139,92,246,0.3)]">
+                        <span class="relative z-10 text-[11px] font-black text-white uppercase tracking-[0.2em]">{{ __('Initialize Session') }}</span>
                     </button>
                 </div>
             </form>
