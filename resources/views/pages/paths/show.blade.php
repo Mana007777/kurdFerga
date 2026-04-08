@@ -46,13 +46,17 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
 
             <div class="mt-10 flex flex-wrap gap-4">
                 <div class="flex items-center gap-3 glass-panel rounded-2xl px-5 py-3 border border-slate-200 dark:border-white/10">
-                    <span class="text-2xl font-black text-violet-600 dark:text-violet-400">{{ $path->playlists->count() }}</span>
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest leading-tight">Curated<br>Playlists</span>
+                    <span class="text-2xl font-black text-violet-600 dark:text-violet-400">
+                        {{ $path->playlists->isNotEmpty() ? $path->playlists->count() : count($path->roadmap ?? []) }}
+                    </span>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest leading-tight">Curated<br>Steps</span>
                 </div>
                 <div class="flex items-center gap-3 glass-panel rounded-2xl px-5 py-3 border border-slate-200 dark:border-white/10">
                     @php $totalLessons = $path->playlists->sum(fn($p) => $p->lessons->count()); @endphp
-                    <span class="text-2xl font-black text-violet-600 dark:text-violet-400">{{ $totalLessons }}</span>
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest leading-tight">Lessons To<br>Complete</span>
+                    <span class="text-2xl font-black text-violet-600 dark:text-violet-400">{{ $totalLessons > 0 ? $totalLessons : count($path->roadmap ?? []) }}</span>
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-widest leading-tight">
+                        {{ $path->playlists->isNotEmpty() ? 'Lessons To' : 'Milestones' }}<br>Complete
+                    </span>
                 </div>
             </div>
         </div>
@@ -72,7 +76,12 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
         <div class="absolute left-8 lg:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-violet-500/50 via-plum-500/50 to-transparent rounded-full hidden md:block"></div>
         
         <div class="space-y-24">
-            @foreach($path->playlists as $index => $playlist)
+            @php
+                $steps = $path->playlists->isNotEmpty() ? $path->playlists : collect($path->roadmap ?? []);
+                $isDatabaseSteps = $path->playlists->isNotEmpty();
+            @endphp
+
+            @foreach($steps as $index => $step)
                 <div class="relative flex flex-col md:flex-row items-center gap-12 group">
                     <!-- Marker -->
                     <div class="absolute left-8 lg:left-1/2 -translate-x-1/2 w-16 h-16 rounded-[1.5rem] bg-white dark:bg-gray-900 border-4 border-violet-500 dark:border-violet-400 flex items-center justify-center text-2xl font-black text-violet-600 dark:text-violet-400 z-20 shadow-2xl group-hover:scale-110 transition-transform hidden md:flex">
@@ -82,34 +91,64 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                     @if($index % 2 === 0)
                         <!-- Card Left -->
                         <div class="md:w-1/2 text-start md:text-end md:pr-24 w-full">
-                            <h3 class="text-3xl font-black text-slate-900 dark:text-white mb-4 group-hover:text-violet-500 transition-colors">{{ $playlist->title }}</h3>
-                            <p class="text-slate-500 dark:text-gray-400 text-lg mb-6 line-clamp-2 md:ml-auto md:max-w-md">{{ $playlist->description }}</p>
-                            <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest border border-slate-200 dark:border-white/10">{{ $playlist->level }}</span>
+                            <h3 class="text-3xl font-black text-slate-900 dark:text-white mb-4 group-hover:text-violet-500 transition-colors">
+                                {{ $isDatabaseSteps ? $step->title : $step['title'] }}
+                            </h3>
+                            <p class="text-slate-500 dark:text-gray-400 text-lg mb-6 line-clamp-2 md:ml-auto md:max-w-md">
+                                {{ $isDatabaseSteps ? $step->description : $step['description'] }}
+                            </p>
+                            <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest border border-slate-200 dark:border-white/10">
+                                {{ $isDatabaseSteps ? $step->level : 'Mastery Track' }}
+                            </span>
                         </div>
                         <div class="md:w-1/2 md:pl-24 w-full">
-                             <a href="{{ route('playlists.show', $playlist->slug) }}" wire:navigate class="block relative group/img overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video hover:-translate-y-2 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-gradient-to-br from-violet-500 to-plum-600 opacity-60 mix-blend-multiply transition-opacity group-hover/img:opacity-40"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <flux:icon.play-circle class="w-16 h-16 text-white/50 group-hover/img:scale-110 transition-transform" />
+                            @if($isDatabaseSteps)
+                                 <a href="{{ route('playlists.show', $step->slug) }}" wire:navigate class="block relative group/img overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video hover:-translate-y-2 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-violet-500 to-plum-600 opacity-60 mix-blend-multiply transition-opacity group-hover/img:opacity-40"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <flux:icon.play-circle class="w-16 h-16 text-white/50 group-hover/img:scale-110 transition-transform" />
+                                    </div>
+                                    <img src="{{ $step->thumbnail ?? 'https://placehold.co/600x400/1e1b4b/white?text=' . urlencode($step->title) }}" class="w-full h-full object-cover" alt="">
+                                </a>
+                            @else
+                                <div class="relative overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video glass-panel flex items-center justify-center">
+                                    <flux:icon.academic-cap class="w-16 h-16 text-slate-200 dark:text-white/10" />
+                                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
+                                        <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Curated Step</span>
+                                    </div>
                                 </div>
-                                <img src="{{ $playlist->thumbnail ?? 'https://placehold.co/600x400/1e1b4b/white?text=' . urlencode($playlist->title) }}" class="w-full h-full object-cover" alt="">
-                            </a>
+                            @endif
                         </div>
                     @else
                         <!-- Card Right -->
                         <div class="md:w-1/2 md:pr-24 order-2 md:order-1 w-full">
-                            <a href="{{ route('playlists.show', $playlist->slug) }}" wire:navigate class="block relative group/img overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video hover:-translate-y-2 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-gradient-to-br from-plum-500 to-violet-600 opacity-60 mix-blend-multiply transition-opacity group-hover/img:opacity-40"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <flux:icon.play-circle class="w-16 h-16 text-white/50 group-hover/img:scale-110 transition-transform" />
+                            @if($isDatabaseSteps)
+                                <a href="{{ route('playlists.show', $step->slug) }}" wire:navigate class="block relative group/img overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video hover:-translate-y-2 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-plum-500 to-violet-600 opacity-60 mix-blend-multiply transition-opacity group-hover/img:opacity-40"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <flux:icon.play-circle class="w-16 h-16 text-white/50 group-hover/img:scale-110 transition-transform" />
+                                    </div>
+                                    <img src="{{ $step->thumbnail ?? 'https://placehold.co/600x400/312e81/white?text=' . urlencode($step->title) }}" class="w-full h-full object-cover" alt="">
+                                </a>
+                            @else
+                                <div class="relative overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video glass-panel flex items-center justify-center">
+                                    <flux:icon.academic-cap class="w-16 h-16 text-slate-200 dark:text-white/10" />
+                                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/20 to-transparent text-right">
+                                        <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Curated Step</span>
+                                    </div>
                                 </div>
-                                <img src="{{ $playlist->thumbnail ?? 'https://placehold.co/600x400/312e81/white?text=' . urlencode($playlist->title) }}" class="w-full h-full object-cover" alt="">
-                            </a>
+                            @endif
                         </div>
                         <div class="md:w-1/2 md:pl-24 order-1 md:order-2 w-full">
-                            <h3 class="text-3xl font-black text-slate-900 dark:text-white mb-4 group-hover:text-violet-500 transition-colors">{{ $playlist->title }}</h3>
-                            <p class="text-slate-500 dark:text-gray-400 text-lg mb-6 line-clamp-2 md:max-w-md">{{ $playlist->description }}</p>
-                            <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest border border-slate-200 dark:border-white/10">{{ $playlist->level }}</span>
+                            <h3 class="text-3xl font-black text-slate-900 dark:text-white mb-4 group-hover:text-violet-500 transition-colors">
+                                {{ $isDatabaseSteps ? $step->title : $step['title'] }}
+                            </h3>
+                            <p class="text-slate-500 dark:text-gray-400 text-lg mb-6 line-clamp-2 md:max-w-md">
+                                {{ $isDatabaseSteps ? $step->description : $step['description'] }}
+                            </p>
+                            <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest border border-slate-200 dark:border-white/10">
+                                {{ $isDatabaseSteps ? $step->level : 'Mastery Track' }}
+                            </span>
                         </div>
                     @endif
                 </div>
