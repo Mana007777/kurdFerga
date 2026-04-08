@@ -1,4 +1,4 @@
-<div class="glass-panel relative flex flex-col justify-between overflow-hidden rounded-3xl group hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-700 p-8 shadow-xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-white/90 to-white/50 dark:from-zinc-900/90 dark:to-zinc-900/50 backdrop-blur-2xl h-full"
+<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-7 group transition-all duration-500 hover:border-amber-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] h-full"
      x-data="{
          current: 0,
          target: @entangle('totalPoints'),
@@ -28,44 +28,71 @@
          }
      }"
 >
-    <!-- Ambient glowing orbs -->
-    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-bl from-amber-400 to-orange-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
-    <div class="absolute -left-24 -bottom-24 w-56 h-56 bg-gradient-to-tr from-yellow-400 to-amber-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
-    
-    <div class="relative z-10 w-full flex flex-col h-full space-y-8">
+    <!-- Background Activity Grid -->
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]"></div>
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent animate-scan-line"></div>
+
+    <div class="relative z-10 w-full flex flex-col h-full space-y-6">
         
         {{-- Header --}}
         <div class="flex items-center justify-between w-full">
-            <div class="flex items-center space-x-3">
-                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-amber-400 to-orange-500"></div>
-                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Achievements</h3>
+            <div class="flex items-center gap-3">
+                <div class="flex flex-col gap-0.5">
+                    <div class="w-1 h-3 bg-amber-500 rounded-full"></div>
+                    <div class="w-1 h-1 bg-amber-500/40 rounded-full"></div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">Module // 03</h3>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Achievements</h4>
+                </div>
             </div>
             
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/40 text-amber-500 dark:text-amber-400 shadow-inner backdrop-blur-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
-                </svg>
+            <div class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-amber-500 shadow-inner group-hover:border-amber-500/30 transition-colors">
+                <flux:icon.star class="w-5 h-5" variant="mini" />
             </div>
         </div>
         
         {{-- Stats Display --}}
-        <div class="flex flex-1 items-center justify-center place-content-center relative py-6">
-            <div class="flex flex-col items-center justify-center animate-in fade-in zoom-in duration-500">
-                <h2 class="text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-amber-600 to-orange-400 dark:from-yellow-200 dark:to-orange-400 drop-shadow-sm">
+        <div class="flex flex-1 items-center justify-center relative py-6">
+            <div class="flex flex-col items-center justify-center text-center">
+                <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2 italic">Scanning Data...</div>
+                <div class="font-mono text-8xl font-black text-white tracking-tighter leading-none decoration-amber-500/20 underline underline-offset-8">
                     <span x-text="current"></span>
-                </h2>
-                <div class="mt-4 px-4 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 text-xs font-bold uppercase tracking-widest">
-                    Total XP Points
                 </div>
+                <div class="mt-4 px-4 py-1.5 rounded-lg bg-amber-500/5 text-amber-500 border border-amber-500/20 text-[10px] font-black uppercase tracking-[0.2em]">
+                    Total XP Accumulation
+                </div>
+            </div>
+
+            <!-- Scanner Decoration -->
+            <div class="absolute inset-x-8 top-12 bottom-12 border-x border-zinc-900/50 pointer-events-none"></div>
+        </div>
+
+        {{-- Footer Rank --}}
+        <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.15em]">
+            <span class="text-zinc-500">Global Rank: [Analyzing]</span>
+            <div class="flex items-center gap-1 text-amber-500">
+                <span class="w-1 h-1 rounded-full bg-amber-500 animate-ping"></span>
+                <span>Tier 1 Elite</span>
             </div>
         </div>
 
-        {{-- Footer --}}
-        <div class="w-full text-center">
-            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-gray-400/80">
-                Climb the leaderboard!
-            </p>
-        </div>
-
     </div>
+
+    <!-- Edge Brackets -->
+    <div class="absolute top-4 left-4 w-2 h-2 border-t border-l border-zinc-700"></div>
+    <div class="absolute top-4 right-4 w-2 h-2 border-t border-r border-zinc-700"></div>
+    <div class="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-zinc-700"></div>
+    <div class="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-zinc-700"></div>
+    
+    <style>
+        @keyframes scan-line {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(280px); opacity: 0; }
+        }
+        .animate-scan-line {
+            animation: scan-line 4s linear infinite;
+        }
+    </style>
 </div>

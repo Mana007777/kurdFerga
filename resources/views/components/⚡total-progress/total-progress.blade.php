@@ -1,4 +1,4 @@
-<div class="glass-panel relative flex flex-col justify-between overflow-hidden rounded-3xl group hover:shadow-2xl hover:shadow-violet-500/20 transition-all duration-700 p-8 shadow-xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-white/90 to-white/50 dark:from-zinc-900/90 dark:to-zinc-900/50 backdrop-blur-2xl"
+<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-7 group transition-all duration-500 hover:border-violet-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]"
      x-data="{
          current: 0,
          target: @entangle('percentage'),
@@ -28,69 +28,94 @@
          }
      }"
 >
-    <!-- Ambient glowing orbs -->
-    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-br from-blue-400 to-violet-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
-    <div class="absolute -left-24 -bottom-24 w-56 h-56 bg-gradient-to-tr from-purple-400 to-pink-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
-    
-    <div class="relative z-10 w-full flex flex-col h-full space-y-8">
+    <!-- Background System Grid -->
+    <div class="absolute inset-x-0 top-0 h-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+
+    <div class="relative z-10 w-full flex flex-col h-full space-y-6">
         
         {{-- Header & Select --}}
         <div class="flex items-center justify-between w-full">
-            <div class="flex items-center space-x-3">
-                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-violet-500 to-violet-500"></div>
-                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Learning Progress</h3>
+            <div class="flex items-center gap-3">
+                <div class="flex flex-col gap-0.5">
+                    <div class="w-1 h-3 bg-violet-500 rounded-full"></div>
+                    <div class="w-1 h-1 bg-violet-500/40 rounded-full"></div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">Module // 01</h3>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Learning Progress</h4>
+                </div>
             </div>
             
-            <div class="relative w-44">
-                <select wire:model.live="selectedPlaylistId" class="appearance-none w-full bg-white/30 dark:bg-gray-800/40 text-slate-700 dark:text-gray-200 text-sm font-bold tracking-wide rounded-full py-2 pl-4 pr-10 border border-slate-200/50 dark:border-white/10 focus:border-violet-500/50 outline-none backdrop-blur-md shadow-sm transition-all duration-300 hover:bg-white/50 dark:hover:bg-zinc-700/50 cursor-pointer">
+            <div class="relative">
+                <select wire:model.live="selectedPlaylistId" class="appearance-none bg-zinc-900/50 text-zinc-300 text-[11px] font-bold tracking-wider rounded-lg py-2 pl-4 pr-10 border border-zinc-800 focus:border-violet-500/50 outline-none transition-all hover:bg-zinc-800/80 cursor-pointer uppercase">
                     @foreach($playlists as $playlist)
-                        <option value="{{ $playlist->id }}" class="bg-white dark:bg-gray-800 text-slate-800 dark:text-gray-200 py-2">{{ str($playlist->title)->limit(15) }}</option>
+                        <option value="{{ $playlist->id }}">{{ str($playlist->title)->limit(12) }}</option>
                     @endforeach
                 </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-600 dark:text-gray-400">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-                    </svg>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-zinc-500">
+                    <flux:icon.chevron-down class="w-3 h-3" variant="mini" />
                 </div>
             </div>
         </div>
         
-        {{-- Circular Progress Display --}}
-        <div class="flex flex-1 items-center justify-center relative py-2">
-            <div class="relative w-40 h-40 flex items-center justify-center">
-                <!-- Background Circle -->
-                <svg class="absolute inset-0 w-full h-full transform -rotate-90 drop-shadow-xl" viewBox="0 0 100 100">
-                    <!-- Subtle Track -->
-                    <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="3" fill="transparent" class="text-slate-200/60 dark:text-white/5" />
+        {{-- Segmented Progress Ring --}}
+        <div class="flex flex-1 items-center justify-center relative">
+            <div class="relative w-44 h-44 flex items-center justify-center">
+                <!-- Circular segments using SVG -->
+                <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                    <!-- Segmented Track -->
+                    @foreach(range(0, 19) as $i)
+                        <circle cx="50" cy="50" r="40" 
+                                stroke-width="6" 
+                                fill="transparent" 
+                                class="text-zinc-900"
+                                stroke-dasharray="10, 2.56" 
+                                stroke-dashoffset="{{ 12.56 * $i }}" />
+                    @endforeach
                     
-                    <!-- Foreground Progress Circle with Gradient -->
+                    <!-- Progress Segments -->
+                    <circle cx="50" cy="50" r="40" 
+                            stroke="url(#dataRingGradient)" 
+                            stroke-width="8" 
+                            fill="transparent"
+                            stroke-dasharray="251.32"
+                            :stroke-dashoffset="251.32 - (251.32 * target) / 100"
+                            stroke-linecap="butt"
+                            class="transition-all duration-[1.5s] ease-out"
+                            style="filter: drop-shadow(0px 0px 8px rgba(139, 92, 246, 0.3));" />
+                            
                     <defs>
-                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#3b82f6" /> <!-- violet-500 -->
-                            <stop offset="100%" stop-color="#8b5cf6" /> <!-- violet-500 -->
+                        <linearGradient id="dataRingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#8b5cf6" />
+                            <stop offset="100%" stop-color="#3b82f6" />
                         </linearGradient>
                     </defs>
-                    <circle cx="50" cy="50" r="42" stroke="url(#progressGradient)" stroke-width="7" fill="transparent"
-                        stroke-dasharray="263.89"
-                        :stroke-dashoffset="263.89 - (263.89 * target) / 100"
-                        stroke-linecap="round"
-                        class="transition-all duration-[2000ms] ease-out" 
-                        style="filter: drop-shadow(0px 0px 6px rgba(99, 102, 241, 0.4));"
-                    />
                 </svg>
                 
-                {{-- Percentage Content --}}
+                {{-- Data Readout --}}
                 <div class="flex flex-col items-center justify-center z-10">
-                    <span class="text-5xl font-black tracking-tighter text-slate-800 dark:text-white mt-1 drop-shadow-sm"><span x-text="current"></span><span class="text-2xl font-bold opacity-50 ml-0.5 tracking-normal">%</span></span>
+                    <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Completion</div>
+                    <div class="font-mono text-5xl font-black text-white tracking-tighter leading-none">
+                        <span x-text="current"></span><span class="text-xl font-normal text-zinc-600">%</span>
+                    </div>
                 </div>
             </div>
+            
+            <!-- Corner Accents -->
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-zinc-800"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-zinc-800"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-zinc-800"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-zinc-800"></div>
         </div>
 
-        {{-- Footer --}}
-        <div class="w-full text-center">
-            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-gray-400/80">
-                Of Published Videos Completed
-            </p>
+        {{-- Footer Telemetry --}}
+        <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.15em]">
+            <span class="text-zinc-500">Telemetry: [Active]</span>
+            <div class="flex gap-1.5 items-center">
+                <span class="text-violet-500">Live Status</span>
+                <div class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></div>
+            </div>
         </div>
 
     </div>

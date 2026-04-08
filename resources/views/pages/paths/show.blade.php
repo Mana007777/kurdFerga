@@ -129,7 +129,6 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
         <div class="absolute left-8 lg:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-violet-500/50 via-plum-500/50 to-transparent rounded-full hidden md:block"></div>
         
         <div class="space-y-24">
-
             @foreach($steps as $index => $step)
                 <div class="relative flex flex-col md:flex-row items-center gap-12 group">
                     <!-- Marker -->
@@ -214,7 +213,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                 <div class="h-10 w-2 bg-violet-600 rounded-full"></div>
                 <flux:heading level="2" class="font-black !text-slate-900 dark:!text-white text-4xl tracking-tight">
                     Premium Academy Playlists
-                </h4>
+                </flux:heading>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

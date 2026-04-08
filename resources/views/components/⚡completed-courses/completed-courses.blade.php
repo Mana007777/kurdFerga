@@ -1,4 +1,4 @@
-<div class="glass-panel relative flex flex-col justify-between overflow-hidden rounded-3xl group hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-700 p-8 shadow-xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-white/90 to-white/50 dark:from-zinc-900/90 dark:to-zinc-900/50 backdrop-blur-2xl h-full"
+<div class="relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] bg-zinc-950 border border-zinc-800 p-7 group transition-all duration-500 hover:border-emerald-500/30 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] h-full"
      x-data="{
          current: 0,
          target: @entangle('completedPlaylistsCount'),
@@ -28,44 +28,60 @@
          }
      }"
 >
-    <!-- Ambient glowing orbs -->
-    <div class="absolute -right-24 -top-24 w-56 h-56 bg-gradient-to-bl from-purple-400 to-violet-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
-    <div class="absolute -left-24 -bottom-24 w-56 h-56 bg-gradient-to-tr from-violet-400 to-fuchsia-500 opacity-20 blur-[60px] rounded-full group-hover:opacity-40 group-hover:scale-125 transition-all duration-1000"></div>
-    
-    <div class="relative z-10 w-full flex flex-col h-full space-y-8">
+    <!-- Background System Grid -->
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none rotate-180"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_100%,#000_70%,transparent_100%)]"></div>
+
+    <div class="relative z-10 w-full flex flex-col h-full space-y-6">
         
         {{-- Header --}}
         <div class="flex items-center justify-between w-full">
-            <div class="flex items-center space-x-3">
-                <div class="w-1.5 h-6 rounded-full bg-gradient-to-b from-purple-500 to-violet-500"></div>
-                <h3 class="text-xs font-black tracking-widest uppercase text-slate-800 dark:text-gray-100">Milestones</h3>
+            <div class="flex items-center gap-3">
+                <div class="flex flex-col gap-0.5">
+                    <div class="w-1 h-3 bg-emerald-500 rounded-full"></div>
+                    <div class="w-1 h-1 bg-emerald-500/40 rounded-full"></div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black tracking-[0.2em] uppercase text-zinc-500 leading-none mb-1">Module // 02</h3>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Milestones</h4>
+                </div>
             </div>
             
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/40 text-violet-500 dark:text-indigo-400 shadow-inner backdrop-blur-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path>
-                </svg>
+            <div class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-500 shadow-inner group-hover:border-emerald-500/30 transition-colors">
+                <flux:icon.check-circle class="w-5 h-5" variant="mini" />
             </div>
         </div>
         
         {{-- Stats Display --}}
-        <div class="flex flex-1 items-center justify-center place-content-center relative py-6">
-            <div class="flex flex-col items-center justify-center animate-in fade-in zoom-in duration-500">
-                <h2 class="text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-slate-800 to-slate-500 dark:from-white dark:to-slate-300 drop-shadow-sm">
+        <div class="flex flex-1 items-center justify-center relative py-6">
+            <div class="flex flex-col items-center justify-center text-center">
+                <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Authenticated</div>
+                <div class="font-mono text-8xl font-black text-white tracking-tighter leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                     <span x-text="current"></span>
-                </h2>
-                <div class="mt-4 px-4 py-1.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 text-xs font-bold uppercase tracking-widest">
-                    Completed Playlists
+                </div>
+                <div class="mt-4 px-4 py-1.5 rounded-lg bg-emerald-500/5 text-emerald-500 border border-emerald-500/20 text-[10px] font-black uppercase tracking-[0.2em]">
+                    Playlists Mastered
                 </div>
             </div>
+
+            <!-- Precision Crosshairs -->
+            <div class="absolute top-1/2 left-0 w-6 h-px bg-zinc-800 -translate-y-1/2"></div>
+            <div class="absolute top-1/2 right-0 w-6 h-px bg-zinc-800 -translate-y-1/2"></div>
+            <div class="absolute top-0 left-1/2 w-px h-6 bg-zinc-800 -translate-x-1/2"></div>
+            <div class="absolute bottom-0 left-1/2 w-px h-6 bg-zinc-800 -translate-x-1/2"></div>
         </div>
 
-        {{-- Footer --}}
-        <div class="w-full text-center">
-            <p class="text-[13px] font-semibold tracking-wide text-slate-500 dark:text-gray-400/80">
-                Keep up the momentum!
-            </p>
+        {{-- Footer Status --}}
+        <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.15em]">
+            <span class="text-zinc-500">Sector: 7G</span>
+            <span class="text-zinc-600 font-mono">ID: SEC-2938-X</span>
         </div>
 
     </div>
+
+    <!-- Edge Brackets -->
+    <div class="absolute top-4 left-4 w-2 h-2 border-t border-l border-zinc-700"></div>
+    <div class="absolute top-4 right-4 w-2 h-2 border-t border-r border-zinc-700"></div>
+    <div class="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-zinc-700"></div>
+    <div class="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-zinc-700"></div>
 </div>
