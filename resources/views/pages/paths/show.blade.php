@@ -125,14 +125,21 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
         <h2 class="text-4xl md:text-6xl font-black text-white relative z-10 mb-8 tracking-tight">Ready to begin your journey?</h2>
         <p class="text-violet-100 text-xl mb-12 relative z-10 max-w-2xl mx-auto font-medium">Start the first playlist of this path and track your progress all the way to mastery.</p>
         
-        @auth
-           <flux:button :href="route('playlists.show', $path->playlists->first()->slug)" variant="primary" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl !bg-white !text-violet-600 border-none">
-                Start Step 1
-            </flux:button>
+        @if($path->playlists->isNotEmpty())
+            @auth
+               <flux:button :href="route('playlists.show', $path->playlists->first()->slug)" variant="primary" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl !bg-white !text-violet-600 border-none">
+                    Start Step 1
+                </flux:button>
+            @else
+                <flux:button :href="route('register')" variant="primary" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl !bg-white !text-violet-600 border-none">
+                    Create Account To Track Progress
+                </flux:button>
+            @endauth
         @else
-            <flux:button :href="route('register')" variant="primary" class="rounded-2xl px-12 py-5 text-xl font-black hover:scale-105 transition-transform shadow-xl !bg-white !text-violet-600 border-none">
-                Create Account To Track Progress
-            </flux:button>
-        @endauth
+            <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/10 text-white font-black uppercase tracking-widest border border-white/20">
+                <flux:icon.clock class="w-5 h-5" />
+                Playlists coming soon
+            </div>
+        @endif
     </div>
 </div>
