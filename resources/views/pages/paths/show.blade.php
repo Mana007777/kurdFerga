@@ -1,3 +1,25 @@
+<?php
+
+use App\Models\Path;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+
+new #[Layout('layouts.app.sidebar')] class extends Component {
+    public Path $path;
+
+    public function mount(Path $path)
+    {
+        $this->path = $path->load('playlists.lessons');
+    }
+
+    public function rendering($view)
+    {
+        $view->title($this->path->title . ' Path');
+    }
+};
+?>
+
 <div class="px-8 md:px-12 py-12 max-w-7xl mx-auto w-full space-y-20">
     <!-- Breadcrumbs -->
     <div class="flex items-center gap-4">
