@@ -134,7 +134,7 @@ new #[Layout('layouts.base')] class extends Component
                                 Playlists
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-violet-500 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
-                            <a href="#" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
+                            <a href="{{ route('paths.index') }}" wire:navigate class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-white hover:-translate-y-0.5 transition-all duration-300 relative group">
                                 Paths
                                 <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-violet-500 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                             </a>
