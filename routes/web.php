@@ -20,8 +20,8 @@ Route::livewire('/playlists', 'playlists.index')->name('playlists.index');
 Route::livewire('/playlists/{playlist}', 'playlists.show')->name('playlists.show');
 
 // Public Paths browsing
-Route::livewire('/paths', 'pages.paths')->name('paths.index');
-Route::livewire('/paths/{path}', 'pages.paths.show')->name('paths.show');
+Route::livewire('/paths', 'pages::paths')->name('paths.index');
+Route::livewire('/paths/{path}', 'pages::paths.show')->name('paths.show');
 
 Route::middleware(['auth'])->group(function () {
     Route::livewire('/stars', 'pages::stars')->name('stars.index');
