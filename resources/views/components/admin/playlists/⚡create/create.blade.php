@@ -1,49 +1,107 @@
-<div class="p-6 md:p-10 max-w-4xl mx-auto w-full">
-        <div class="flex items-center gap-4 mb-8">
-            <flux:button variant="ghost" icon="arrow-left" href="{{ route('admin.playlists.index') }}" wire:navigate />
-            <div>
-                <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Create Playlist</h1>
-                <p class="text-slate-500 dark:text-gray-400 mt-1">Publish a new learning module to the curriculum.</p>
-            </div>
+<div class="px-8 md:px-12 py-12 max-w-4xl mx-auto w-full space-y-12">
+    <!-- Header: Deployment Initialization -->
+    <div class="flex items-center gap-6">
+        <flux:button variant="subtle" icon="arrow-left" href="{{ route('admin.playlists.index') }}" wire:navigate class="!bg-zinc-900/50 !border-zinc-800 !text-zinc-500 hover:!text-white transition-all" />
+        <div class="space-y-1">
+            <h1 class="text-4xl font-black text-white tracking-tighter uppercase">{{ __('Initialize Deployment') }}</h1>
+            <p class="text-zinc-500 font-mono text-xs tracking-tight">{{ __('Configure new learning module for curriculum integration.') }}</p>
         </div>
+    </div>
 
-        <div class="glass-panel rounded-2xl shadow-sm border border-slate-200/50 dark:border-white/5 bg-white/70 dark:bg-gray-900/60 backdrop-blur-xl p-8">
-            <form wire:submit="save" class="space-y-6">
+    <!-- Configuration Panel -->
+    <div class="bg-zinc-900/40 backdrop-blur-sm p-10 rounded-[2.5rem] border border-zinc-800 shadow-2xl relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 blur-3xl rounded-full -mr-16 -mt-16"></div>
+        
+        <form wire:submit="save" class="space-y-8 relative">
+            <div class="space-y-6">
+                <flux:input 
+                    wire:model="title" 
+                    label="{{ __('Operational Title') }}" 
+                    placeholder="{{ __('e.g. Advanced Laravel Architecture') }}" 
+                    description="{{ __('The main heading for your learning module.') }}" 
+                    required 
+                    class="!bg-zinc-950/50 !border-zinc-800 !text-zinc-200 !font-mono text-sm uppercase tracking-tight focus:!border-violet-500/50 !rounded-xl"
+                />
                 
-                <flux:input wire:model="title" label="Playlist Title" placeholder="e.g. Advanced Laravel Architecture" description="The main heading for your playlist." required />
-                
-                <div class="space-y-2">
-                    <flux:label>Thumbnail Image</flux:label>
-                    <div class="flex items-center gap-4">
+                <div class="space-y-3">
+                    <flux:label class="!text-zinc-400 font-black text-[10px] uppercase tracking-[0.2em]">{{ __('Identity Visual') }}</flux:label>
+                    <div class="flex items-center gap-6 p-4 rounded-2xl bg-zinc-950/30 border border-zinc-800/50">
                         @if($thumbnail)
-                            <img src="{{ $thumbnail->temporaryUrl() }}" class="w-20 h-20 rounded-xl object-cover border border-slate-200 dark:border-white/10" />
+                            <div class="relative shrink-0 w-24 h-24 rounded-xl border border-violet-500/30 p-1 bg-zinc-950 overflow-hidden shadow-2xl">
+                                <img src="{{ $thumbnail->temporaryUrl() }}" class="w-full h-full object-cover rounded-lg" />
+                            </div>
+                        @else
+                            <div class="w-24 h-24 rounded-xl border-2 border-dashed border-zinc-800 flex flex-col items-center justify-center text-zinc-700">
+                                <flux:icon.photo class="w-8 h-8 opacity-20" />
+                                <span class="text-[8px] font-black uppercase mt-1">{{ __('No Signal') }}</span>
+                            </div>
                         @endif
-                        <flux:input wire:model="thumbnail" type="file" accept="image/*" description="Recommended size: 1280x720 (16:9)." />
+                        <div class="flex-1">
+                            <flux:input 
+                                wire:model="thumbnail" 
+                                type="file" 
+                                accept="image/*" 
+                                description="{{ __('Recommended: 1280x720 (16:9). Maximum high-fidelity transmission.') }}" 
+                                class="!bg-zinc-950/50 !border-zinc-800 !text-zinc-400 !font-mono text-xs"
+                            />
+                        </div>
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <flux:input wire:model="author_name" label="Author Name" placeholder="e.g. Jeffrey Way" />
-                    <flux:select wire:model="level" label="Difficulty Level">
-                        <flux:select.option>Beginner</flux:select.option>
-                        <flux:select.option>Intermediate</flux:select.option>
-                        <flux:select.option>Advanced</flux:select.option>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <flux:input 
+                        wire:model="author_name" 
+                        label="{{ __('Mission Lead') }}" 
+                        placeholder="{{ __('e.g. Jeffrey Way') }}" 
+                        class="!bg-zinc-950/50 !border-zinc-800 !text-zinc-200 !font-mono text-sm uppercase tracking-tight focus:!border-violet-500/50 !rounded-xl"
+                    />
+                    <flux:select 
+                        wire:model="level" 
+                        label="{{ __('Complexity Level') }}"
+                        class="!bg-zinc-950/50 !border-zinc-800 !text-zinc-200 !font-mono text-sm uppercase tracking-tight focus:!border-violet-500/50 !rounded-xl"
+                    >
+                        <flux:select.option>{{ __('Beginner') }}</flux:select.option>
+                        <flux:select.option>{{ __('Intermediate') }}</flux:select.option>
+                        <flux:select.option>{{ __('Advanced') }}</flux:select.option>
                     </flux:select>
                 </div>
 
-                <flux:input wire:model="category" label="Category" placeholder="e.g. Frameworks, PHP, AI..." />
+                <flux:input 
+                    wire:model="category" 
+                    label="{{ __('Domain Sector') }}" 
+                    placeholder="{{ __('e.g. Frameworks, PHP, AI...') }}" 
+                    class="!bg-zinc-950/50 !border-zinc-800 !text-zinc-200 !font-mono text-sm uppercase tracking-tight focus:!border-violet-500/50 !rounded-xl"
+                />
 
-                <flux:textarea wire:model="description" label="Playlist Description" placeholder="Explain what the students will learn..." rows="4" required />
+                <flux:textarea 
+                    wire:model="description" 
+                    label="{{ __('Mission Briefing') }}" 
+                    placeholder="{{ __('Outline the technical objectives and learning outcomes...') }}" 
+                    rows="4" 
+                    required 
+                    class="!bg-zinc-950/50 !border-zinc-800 !text-zinc-300 !font-mono text-sm uppercase tracking-tight focus:!border-violet-500/50 !rounded-xl"
+                />
                 
-                <flux:switch wire:model="is_published" label="Publish Immediately" description="Draft playlists are hidden from students until published." />
-                
-                <hr class="border-slate-200 dark:border-white/5 my-4" />
-                
-                <div class="pt-4 flex justify-end gap-3 border-t border-slate-200 dark:border-gray-700">
-                    <flux:button href="{{ route('admin.playlists.index') }}" variant="ghost" wire:navigate>Cancel</flux:button>
-                    <flux:button type="submit" variant="primary">Create Playlist</flux:button>
+                <div class="p-6 rounded-2xl bg-zinc-950/30 border border-zinc-800/50 group/switch transition-all hover:border-violet-500/20">
+                    <flux:switch 
+                        wire:model="is_published" 
+                        label="{{ __('Initialize Live Stream') }}" 
+                        description="{{ __('If active, this unit will be visible for operational training.') }}" 
+                    />
                 </div>
-                
-            </form>
-        </div>
+            </div>
+            
+            <div class="pt-10 flex justify-end gap-6 border-t border-zinc-800/80">
+                <flux:button href="{{ route('admin.playlists.index') }}" variant="ghost" wire:navigate class="!text-zinc-500 hover:!text-white uppercase font-black text-[10px] tracking-widest px-6 transition-all">
+                    {{ __('Abort Mission') }}
+                </flux:button>
+                <div class="relative">
+                    <flux:button type="submit" variant="primary" class="!bg-violet-600 hover:!bg-violet-500 !text-[11px] font-black uppercase tracking-[0.2em] px-10 py-3 rounded-xl transition-all shadow-[0_0_30px_rgba(139,92,246,0.3)]">
+                        {{ __('Confirm Deployment') }}
+                    </flux:button>
+                    <div class="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-violet-500/50"></div>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
