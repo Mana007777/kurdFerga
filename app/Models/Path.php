@@ -11,6 +11,7 @@ class Path extends Model
         'title',
         'slug',
         'description',
+        'category',
         'thumbnail',
         'is_published',
     ];

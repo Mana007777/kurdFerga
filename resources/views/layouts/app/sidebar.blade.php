@@ -90,7 +90,11 @@
                         </flux:sidebar.group>
                     @endauth
 
-                    <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-4 dark:text-gray-400 dark:hover:text-white">
+                    <flux:sidebar.item icon="map" :href="route('paths.index')" :current="request()->routeIs('paths.index')" wire:navigate class="mt-4 dark:text-gray-400 dark:hover:text-white">
+                        Learning Paths
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="squares-2x2" :href="route('playlists.index')" :current="request()->routeIs('playlists.index')" wire:navigate class="mt-2 dark:text-gray-400 dark:hover:text-white">
                         View All Playlists
                     </flux:sidebar.item>
                 </flux:sidebar.nav>
