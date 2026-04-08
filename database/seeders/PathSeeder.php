@@ -18,6 +18,11 @@ class PathSeeder extends Seeder
                 'Frontend Development',
                 'Backend Development',
                 'Full-Stack Development',
+                'Laravel Mastery',
+                'Node.js Engineering',
+                'Python Backend (FastAPI)',
+                'Go (Golang) Systems',
+                'Java Spring Boot',
                 'Web Accessibility',
                 'Progressive Web Apps (PWA)',
                 'Web Security',
@@ -222,6 +227,36 @@ class PathSeeder extends Seeder
                     ['title' => 'Cloud & Infrastructure', 'description' => 'Dockerizing apps and managing Nginx/Apache configurations.'],
                 ],
             ],
+            'Laravel Mastery' => [
+                'objectives' => [
+                    'Master the most popular PHP framework in the world.',
+                    'Build enterprise-ready applications using TALL stack.',
+                    'Master Eloquent, Service Container, and Job Queues.',
+                ],
+                'technologies' => ['PHP 8.3/8.4', 'Laravel 11/13', 'Livewire', 'PostgreSQL', 'Alpine.js'],
+                'steps' => [
+                    ['title' => 'Core PHP & OOP', 'description' => 'Deep dive into classes, interfaces, and modern PHP syntax.'],
+                    ['title' => 'Laravel Foundations', 'description' => 'Routing, Middleware, Controllers, and Blade templating.'],
+                    ['title' => 'Eloquent Deep Dive', 'description' => 'Relationships, Scopes, Accessors, and Query Optimization.'],
+                    ['title' => 'Reactive Development', 'description' => 'Building dynamic UIs without JS using Livewire.'],
+                    ['title' => 'Testing & CI/CD', 'description' => 'Writing Pest/PHPUnit tests and automated deployments.'],
+                ],
+             ],
+             'Node.js Engineering' => [
+                'objectives' => [
+                    'Master the V8 engine and the asynchronous nature of Node.',
+                    'Build scalable microservices and real-time APIs.',
+                    'Master Express, NestJS, and Direct-DOM manipulation.',
+                ],
+                'technologies' => ['JavaScript/TypeScript', 'Node.js', 'Express/NestJS', 'MongoDB/Prisma', 'BullMQ'],
+                'steps' => [
+                    ['title' => 'Event Loop & Libuv', 'description' => 'Understanding non-blocking I/O and architectural patterns.'],
+                    ['title' => 'Express.js Essentials', 'description' => 'Building RESTful APIs with standard middleware and error handling.'],
+                    ['title' => 'NestJS Architecture', 'description' => 'Mastering Dependency Injection and modular architecture.'],
+                    ['title' => 'Data Persistence (NoSQL/SQL)', 'description' => 'Integrating MongoDB or PostgreSQL with Prisma ORM.'],
+                    ['title' => 'Microservices with RabbitMQ', 'description' => 'Scalable inter-service communication and distributed logging.'],
+                ],
+             ],
             'Full-Stack Development' => [
                 'objectives' => [
                     'Bridge the gap between client and server seamlessly.',
@@ -323,6 +358,10 @@ class PathSeeder extends Seeder
         return match ($title) {
             'Frontend Development' => 'Master the art of building beautiful, responsive user interfaces. Focus on HTML5, CSS3, modern JavaScript (ES6+), and popular frameworks like React or Vue. Learn accessibility, performance optimization, and mobile-first design.',
             'Backend Development' => 'Build the robust engines that power web applications. Master server-side languages like Laravel (PHP), Node.js, or Java. Learn database design (SQL/NoSQL), API development (REST/GraphQL), and server security.',
+            'Laravel Mastery' => 'The ultimate path to becoming a Laravel artisan. Master the entire ecosystem from core framework logic to Sail, Pail, Pint, and Livewire/Flux.',
+            'Node.js Engineering' => 'High-performance server-side JavaScript. Learn to build event-driven, scalable network applications and microservices.',
+            'Python Backend (FastAPI)' => 'Rapid development with modern Python. Master FastAPI, Pydantic, and asynchronous data processing for AI-integrated backends.',
+            'Go (Golang) Systems' => 'Build lightning-fast, concurrent systems. Master Go primitives, channels, and performance-critical network services.',
             'Full-Stack Development' => 'The complete package. Bridge the gap between frontend and backend. Learn to build entire web applications from scratch, manage deployments, and understand the full lifecycle of software development.',
             'Web Accessibility' => 'Ensure the web is usable by everyone. Deep dive into ARIA patterns, semantic HTML, keyboard navigation, and testing tools to meet WCAG standards.',
             'Progressive Web Apps (PWA)' => 'Combine the best of web and mobile. Learn service workers, manifest files, and offline data strategies to build apps that work everywhere, even without an internet connection.',
