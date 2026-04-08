@@ -46,7 +46,8 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
 
             @php
                 $roadmapData = is_array($path->roadmap) ? $path->roadmap : [];
-                $totalSteps = $path->playlists->isNotEmpty() ? $path->playlists->count() : count($roadmapData['steps'] ?? []);
+                $stepsData = $path->playlists->isNotEmpty() ? $path->playlists : collect($roadmapData['steps'] ?? []);
+                $totalSteps = $stepsData->count();
                 $totalLessons = $path->playlists->sum(fn($p) => $p->lessons->count());
             @endphp
 
@@ -76,14 +77,56 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
         </div>
     </div>
 
+    <!-- Path Details (Objectives & Tech) -->
+    @if(isset($roadmapData['objectives']) || isset($roadmapData['technologies']))
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32 animate-fade-in-up">
+            <!-- Objectives -->
+            @if(isset($roadmapData['objectives']))
+            <div class="glass-panel p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg relative overflow-hidden group">
+                <div class="absolute -top-12 -right-12 w-32 h-32 bg-violet-500/10 rounded-full blur-2xl group-hover:bg-violet-500/20 transition-colors"></div>
+                <flux:heading level="2" class="mb-8 flex items-center gap-3 !text-violet-600 dark:!text-violet-400 font-extrabold tracking-tight text-2xl">
+                    <flux:icon.check-badge class="w-7 h-7" variant="mini" />
+                    Learning Objectives
+                </flux:heading>
+                <ul class="space-y-5">
+                    @foreach($roadmapData['objectives'] as $objective)
+                        <li class="flex gap-4 text-slate-600 dark:text-gray-400 font-semibold leading-relaxed">
+                            <flux:icon.check class="w-5 h-5 text-violet-500 shrink-0 mt-0.5" />
+                            {{ $objective }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+            <!-- Technologies -->
+            @if(isset($roadmapData['technologies']))
+            <div class="glass-panel p-8 rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-lg relative overflow-hidden group">
+                <div class="absolute -top-12 -right-12 w-32 h-32 bg-plum-500/10 rounded-full blur-2xl group-hover:bg-plum-500/20 transition-colors"></div>
+                <flux:heading level="2" class="mb-8 flex items-center gap-3 !text-plum-600 dark:!text-plum-400 font-extrabold tracking-tight text-2xl">
+                    <flux:icon.command-line class="w-7 h-7" variant="mini" />
+                    Core Stack
+                </flux:heading>
+                <div class="flex flex-wrap gap-3">
+                    @foreach($roadmapData['technologies'] as $tech)
+                        <span class="px-5 py-3 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-700 dark:text-gray-200 shadow-sm hover:border-plum-500/50 transition-colors">
+                            {{ $tech }}
+                        </span>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+        </div>
+    @endif
+
     <!-- The Roadmap Timeline -->
     <div class="relative">
         <div class="absolute left-8 lg:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-violet-500/50 via-plum-500/50 to-transparent rounded-full hidden md:block"></div>
         
         <div class="space-y-24">
             @php
-                $steps = $path->playlists->isNotEmpty() ? $path->playlists : collect($path->roadmap ?? []);
                 $isDatabaseSteps = $path->playlists->isNotEmpty();
+                $steps = $isDatabaseSteps ? $path->playlists : collect($roadmapData['steps'] ?? []);
             @endphp
 
             @foreach($steps as $index => $step)
@@ -103,7 +146,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                                 {{ $isDatabaseSteps ? $step->description : $step['description'] }}
                             </p>
                             <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest border border-slate-200 dark:border-white/10">
-                                {{ $isDatabaseSteps ? $step->level : 'Mastery Track' }}
+                                {{ $isDatabaseSteps ? $step->level : 'Professional Milestone' }}
                             </span>
                         </div>
                         <div class="md:w-1/2 md:pl-24 w-full">
@@ -116,10 +159,11 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                                     <img src="{{ $step->thumbnail ?? 'https://placehold.co/600x400/1e1b4b/white?text=' . urlencode($step->title) }}" class="w-full h-full object-cover" alt="">
                                 </a>
                             @else
-                                <div class="relative overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video glass-panel flex items-center justify-center">
-                                    <flux:icon.academic-cap class="w-16 h-16 text-slate-200 dark:text-white/10" />
+                                <div class="relative overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video glass-panel flex items-center justify-center group/card">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-plum-500/10 opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
+                                    <flux:icon.academic-cap class="w-16 h-16 text-slate-200 dark:text-white/10 group-hover/card:scale-110 transition-transform duration-700" />
                                     <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
-                                        <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Curated Step</span>
+                                        <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Guided Instruction</span>
                                     </div>
                                 </div>
                             @endif
@@ -136,10 +180,11 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                                     <img src="{{ $step->thumbnail ?? 'https://placehold.co/600x400/312e81/white?text=' . urlencode($step->title) }}" class="w-full h-full object-cover" alt="">
                                 </a>
                             @else
-                                <div class="relative overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video glass-panel flex items-center justify-center">
-                                    <flux:icon.academic-cap class="w-16 h-16 text-slate-200 dark:text-white/10" />
-                                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/20 to-transparent text-right">
-                                        <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Curated Step</span>
+                                <div class="relative overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-white/10 shadow-xl aspect-video glass-panel flex items-center justify-center group/card text-right">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-plum-500/10 to-violet-500/10 opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
+                                    <flux:icon.academic-cap class="w-16 h-16 text-slate-200 dark:text-white/10 group-hover/card:scale-110 transition-transform duration-700" />
+                                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
+                                        <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Guided Instruction</span>
                                     </div>
                                 </div>
                             @endif
@@ -152,7 +197,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component {
                                 {{ $isDatabaseSteps ? $step->description : $step['description'] }}
                             </p>
                             <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest border border-slate-200 dark:border-white/10">
-                                {{ $isDatabaseSteps ? $step->level : 'Mastery Track' }}
+                                {{ $isDatabaseSteps ? $step->level : 'Professional Milestone' }}
                             </span>
                         </div>
                     @endif
