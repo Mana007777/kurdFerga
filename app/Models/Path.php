@@ -11,9 +11,15 @@ class Path extends Model
         'title',
         'slug',
         'description',
+        'roadmap',
         'category',
         'thumbnail',
         'is_published',
+    ];
+
+    protected $casts = [
+        'roadmap' => 'array',
+        'is_published' => 'boolean',
     ];
 
     public function playlists(): BelongsToMany
