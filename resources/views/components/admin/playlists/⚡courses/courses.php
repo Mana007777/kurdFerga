@@ -63,6 +63,7 @@ new class extends Component
         $this->validate([
             'newLessonTitle' => 'required|min:2',
             'newLessonVideo' => 'required|file|mimes:mp4,mov,avi,webm|max:102400',
+            'newLessonDurationMinutes' => 'required|numeric|min:0.1',
         ], [], ['newLessonTitle' => 'lesson title', 'newLessonVideo' => 'video file']);
 
         $section = Section::findOrFail($this->activeSectionIdForLesson);

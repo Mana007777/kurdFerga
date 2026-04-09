@@ -132,11 +132,12 @@
                                         </span>
                                     @elseif(($lessonProgress[$lesson->id] ?? 0) > 0 && $lesson->duration_seconds > 0)
                                         @php
+                                            $percent = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 100);
                                             $currentXP = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 5);
                                         @endphp
                                         <span class="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-1">
                                             <flux:icon.bolt class="w-3 h-3" />
-                                            {{ __('Progress') }} · +{{ $currentXP }} XP
+                                            {{ __('Progress') }} {{ $percent }}% · +{{ $currentXP }} XP
                                         </span>
                                     @else
                                         <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{{ __('Instructional Content') }} // {{ str_pad($i + 1, 3, '0', STR_PAD_LEFT) }}</span>
@@ -241,7 +242,16 @@
             <div class="relative w-full aspect-video bg-black group" 
                  x-data="{ 
                     lastPing: 0,
+                    currentTime: 0,
+                    duration: {{ $activeLesson->duration_seconds > 0 ? $activeLesson->duration_seconds : 1 }},
+                    formatTime(seconds) {
+                        if (isNaN(seconds)) return '00:00';
+                        const m = Math.floor(seconds / 60);
+                        const s = Math.floor(seconds % 60);
+                        return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+                    },
                     track(el) {
+                        this.currentTime = el.currentTime;
                         const now = el.currentTime;
                         if (now - this.lastPing >= 10 || el.ended) {
                             this.lastPing = now;
@@ -260,13 +270,29 @@
 
                 <!-- Modal Header Overlay -->
                 <div class="absolute top-0 left-0 right-0 p-8 flex justify-between items-start pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div class="bg-zinc-950/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-zinc-800">
-                        <h3 class="text-white font-black uppercase tracking-tight">{{ $activeLesson->title }}</h3>
-                        <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-widest mt-1">{{ __('Duration') }}: {{ floor($activeLesson->duration_seconds / 60) }}m {{ $activeLesson->duration_seconds % 60 }}s</p>
+                    <div class="bg-zinc-950/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-zinc-800 flex items-center gap-6 shadow-2xl pointer-events-auto">
+                        <div class="space-y-1">
+                            <h3 class="text-white font-black uppercase tracking-tight text-sm">{{ $activeLesson->title }}</h3>
+                            <div class="flex items-center gap-4 text-[10px] font-mono font-black uppercase tracking-widest text-zinc-500">
+                                <span class="flex items-center gap-1.5"><flux:icon.clock class="w-3 h-3" /> <span x-text="formatTime(currentTime)"></span> / <span x-text="formatTime(duration)"></span></span>
+                                <span class="w-1 h-1 rounded-full bg-zinc-800"></span>
+                                <span class="text-violet-400" x-text="Math.floor((currentTime / duration) * 100) + '%'"></span>
+                            </div>
+                        </div>
+                        <div class="h-8 w-px bg-zinc-800"></div>
+                        <div class="text-center">
+                            <div class="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-0.5">{{ __('Points Earned') }}</div>
+                            <div class="text-lg font-black text-emerald-500 tracking-tighter" x-text="'+' + Math.floor((currentTime / duration) * 5) + ' XP'"></div>
+                        </div>
                     </div>
                     <flux:modal.close class="pointer-events-auto">
-                        <flux:button variant="ghost" icon="x-mark" class="!bg-zinc-950/80 !backdrop-blur-md !border-zinc-800 !text-white !rounded-xl" />
+                        <flux:button variant="ghost" icon="x-mark" class="!bg-zinc-950/80 !backdrop-blur-md !border-zinc-800 !text-white !rounded-2xl" />
                     </flux:modal.close>
+                </div>
+
+                <!-- Bottom Progress Bar Overlay -->
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-zinc-900 pointer-events-none">
+                    <div class="h-full bg-violet-600 shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300" x-bind:style="'width: ' + (currentTime / duration * 100) + '%'"></div>
                 </div>
             </div>
         @endif
