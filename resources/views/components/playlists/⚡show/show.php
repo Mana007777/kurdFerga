@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Lesson;
 use App\Models\Playlist;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
@@ -44,7 +45,6 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     public function openLesson(int $lessonId): void
     {
         $this->activeLesson = Lesson::findOrFail($lessonId);
-        $this->dispatch('open-video-modal');
     }
 
     public function updateProgress(int $lessonId, int $seconds): void

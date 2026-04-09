@@ -100,76 +100,87 @@
                 <div class="divide-y divide-zinc-800/50">
                     @forelse($section->lessons as $i => $lesson)
                         @php $isDone = in_array($lesson->id, $completedLessonIds); @endphp
-                        <div class="group flex items-center gap-6 px-8 py-6 {{ $isDone ? 'bg-emerald-500/[0.02]' : 'hover:bg-zinc-800/40' }} transition-all duration-300">
-                            <!-- Index / Done Indicator -->
-                            <div class="shrink-0">
-                                @if($isDone)
-                                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-                                        <flux:icon.check class="w-5 h-5 stroke-[3]" />
+                        
+                        <flux:modal.trigger name="video-modal">
+                            <div class="flex items-center justify-between p-6 cursor-pointer group {{ $isDone ? 'bg-emerald-500/[0.02]' : 'hover:bg-zinc-800/40' }}" wire:click="openLesson({{ $lesson->id }})">
+                                <!-- Lesson Identity -->
+                                <div class="flex items-center gap-5 flex-1 min-w-0">
+                                    <div class="relative">
+                                        @if($isDone)
+                                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                                                <flux:icon.check class="w-5 h-5" />
+                                            </div>
+                                        @else
+                                            <div class="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-[10px] font-black text-zinc-600 group-hover:text-violet-400 group-hover:border-violet-500/30 transition-all duration-300">
+                                                {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+                                            </div>
+                                        @endif
                                     </div>
-                                @else
-                                    <div class="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-[10px] font-black text-zinc-600 group-hover:text-violet-400 group-hover:border-violet-500/30 transition-all duration-300">
-                                        {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+
+                                    <!-- Lesson Info -->
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-3 mb-1">
+                                            <h4 @class(['font-black text-lg tracking-tight truncate transition-colors duration-300 uppercase', 'text-zinc-600 line-through decoration-emerald-500/50' => $isDone, 'text-white group-hover:text-violet-400' => !$isDone])>
+                                                {{ $lesson->title }}
+                                            </h4>
+                                            @if($lesson->is_preview)
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-500/10 text-[9px] font-black text-violet-500 uppercase tracking-widest border border-violet-500/20">Free</span>
+                                            @endif
+                                        </div>
+                                        <div class="flex items-center gap-4">
+                                            @if($isDone)
+                                                @php
+                                                    $watched = $lessonProgress[$lesson->id] ?? 0;
+                                                    $earnedXP = ($lesson->duration_seconds > 0) ? (int) floor(($watched / $lesson->duration_seconds) * 5) : 0;
+                                                @endphp
+                                                <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
+                                                    <flux:icon.sparkles class="w-3 h-3" />
+                                                    {{ __('Completed') }} · +{{ $earnedXP }} XP
+                                                </span>
+                                            @elseif(($lessonProgress[$lesson->id] ?? 0) > 0 && $lesson->duration_seconds > 0)
+                                                @php
+                                                    $percent = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 100);
+                                                    $currentXP = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 5);
+                                                @endphp
+                                                <span class="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-1">
+                                                    <flux:icon.bolt class="w-3 h-3" />
+                                                    {{ __('Progress') }} {{ $percent }}% · +{{ $currentXP }} XP
+                                                </span>
+                                            @else
+                                                <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{{ __('Instructional Content') }} // {{ str_pad($i + 1, 3, '0', STR_PAD_LEFT) }}</span>
+                                            @endif
+                                        </div>
                                     </div>
-                                @endif
-                            </div>
 
-                            <!-- Lesson Info -->
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center gap-3 mb-1">
-                                    <h4 @class(['font-black text-lg tracking-tight truncate transition-colors duration-300 uppercase', 'text-zinc-600 line-through decoration-emerald-500/50' => $isDone, 'text-white group-hover:text-violet-400' => !$isDone])>
-                                        {{ $lesson->title }}
-                                    </h4>
-                                    @if($lesson->is_preview)
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-500/10 text-[9px] font-black text-violet-500 uppercase tracking-widest border border-violet-500/20">Free</span>
-                                    @endif
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    @if($isDone)
-                                        <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
-                                            <flux:icon.sparkles class="w-3 h-3" />
-                                            {{ __('Completed') }} · +5 XP
-                                        </span>
-                                    @elseif(($lessonProgress[$lesson->id] ?? 0) > 0 && $lesson->duration_seconds > 0)
-                                        @php
-                                            $percent = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 100);
-                                            $currentXP = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 5);
-                                        @endphp
-                                        <span class="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-1">
-                                            <flux:icon.bolt class="w-3 h-3" />
-                                            {{ __('Progress') }} {{ $percent }}% · +{{ $currentXP }} XP
-                                        </span>
-                                    @else
-                                        <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{{ __('Instructional Content') }} // {{ str_pad($i + 1, 3, '0', STR_PAD_LEFT) }}</span>
-                                    @endif
+                                    <!-- Desktop Actions -->
+                                    <div class="hidden md:flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0" @click.stop>
+                                        @auth
+                                            <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
+                                            
+                                            @if($lesson->video_url)
+                                                <flux:modal.trigger name="video-modal">
+                                                    <flux:button size="sm" variant="ghost" icon="play" wire:click="openLesson({{ $lesson->id }})" class="!text-violet-400 hover:!text-white">{{ __('Watch') }}</flux:button>
+                                                </flux:modal.trigger>
+                                            @endif
+                                            
+                                            @if(! $isDone)
+                                                <button wire:click="completeLesson({{ $lesson->id }})" class="h-9 px-5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-200 shadow-[0_4px_12px_rgba(16,185,129,0.1)]">
+                                                    {{ __('Complete') }}
+                                                </button>
+                                            @endif
+                                        @else
+                                            <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-zinc-600">{{ __('Watch') }}</flux:button>
+                                            <flux:button size="sm" variant="ghost" icon="star" @click="alert('Please login first')" class="text-zinc-600" />
+                                        @endauth
+                                    </div>
+
+                                    <!-- Right Arrow (Mobile Only / Indicator) -->
+                                    <div class="md:hidden">
+                                        <flux:icon.chevron-right class="w-5 h-5 text-zinc-700 group-hover:text-violet-500 transition-colors" />
+                                    </div>
                                 </div>
                             </div>
-
-                            <!-- Desktop Actions -->
-                            <div class="hidden md:flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-                                @auth
-                                    <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
-                                    
-                                    @if($lesson->video_url)
-                                        <flux:button size="sm" variant="ghost" icon="play" wire:click="openLesson({{ $lesson->id }})" class="!text-violet-400 hover:!text-white">{{ __('Watch') }}</flux:button>
-                                    @endif
-                                    
-                                    @if(! $isDone)
-                                        <button wire:click="completeLesson({{ $lesson->id }})" class="h-9 px-5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all duration-200 shadow-[0_4px_12px_rgba(16,185,129,0.1)]">
-                                            {{ __('Complete') }}
-                                        </button>
-                                    @endif
-                                @else
-                                    <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-zinc-600">{{ __('Watch') }}</flux:button>
-                                    <flux:button size="sm" variant="ghost" icon="star" @click="alert('Please login first')" class="text-zinc-600" />
-                                @endauth
-                            </div>
-
-                            <!-- Right Arrow (Mobile Only / Indicator) -->
-                            <div class="md:hidden">
-                                <flux:icon.chevron-right class="w-5 h-5 text-zinc-700 group-hover:text-violet-500 transition-colors" />
-                            </div>
-                        </div>
+                        </flux:modal.trigger>
 
                         <!-- Mini Progress Bar -->
                         @if(!$isDone && isset($lessonProgress[$lesson->id]) && $lesson->duration_seconds > 0)
@@ -237,7 +248,7 @@
     @endif
 
     <!-- Video Signal Modal -->
-    <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" x-on:open-video-modal.window="$el.show()">
+    <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden">
         @if($activeLesson)
             <div class="relative w-full aspect-video bg-black group" 
                  x-data="{ 
@@ -297,4 +308,3 @@
             </div>
         @endif
     </flux:modal>
-</div>
