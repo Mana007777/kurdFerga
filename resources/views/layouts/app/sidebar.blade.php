@@ -159,7 +159,15 @@
                          <div class="h-[1px] w-full bg-zinc-800/50"></div>
                     </div>
 
-                    <flux:sidebar.item icon="map" :href="route('paths.index')" :current="request()->routeIs('paths.index')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                    <flux:sidebar.item icon="users" :href="route('instructors.index')" :current="request()->routeIs('instructors.index')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                         <span class="flex items-center justify-between w-full">
+                            {{ __('Instructors') }}
+                            <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[TEAM]</span>
+                        </span>
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="map" :href="route('paths.index')" :current="request()->routeIs('paths.index')" wire:navigate class="mt-2 !text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
                         <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
                          <span class="flex items-center justify-between w-full">
                             {{ __('Learning Paths') }}
