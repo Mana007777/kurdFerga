@@ -300,6 +300,7 @@
                         class="w-full h-full" 
                         controls 
                         autoplay
+                        x-on:loadedmetadata="duration = $el.duration || duration"
                         x-on:timeupdate="track($el)"
                         x-on:ended="track($el)"
                     ></video>
