@@ -58,6 +58,8 @@
                     </div>
 
                     {{-- Hardware Spec List --}}
+
+                    {{-- Hardware Spec List --}}
                     <div class="space-y-4 pt-6 border-t border-zinc-900">
                         <div class="flex items-center gap-4 text-zinc-400 group/item">
                             <flux:icon.queue-list class="w-4 h-4 text-zinc-600 group-hover/item:text-violet-500 transition-colors" />
@@ -70,6 +72,29 @@
                         <div class="flex items-center gap-4 text-zinc-400 group/item">
                             <flux:icon.tag class="w-4 h-4 text-zinc-600 group-hover/item:text-amber-500 transition-colors" />
                             <span class="text-[10px] font-black uppercase tracking-widest">{{ $playlist->category ?? __('Platform') }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Instructor Attribution // Bottom Left --}}
+                    <div class="absolute bottom-6 left-6 z-30 group/instructor flex items-center gap-3">
+                        <div class="relative">
+                            <div class="w-10 h-10 rounded-full p-0.5 bg-zinc-900 border border-zinc-800 shadow-xl group-hover/instructor:border-violet-500/50 transition-all duration-500 overflow-hidden">
+                                @if($playlist->user)
+                                    <img src="{{ $playlist->user->profile_photo_url }}" class="w-full h-full rounded-full object-cover" alt="{{ $playlist->user->name }}" />
+                                @else
+                                    <div class="w-full h-full rounded-full bg-zinc-800 flex items-center justify-center">
+                                        <flux:icon.user class="w-5 h-5 text-zinc-600" />
+                                    </div>
+                                @endif
+                            </div>
+                            {{-- Instructor Orbital Glow --}}
+                            <div class="absolute inset-[-2px] rounded-full border border-violet-500/20 opacity-0 group-hover/instructor:opacity-100 transition-opacity duration-500"></div>
+                        </div>
+
+                        {{-- Hover Reveal Name --}}
+                        <div class="flex flex-col opacity-0 group-hover/instructor:opacity-100 -translate-x-2 group-hover/instructor:translate-x-0 transition-all duration-500 pointer-events-none">
+                            <span class="text-[8px] font-mono text-violet-500 uppercase tracking-[0.2em] leading-none mb-0.5">{{ __('Instructor') }}</span>
+                            <span class="text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">{{ $playlist->user->name ?? __('Unknown') }}</span>
                         </div>
                     </div>
 
