@@ -135,13 +135,19 @@
                     </div>
                 </div>
 
-                <!-- Upload Progress Bar -->
                 <div x-show="uploading" class="w-full bg-zinc-900 rounded-full h-1.5 overflow-hidden shadow-inner">
                     <div class="bg-violet-600 h-1.5 rounded-full transition-all duration-150 shadow-[0_0_10px_rgba(139,92,246,0.5)]" x-bind:style="'width: ' + progress + '%'"></div>
                 </div>
 
-                <div class="p-4 rounded-xl bg-zinc-900/20 border border-zinc-800/40">
-                    <flux:switch wire:model="newLessonIsPreview" label="{{ __('Open Encryption') }}" description="{{ __('Allow non-authorized personnel access.') }}" />
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-zinc-900/20 border border-zinc-800/40">
+                        <flux:switch wire:model="newLessonIsPreview" label="{{ __('Open Encryption') }}" description="{{ __('Allow non-authorized personnel access.') }}" />
+                    </div>
+                    
+                    <div class="p-4 rounded-xl bg-zinc-900/20 border border-zinc-800/40">
+                        <flux:input wire:model="newLessonDurationMinutes" type="number" step="0.1" label="{{ __('Temporal Duration') }}" placeholder="{{ __('Minutes') }}" class="!bg-zinc-900/60 !border-zinc-800 !text-zinc-200 !font-mono text-xs uppercase tracking-tight focus:!border-violet-500/50 !rounded-xl" />
+                        <p class="text-[9px] text-zinc-600 mt-2 font-mono uppercase tracking-widest">{{ __('Video Length in Minutes') }}</p>
+                    </div>
                 </div>
             </div>
 

@@ -85,7 +85,9 @@ class User extends Authenticatable
 
     public function completedLessons(): BelongsToMany
     {
-        return $this->belongsToMany(Lesson::class, 'lesson_user')->withTimestamps();
+        return $this->belongsToMany(Lesson::class, 'lesson_user')
+            ->withPivot(['is_completed', 'watched_seconds'])
+            ->withTimestamps();
     }
 
     public function starredLessons(): BelongsToMany
@@ -93,11 +95,47 @@ class User extends Authenticatable
         return $this->belongsToMany(Lesson::class, 'lesson_stars')->withTimestamps();
     }
 
-    public function completeLesson(Lesson $lesson): void
+    public function completeLesson(Lesson $lesson, ?int $watchedSeconds = null): void
     {
-        if (! $this->completedLessons()->where('lesson_id', $lesson->id)->exists()) {
-            $this->completedLessons()->attach($lesson);
-            $this->increment('pts', 5);
+        $existing = $this->completedLessons()->where('lesson_id', $lesson->id)->first();
+
+        // Already fully completed (100% / 5pts)
+        if ($existing && $existing->pivot->is_completed) {
+            return;
+        }
+
+        // Calculate XP based on progress
+        $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
+
+        // If watchedSeconds is null, it means an explicit "Complete" click.
+        // We use existing progress if available, otherwise 0.
+        $watched = $watchedSeconds ?? ($existing ? $existing->pivot->watched_seconds : 0);
+        $watched = min($watched, $duration);
+
+        $ptsToAward = (int) floor(($watched / $duration) * 5);
+        $isFullyCompleted = ($watchedSeconds === null) || ($watched === $duration);
+
+        if ($existing) {
+            $prevPts = (int) floor(($existing->pivot->watched_seconds / $duration) * 5);
+            $newPts = $ptsToAward - $prevPts;
+
+            if ($newPts > 0) {
+                $this->increment('pts', $newPts);
+            }
+
+            $this->completedLessons()->updateExistingPivot($lesson->id, [
+                'is_completed' => $isFullyCompleted,
+                'watched_seconds' => $watched,
+            ]);
+        } else {
+            $this->completedLessons()->attach($lesson, [
+                'is_completed' => $isFullyCompleted,
+                'watched_seconds' => $watched,
+            ]);
+
+            if ($ptsToAward > 0) {
+                $this->increment('pts', $ptsToAward);
+            }
         }
     }
 }

@@ -12,6 +12,11 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     /** @var array<int> */
     public array $completedLessonIds = [];
 
+    /** @var array<int, int> */
+    public array $lessonProgress = [];
+
+    public ?Lesson $activeLesson = null;
+
     public function mount(Playlist $playlist): void
     {
         abort_if(! $playlist->is_published, 404);
@@ -24,10 +29,32 @@ new #[Layout('layouts.app.sidebar')] class extends Component
         $user = Auth::user();
 
         if ($user) {
-            $this->completedLessonIds = $user->completedLessons()
+            $completedRelation = $user->completedLessons();
+            
+            $this->completedLessonIds = $completedRelation->wherePivot('is_completed', true)
                 ->pluck('lessons.id')
                 ->toArray();
+
+            $this->lessonProgress = $completedRelation->get()
+                ->pluck('pivot.watched_seconds', 'id')
+                ->toArray();
         }
+    }
+
+    public function openLesson(int $lessonId): void
+    {
+        $this->activeLesson = Lesson::findOrFail($lessonId);
+        $this->dispatch('open-video-modal');
+    }
+
+    public function updateProgress(int $lessonId, int $seconds): void
+    {
+        $user = Auth::user();
+        if (! $user) return;
+
+        $lesson = Lesson::findOrFail($lessonId);
+        $user->completeLesson($lesson, $seconds);
+        $this->loadCompletedLessons();
     }
 
     public function completeLesson(int $lessonId): void

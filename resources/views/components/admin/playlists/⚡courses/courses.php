@@ -22,6 +22,7 @@ new class extends Component
     public $newLessonVideo;
 
     public $newLessonIsPreview = false;
+    public $newLessonDurationMinutes = 0;
 
     public $activeSectionIdForLesson = null;
 
@@ -77,6 +78,7 @@ new class extends Component
             'is_preview' => $this->newLessonIsPreview,
             'is_published' => true,
             'sort_order' => $maxSort + 1,
+            'duration_seconds' => (int) ($this->newLessonDurationMinutes * 60),
         ]);
 
         $this->activeSectionIdForLesson = null;

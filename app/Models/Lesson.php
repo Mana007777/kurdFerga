@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Lesson extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'playlist_id',
         'course_id',
@@ -20,6 +21,7 @@ class Lesson extends Model
         'is_preview',
         'is_published',
         'sort_order',
+        'duration_seconds',
     ];
 
     public function course(): BelongsTo

@@ -130,6 +130,14 @@
                                             <flux:icon.sparkles class="w-3 h-3" />
                                             {{ __('Completed') }} · +5 XP
                                         </span>
+                                    @elseif(($lessonProgress[$lesson->id] ?? 0) > 0 && $lesson->duration_seconds > 0)
+                                        @php
+                                            $currentXP = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 5);
+                                        @endphp
+                                        <span class="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-1">
+                                            <flux:icon.bolt class="w-3 h-3" />
+                                            {{ __('Progress') }} · +{{ $currentXP }} XP
+                                        </span>
                                     @else
                                         <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{{ __('Instructional Content') }} // {{ str_pad($i + 1, 3, '0', STR_PAD_LEFT) }}</span>
                                     @endif
@@ -142,9 +150,7 @@
                                     <livewire:courses.star-lesson :lesson="$lesson" :key="'star-lesson-'.$lesson->id" />
                                     
                                     @if($lesson->video_url)
-                                        <a href="{{ $lesson->video_url }}" target="_blank">
-                                            <flux:button size="sm" variant="ghost" icon="play" class="!text-violet-400 hover:!text-white">{{ __('Watch Vid') }}</flux:button>
-                                        </a>
+                                        <flux:button size="sm" variant="ghost" icon="play" wire:click="openLesson({{ $lesson->id }})" class="!text-violet-400 hover:!text-white">{{ __('Watch') }}</flux:button>
                                     @endif
                                     
                                     @if(! $isDone)
@@ -153,7 +159,7 @@
                                         </button>
                                     @endif
                                 @else
-                                    <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-zinc-600">{{ __('Watch Vid') }}</flux:button>
+                                    <flux:button size="sm" variant="ghost" icon="lock-closed" @click="alert('Please login first')" class="text-zinc-600">{{ __('Watch') }}</flux:button>
                                     <flux:button size="sm" variant="ghost" icon="star" @click="alert('Please login first')" class="text-zinc-600" />
                                 @endauth
                             </div>
@@ -163,6 +169,15 @@
                                 <flux:icon.chevron-right class="w-5 h-5 text-zinc-700 group-hover:text-violet-500 transition-colors" />
                             </div>
                         </div>
+
+                        <!-- Mini Progress Bar -->
+                        @if(!$isDone && isset($lessonProgress[$lesson->id]) && $lesson->duration_seconds > 0)
+                            <div class="px-8 pb-4">
+                                <div class="w-full h-1 bg-zinc-900 rounded-full overflow-hidden">
+                                    <div class="bg-violet-500 h-full transition-all duration-500" style="width: {{ ($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 100 }}%"></div>
+                                </div>
+                            </div>
+                        @endif
                     @empty
                         <div class="px-8 py-12 text-center text-xs font-black text-zinc-600 uppercase tracking-widest italic">{{ __('No personnel files found in this section.') }}</div>
                     @endforelse
@@ -219,4 +234,41 @@
             @endforeach
         </div>
     @endif
+
+    <!-- Video Signal Modal -->
+    <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" x-on:open-video-modal.window="$el.show()">
+        @if($activeLesson)
+            <div class="relative w-full aspect-video bg-black group" 
+                 x-data="{ 
+                    lastPing: 0,
+                    track(el) {
+                        const now = el.currentTime;
+                        if (now - this.lastPing >= 10 || el.ended) {
+                            this.lastPing = now;
+                            $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now));
+                        }
+                    }
+                 }">
+                <video 
+                    src="{{ $activeLesson->video_url }}" 
+                    class="w-full h-full" 
+                    controls 
+                    autoplay
+                    x-on:timeupdate="track($el)"
+                    x-on:ended="track($el)"
+                ></video>
+
+                <!-- Modal Header Overlay -->
+                <div class="absolute top-0 left-0 right-0 p-8 flex justify-between items-start pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="bg-zinc-950/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-zinc-800">
+                        <h3 class="text-white font-black uppercase tracking-tight">{{ $activeLesson->title }}</h3>
+                        <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-widest mt-1">{{ __('Duration') }}: {{ floor($activeLesson->duration_seconds / 60) }}m {{ $activeLesson->duration_seconds % 60 }}s</p>
+                    </div>
+                    <flux:modal.close class="pointer-events-auto">
+                        <flux:button variant="ghost" icon="x-mark" class="!bg-zinc-950/80 !backdrop-blur-md !border-zinc-800 !text-white !rounded-xl" />
+                    </flux:modal.close>
+                </div>
+            </div>
+        @endif
+    </flux:modal>
 </div>
