@@ -134,10 +134,18 @@
                                                     $watched = $lessonProgress[$lesson->id] ?? 0;
                                                     $earnedXP = (int) floor(($watched / $duration) * 5);
                                                 @endphp
-                                                <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
-                                                    <flux:icon.sparkles class="w-3 h-3" />
-                                                    {{ __('Completed') }} · +{{ $earnedXP }} XP
-                                                </span>
+                                                
+                                                @if($earnedXP > 0)
+                                                    <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
+                                                        <flux:icon.sparkles class="w-3 h-3" />
+                                                        {{ __('Completed') }} · +{{ $earnedXP }} XP
+                                                    </span>
+                                                @else
+                                                    <span class="text-[10px] font-black text-rose-500 uppercase tracking-widest flex items-center gap-1">
+                                                        <flux:icon.exclamation-triangle class="w-3 h-3" />
+                                                        {{ __('Completed') }} · +0 XP ({{ __('please watch the videos to get XP') }})
+                                                    </span>
+                                                @endif
                                             @elseif(($lessonProgress[$lesson->id] ?? 0) > 0)
                                                 @php
                                                     $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
@@ -254,13 +262,13 @@
                 class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" 
                 x-data="{ 
                     lastBoundTime: 0,
-                    trackClosing(lessonId) {
+                    trackClosing() {
                         if (this.lastBoundTime > 0) {
-                            $wire.updateProgress(lessonId, Math.floor(this.lastBoundTime));
+                            $wire.updateProgress($wire.activeLesson.id, Math.floor(this.lastBoundTime));
                         }
                     }
                 }"
-                @close="trackClosing({{ $activeLesson->id ?? 0 }}); $wire.set('activeLesson', null)">
+                @close="if($wire.activeLesson) { trackClosing(); } $wire.set('activeLesson', null)">
         @if($activeLesson)
                 @php 
                     $watched = ($activeLesson && $activeLesson->pivot) ? $activeLesson->pivot->watched_seconds : 0;
