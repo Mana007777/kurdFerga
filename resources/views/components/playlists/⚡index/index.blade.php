@@ -75,15 +75,15 @@
                         </div>
                     </div>
 
-                    {{-- Instructor Attribution // Bottom Left --}}
-                    <div class="absolute bottom-6 left-6 z-30 group/instructor flex items-center gap-3">
+                    {{-- Instructor Attribution // Bottom Right --}}
+                    <div class="absolute bottom-6 right-6 z-30 group/instructor flex flex-row-reverse items-center gap-3">
                         <div class="relative">
                             <div class="w-10 h-10 rounded-full p-0.5 bg-zinc-900 border border-zinc-800 shadow-xl group-hover/instructor:border-violet-500/50 transition-all duration-500 overflow-hidden">
-                                @if($playlist->user)
-                                    <img src="{{ $playlist->user->profile_photo_url }}" class="w-full h-full rounded-full object-cover" alt="{{ $playlist->user->name }}" />
+                                @if($playlist->user && $playlist->user->profile_photo_path)
+                                    <img src="{{ asset('storage/' . $playlist->user->profile_photo_path) }}" class="w-full h-full rounded-full object-cover" alt="{{ $playlist->user->name }}" />
                                 @else
-                                    <div class="w-full h-full rounded-full bg-zinc-800 flex items-center justify-center">
-                                        <flux:icon.user class="w-5 h-5 text-zinc-600" />
+                                    <div class="w-full h-full rounded-full bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center text-[10px] font-black text-white uppercase tracking-tighter shadow-inner">
+                                        {{ $playlist->user ? $playlist->user->initials() : '??' }}
                                     </div>
                                 @endif
                             </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         {{-- Hover Reveal Name --}}
-                        <div class="flex flex-col opacity-0 group-hover/instructor:opacity-100 -translate-x-2 group-hover/instructor:translate-x-0 transition-all duration-500 pointer-events-none">
+                        <div class="flex flex-col items-end opacity-0 group-hover/instructor:opacity-100 translate-x-2 group-hover/instructor:translate-x-0 transition-all duration-500 pointer-events-none">
                             <span class="text-[8px] font-mono text-violet-500 uppercase tracking-[0.2em] leading-none mb-0.5">{{ __('Instructor') }}</span>
                             <span class="text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">{{ $playlist->user->name ?? __('Unknown') }}</span>
                         </div>
