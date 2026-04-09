@@ -21,6 +21,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     public function mount(Playlist $playlist): void
     {
         abort_if(! $playlist->is_published, 404);
+        $playlist->load('user');
         $this->playlist = $playlist;
         $this->loadCompletedLessons();
     }
