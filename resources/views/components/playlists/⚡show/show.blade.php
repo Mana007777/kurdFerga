@@ -250,7 +250,17 @@
     @endif
 
     <!-- Video Signal Modal -->
-    <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" @close="$wire.set('activeLesson', null)">
+    <flux:modal name="video-modal" 
+                class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" 
+                x-data="{ 
+                    lastBoundTime: 0,
+                    trackClosing(lessonId) {
+                        if (this.lastBoundTime > 0) {
+                            $wire.updateProgress(lessonId, Math.floor(this.lastBoundTime));
+                        }
+                    }
+                }"
+                @close="trackClosing({{ $activeLesson->id ?? 0 }}); $wire.set('activeLesson', null)">
         @if($activeLesson)
                 @php 
                     $watched = ($activeLesson && $activeLesson->pivot) ? $activeLesson->pivot->watched_seconds : 0;
@@ -268,13 +278,15 @@
                         },
                         track(el) {
                             this.currentTime = el.currentTime;
+                            $data.lastBoundTime = el.currentTime;
                             const now = el.currentTime;
-                            if (now - this.lastPing >= 10 || el.ended) {
+                            if (now - this.lastPing >= 5 || el.ended) {
                                 this.lastPing = now;
                                 $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now));
                             }
                         }
-                     }">
+                     }"
+                     x-init="$data.lastBoundTime = {{ $watched }}">
                     <video 
                         src="{{ $activeLesson->video_url }}#t={{ $watched }}" 
                         class="w-full h-full" 
