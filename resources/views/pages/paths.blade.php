@@ -30,8 +30,8 @@ new #[Layout('layouts.app.sidebar')] #[Title('Academy Roadmaps')] class extends 
                 Route Cache // Active
             </div>
         </div>
-        <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none uppercase">
-            Choose Your <span class="text-violet-500">Path</span>
+        <h1 class="text-xl sm:text-4xl md:text-7xl font-black text-white tracking-tighter leading-tight uppercase break-words whitespace-normal">
+            Choose Your <span class="text-violet-500">{{ __('Path') }}</span>
         </h1>
         <p class="text-zinc-500 font-mono text-sm max-w-2xl">
             Protocol: Multimodal Curriculum Integration. Select a specialized sector to initialize the learning sequence.

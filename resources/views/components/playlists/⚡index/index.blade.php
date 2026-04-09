@@ -11,7 +11,7 @@
                     {{ __('Live Feed') }}
                 </div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">{{ __('Academy Deployments') }}</h1>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">{{ __('Academy Deployments') }}</h1>
             <p class="text-zinc-500 font-mono text-sm tracking-tight">{{ __('Available Units: Select a syllabus for high-frequency learning integration.') }}</p>
         </div>
 

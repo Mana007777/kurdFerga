@@ -4,7 +4,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="antialiased font-sans">
+    <body class="antialiased font-sans bg-zinc-950 overflow-x-hidden">
         {{ $slot }}
         @fluxScripts
     </body>

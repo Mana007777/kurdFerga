@@ -95,7 +95,7 @@ new #[Layout('layouts.base')] class extends Component
     
     <header 
         x-data="{ lastScrollY: 0, isHidden: false }"
-        @scroll.window="isHidden = window.scrollY > lastScrollY && window.scrollY > 80; lastScrollY = window.scrollY"
+        @scroll.window="isHidden = window.innerWidth > 768 && window.scrollY > lastScrollY && window.scrollY > 80; lastScrollY = window.scrollY"
         :class="(!mounted || isHidden) ? '-translate-y-[150%] opacity-0' : 'translate-y-0 opacity-100'" 
         class="fixed w-full top-0 z-50 transition-all duration-700 ease-in-out">
         <div class="glass-panel mx-4 mt-4 rounded-3xl border-zinc-800 shadow-[0_8px_32px_rgba(0,0,0,0.5)] bg-zinc-950/80">
@@ -110,7 +110,7 @@ new #[Layout('layouts.base')] class extends Component
                             <span class="text-3xl tracking-tighter text-white font-black z-10">F</span>
                         </a>
                         
-                        <nav class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em]">
+                        <nav class="hidden lg:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em]">
                             <button @click="showTopics = true" class="text-zinc-500 hover:text-white transition-all duration-300 relative group cursor-pointer">
                                 {{ __('Topics') }}
                                 <span class="absolute inset-x-0 -bottom-1 h-[1px] bg-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
@@ -126,11 +126,52 @@ new #[Layout('layouts.base')] class extends Component
                         </nav>
                     </div>
                     
-                    <div class="flex items-center gap-8">
-                        <a href="/login" class="text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-widest px-4 py-2">{{ __('Sign In') }}</a>
-                        <button wire:click="getStarted" class="relative group h-10 px-6 bg-white rounded-full transition-all duration-300 transform hover:-translate-y-0.5 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                            <span class="text-[10px] font-black text-zinc-950 uppercase tracking-widest">{{ __('Get Started') }}</span>
-                        </button>
+                    <div class="flex items-center gap-4 sm:gap-8">
+                        <div class="hidden sm:flex items-center gap-8">
+                            <a href="/login" class="text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-widest px-4 py-2">{{ __('Sign In') }}</a>
+                            <button wire:click="getStarted" class="relative group h-10 px-6 bg-white rounded-full transition-all duration-300 transform hover:-translate-y-0.5 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                                <span class="text-[10px] font-black text-zinc-950 uppercase tracking-widest">{{ __('Get Started') }}</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Mobile Menu Toggle -->
+                        <div class="lg:hidden" x-data="{ open: false }">
+                            <button @click="open = true" class="w-10 h-10 flex items-center justify-center bg-zinc-900 border border-zinc-800 rounded-xl text-white">
+                                <flux:icon.bars-2 class="w-5 h-5" />
+                            </button>
+
+                            <template x-teleport="body">
+                                <template x-if="open">
+                                    <div class="fixed inset-0 z-[100] flex justify-end">
+                                        <div @click="open = false" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+                                        <div x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" class="relative w-full max-w-xs bg-zinc-950 border-l border-zinc-800 p-8 shadow-2xl flex flex-col pt-12">
+                                            <button @click="open = false" class="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors">
+                                                <flux:icon.x-mark class="w-6 h-6" />
+                                            </button>
+
+                                            <div class="flex flex-col gap-10 text-xs font-black uppercase tracking-[0.2em] mt-12">
+                                                <button @click="showTopics = true; open = false" class="text-zinc-500 hover:text-white transition-all text-left">
+                                                    {{ __('Topics') }}
+                                                </button>
+                                                <a @click="open = false" href="#latest" class="text-zinc-500 hover:text-white transition-all">
+                                                    {{ __('Playlists') }}
+                                                </a>
+                                                <a href="{{ route('paths.index') }}" wire:navigate class="text-zinc-500 hover:text-white transition-all">
+                                                    {{ __('Paths') }}
+                                                </a>
+                                                <div class="h-px bg-zinc-900 w-full my-4"></div>
+                                                <a href="/login" class="text-zinc-500 hover:text-white transition-all">
+                                                    {{ __('Sign In') }}
+                                                </a>
+                                                <button wire:click="getStarted" class="w-full bg-white text-zinc-950 py-4 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                                                    {{ __('Get Started') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,7 +191,7 @@ new #[Layout('layouts.base')] class extends Component
                 </div>
             </div>
             
-            <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] mb-10 max-w-5xl transition-all duration-1000 delay-500 ease-out text-white uppercase">
+            <h1 :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'" class="text-2xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-tight sm:leading-[0.9] mb-10 max-w-full sm:max-w-5xl transition-all duration-1000 delay-500 ease-out text-white uppercase break-words whitespace-normal">
                 {!! __('KURDISH <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-plum-500">FERGA</span><br />') !!}
             </h1>
             
@@ -158,13 +199,13 @@ new #[Layout('layouts.base')] class extends Component
                 {{ __('High-frequency, precision-engineered training for modern web architects. Cinematic curriculum for the 0.1%.') }}
             </p>
             
-            <div :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="flex flex-col sm:flex-row gap-6 items-center justify-center transition-all duration-1000 delay-1000 ease-out w-full sm:w-auto">
-                <button wire:click="getStarted" class="relative group px-10 py-5 bg-violet-600 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_50px_-12px_rgba(139,92,246,0.6)]">
+            <div :class="mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'" class="flex flex-col sm:flex-row gap-6 items-center justify-center transition-all duration-1000 delay-1000 ease-out w-full sm:w-auto px-10 sm:px-0">
+                <button wire:click="getStarted" class="w-full sm:w-auto relative group px-10 py-5 bg-violet-600 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_50px_-12px_rgba(139,92,246,0.6)]">
                     <div class="absolute inset-0 bg-gradient-to-tr from-violet-400/20 to-transparent"></div>
                     <span class="relative text-[11px] font-black text-white uppercase tracking-[0.3em]">{{ __('Initialize Training') }}</span>
                 </button>
                 
-                <a href="#latest" class="px-10 py-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-[11px] font-black text-zinc-400 uppercase tracking-[0.3em] hover:bg-zinc-800 hover:text-white transition-all duration-300">
+                <a href="#latest" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-[11px] font-black text-zinc-400 uppercase tracking-[0.3em] hover:bg-zinc-800 hover:text-white transition-all duration-300">
                     {{ __('System Database') }}
                 </a>
             </div>
@@ -191,7 +232,7 @@ new #[Layout('layouts.base')] class extends Component
                             <a
                                 href="{{ route('playlists.show', $series->slug) }}"
                                 wire:navigate
-                                class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_50px_-12px_rgba(139,92,246,0.5)] w-[320px] h-[440px]"
+                                class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_50px_-12px_rgba(139,92,246,0.5)] w-[280px] sm:w-[320px] h-[400px] sm:h-[440px]"
                             >
                                 {{-- Top Hardware Header --}}
                                 <div class="relative h-48 w-full overflow-hidden shrink-0 bg-zinc-900/50">
@@ -255,7 +296,7 @@ new #[Layout('layouts.base')] class extends Component
                             <a
                                 href="{{ route('playlists.show', $series->slug) }}"
                                 wire:navigate
-                                class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_50px_-12px_rgba(139,92,246,0.5)] w-[320px] h-[440px]"
+                                class="group relative flex flex-col bg-zinc-950 border border-zinc-800 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_50px_-12px_rgba(139,92,246,0.5)] w-[280px] sm:w-[320px] h-[400px] sm:h-[440px]"
                             >
                                 <div class="relative h-48 w-full overflow-hidden shrink-0 bg-zinc-900/50">
                                     <div class="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-plum-600/20 z-10 mix-blend-multiply"></div>

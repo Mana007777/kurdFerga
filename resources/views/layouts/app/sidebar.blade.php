@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-zinc-950 text-slate-300 font-sans antialiased overflow-x-hidden relative selection:bg-violet-500/30 selection:text-violet-200">
+    <body class="min-h-screen bg-zinc-950 text-slate-300 font-sans antialiased selection:bg-violet-500/30 selection:text-violet-200">
         <style>
             .bg-dot-pattern {
                 background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
@@ -54,8 +54,8 @@
             <div class="absolute inset-0 z-0 bg-dot-pattern opacity-5 dark:opacity-[0.03] pointer-events-none"></div>
         </div>
 
-        <div class="relative z-10 flex min-h-screen">
-            <flux:sidebar sticky stashable collapsible class="relative border-e border-zinc-800 bg-zinc-950">
+        <div class="relative z-10 flex flex-col lg:flex-row min-h-screen w-full overflow-x-hidden">
+            <flux:sidebar sticky stashable collapsible="mobile" class="lg:border-e lg:border-zinc-800 bg-zinc-950">
                 <flux:sidebar.header class="flex items-center justify-between">
                     <x-app-logo :sidebar="true" :href="auth()->check() ? route('dashboard') : route('home')" wire:navigate />
                     <flux:sidebar.toggle class="hidden lg:flex" icon="chevron-left" />
@@ -215,7 +215,8 @@
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
+        <!-- Mobile User Menu -->
+        <flux:header class="lg:hidden fixed top-0 left-0 right-0 z-[60] w-full border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-md">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <flux:spacer />
@@ -274,7 +275,7 @@
             @endauth
         </flux:header>
 
-        <div class="flex-1 flex flex-col min-h-screen">
+        <div class="flex-1 flex flex-col w-full min-w-0 pt-16 lg:pt-0">
             {{ $slot }}
         </div>
 

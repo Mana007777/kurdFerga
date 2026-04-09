@@ -29,7 +29,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                     {{ __('Operational') }}
                 </div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">{{ __('Global Personnel Rankings') }}</h1>
+            <h1 class="text-xl sm:text-3xl md:text-6xl font-black text-white tracking-tighter uppercase leading-tight break-words whitespace-normal">{{ __('Global Personnel Rankings') }}</h1>
             <p class="text-zinc-500 font-mono text-sm tracking-tight">{{ __('Database integrity: SECURE // Analyzing contributor telemetry and XP distribution.') }}</p>
         </div>
 
@@ -41,7 +41,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
 
     <!-- Podium Section: Top Deployments -->
     @if($topUsers->isNotEmpty())
-        <div class="flex flex-col md:flex-row items-end justify-center gap-8 mb-20 px-4">
+        <div class="flex flex-col md:flex-row items-center md:items-end justify-center gap-8 md:gap-8 mb-20 px-4">
             <!-- Rank 2: Delta -->
             @if(isset($topUsers[1]))
                 <div class="order-2 md:order-1 flex flex-col items-center w-full md:w-64 group">
@@ -77,7 +77,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                         <div class="absolute -bottom-2 -right-2 w-12 h-12 rounded-xl bg-violet-600 border-2 border-violet-400 flex items-center justify-center text-white font-mono font-black text-xl shadow-lg z-20">01</div>
                     </div>
                     <div class="text-center mb-8 min-h-[80px]">
-                        <h3 class="font-black text-white text-3xl truncate w-64 uppercase tracking-tighter">{{ $topUsers[0]->name }}</h3>
+                        <h3 class="font-black text-white text-xl sm:text-3xl truncate w-full px-2 uppercase tracking-tighter">{{ $topUsers[0]->name }}</h3>
                         <div class="flex items-center justify-center gap-3">
                              <p class="text-violet-400 font-mono text-lg font-black tracking-widest">{{ $topUsers[0]->pts }} XP-UNIT</p>
                              <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-ping"></span>
@@ -133,9 +133,9 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-zinc-900/50 border-b border-zinc-900">
-                        <th class="px-8 py-5 text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] w-32 border-r border-zinc-900/50">Sequence</th>
-                        <th class="px-8 py-5 text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em]">Contributor ID // Profile</th>
-                        <th class="px-8 py-5 text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] text-right">XP Unit Accumulation</th>
+                        <th class="hidden sm:table-cell px-8 py-5 text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] w-32 border-r border-zinc-900/50">Sequence</th>
+                        <th class="px-4 sm:px-8 py-5 text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em]">Contributor ID // Profile</th>
+                        <th class="px-4 sm:px-8 py-5 text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] text-right">XP Unit Accumulation</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-zinc-900">
@@ -146,23 +146,23 @@ new #[Layout('layouts.app.sidebar')] #[Title('Leaderboard')] class extends Compo
                                     [DEPL: {{ str_pad($index + 4, 3, '0', STR_PAD_LEFT) }}]
                                 </span>
                             </td>
-                            <td class="px-8 py-6">
-                                <div class="flex items-center gap-5">
+                            <td class="px-4 sm:px-8 py-6">
+                                <div class="flex items-center gap-3 sm:gap-5">
                                     <div class="relative shrink-0">
-                                        <div class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 p-1 group-hover:border-violet-500/50 transition-all duration-500 overflow-hidden">
+                                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-zinc-900 border border-zinc-800 p-1 group-hover:border-violet-500/50 transition-all duration-500 overflow-hidden">
                                             <img src="{{ $user->profilePhotoUrl() }}" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform" alt="{{ $user->name }}">
                                         </div>
                                     </div>
-                                    <div class="flex flex-col space-y-0.5">
-                                        <span class="font-bold text-white tracking-tight uppercase group-hover:text-violet-400 transition-colors">{{ $user->name }}</span>
-                                        <span class="font-mono text-[10px] text-zinc-600 uppercase tracking-tighter">{{ $user->email }}</span>
+                                    <div class="flex flex-col space-y-0.5 min-w-0">
+                                        <span class="font-bold text-white tracking-tight uppercase group-hover:text-violet-400 transition-colors truncate text-sm sm:text-base">{{ $user->name }}</span>
+                                        <span class="font-mono text-[9px] sm:text-[10px] text-zinc-600 uppercase tracking-tighter truncate">{{ $user->email }}</span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-8 py-6 text-right relative">
+                            <td class="px-4 sm:px-8 py-6 text-right relative">
                                 <div class="flex flex-col items-end">
-                                    <span class="text-lg font-mono font-black text-white group-hover:text-violet-500 transition-colors">{{ number_format($user->pts) }}</span>
-                                    <span class="text-[8px] font-black text-zinc-700 uppercase tracking-[0.2em] group-hover:text-zinc-500">Telemetry Verified</span>
+                                    <span class="text-base sm:text-lg font-mono font-black text-white group-hover:text-violet-500 transition-colors">{{ number_format($user->pts) }}</span>
+                                    <span class="text-[7px] sm:text-[8px] font-black text-zinc-700 uppercase tracking-[0.2em] group-hover:text-zinc-500">Telemetry Verified</span>
                                 </div>
                                 <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-violet-600 group-hover:h-12 transition-all"></div>
                             </td>
