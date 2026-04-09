@@ -55,12 +55,18 @@ new #[Layout('layouts.app.sidebar')] class extends Component
         }
     }
 
-    public function updateProgress(int $lessonId, int $seconds): void
+    public function updateProgress(int $lessonId, int $seconds, ?int $duration = null): void
     {
         $user = Auth::user();
         if (! $user) return;
 
         $lesson = Lesson::findOrFail($lessonId);
+        
+        // Sync true duration if we have it and it's missing or different in DB
+        if ($duration > 0 && ($lesson->duration_seconds <= 1)) {
+            $lesson->update(['duration_seconds' => $duration]);
+        }
+
         $user->completeLesson($lesson, $seconds);
         $this->loadCompletedLessons();
     }

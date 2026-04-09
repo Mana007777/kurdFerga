@@ -98,17 +98,7 @@ class User extends Authenticatable
     public function completeLesson(Lesson $lesson, ?int $watchedSeconds = null): void
     {
         $existing = $this->completedLessons()->where('lesson_id', $lesson->id)->first();
-
         $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
-        $maxPts = 5;
-
-        // If they already have max points and it's completed, we can stop.
-        if ($existing && $existing->pivot->is_completed) {
-            $currentPts = (int) floor(($existing->pivot->watched_seconds / $duration) * 5);
-            if ($currentPts >= $maxPts) {
-                return;
-            }
-        }
 
         // Calculate XP based on progress
         // If watchedSeconds is null, it means an explicit "Complete" click.
@@ -121,11 +111,13 @@ class User extends Authenticatable
 
         $watched = min($watched, $duration);
         $ptsToAward = (int) floor(($watched / $duration) * 5);
-        $isFullyCompleted = ($watchedSeconds === null) || ($watched === $duration) || ($existing && $existing->pivot->is_completed);
+
+        // We consider it completed if they clicked the button, finished the video, or it was already done.
+        $isFullyCompleted = ($watchedSeconds === null) || ($watched >= $duration) || ($existing && $existing->pivot->is_completed);
 
         if ($existing) {
             $prevPts = (int) floor(($existing->pivot->watched_seconds / $duration) * 5);
-            $newPts = $ptsToAward - $prevPts;
+            $newPts = min(5, $ptsToAward) - min(5, $prevPts);
 
             if ($newPts > 0) {
                 $this->increment('pts', $newPts);
@@ -134,15 +126,19 @@ class User extends Authenticatable
             $this->completedLessons()->updateExistingPivot($lesson->id, [
                 'is_completed' => $isFullyCompleted,
                 'watched_seconds' => $watched,
+                'updated_at' => now(),
             ]);
         } else {
             $this->completedLessons()->attach($lesson, [
                 'is_completed' => $isFullyCompleted,
                 'watched_seconds' => $watched,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
-            if ($ptsToAward > 0) {
-                $this->increment('pts', $ptsToAward);
+            $finalPts = min(5, $ptsToAward);
+            if ($finalPts > 0) {
+                $this->increment('pts', $finalPts);
             }
         }
     }

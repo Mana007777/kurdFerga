@@ -264,7 +264,7 @@
                     lastBoundTime: 0,
                     trackClosing() {
                         if (this.lastBoundTime > 0) {
-                            $wire.updateProgress($wire.activeLesson.id, Math.floor(this.lastBoundTime));
+                            $wire.updateProgress($wire.activeLesson.id, Math.floor(this.lastBoundTime), Math.floor(this.duration));
                         }
                     }
                 }"
@@ -290,7 +290,7 @@
                             const now = el.currentTime;
                             if (now - this.lastPing >= 5 || el.ended) {
                                 this.lastPing = now;
-                                $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now));
+                                $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now), Math.floor(this.duration));
                             }
                         }
                      }"
