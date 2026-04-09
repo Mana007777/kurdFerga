@@ -44,7 +44,15 @@ new #[Layout('layouts.app.sidebar')] class extends Component
 
     public function openLesson(int $lessonId): void
     {
-        $this->activeLesson = Lesson::findOrFail($lessonId);
+        $user = Auth::user();
+        
+        if ($user) {
+            $this->activeLesson = $user->completedLessons()
+                ->where('lesson_id', $lessonId)
+                ->first() ?: Lesson::findOrFail($lessonId);
+        } else {
+            $this->activeLesson = Lesson::findOrFail($lessonId);
+        }
     }
 
     public function updateProgress(int $lessonId, int $seconds): void

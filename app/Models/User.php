@@ -99,21 +99,29 @@ class User extends Authenticatable
     {
         $existing = $this->completedLessons()->where('lesson_id', $lesson->id)->first();
 
-        // Already fully completed (100% / 5pts)
+        $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
+        $maxPts = 5;
+
+        // If they already have max points and it's completed, we can stop.
         if ($existing && $existing->pivot->is_completed) {
-            return;
+            $currentPts = (int) floor(($existing->pivot->watched_seconds / $duration) * 5);
+            if ($currentPts >= $maxPts) {
+                return;
+            }
         }
 
         // Calculate XP based on progress
-        $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
-
         // If watchedSeconds is null, it means an explicit "Complete" click.
         // We use existing progress if available, otherwise 0.
         $watched = $watchedSeconds ?? ($existing ? $existing->pivot->watched_seconds : 0);
-        $watched = min($watched, $duration);
 
+        if ($existing) {
+            $watched = max($watched, $existing->pivot->watched_seconds);
+        }
+
+        $watched = min($watched, $duration);
         $ptsToAward = (int) floor(($watched / $duration) * 5);
-        $isFullyCompleted = ($watchedSeconds === null) || ($watched === $duration);
+        $isFullyCompleted = ($watchedSeconds === null) || ($watched === $duration) || ($existing && $existing->pivot->is_completed);
 
         if ($existing) {
             $prevPts = (int) floor(($existing->pivot->watched_seconds / $duration) * 5);

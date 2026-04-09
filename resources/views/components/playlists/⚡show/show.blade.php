@@ -250,61 +250,64 @@
     <!-- Video Signal Modal -->
     <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden">
         @if($activeLesson)
-            <div class="relative w-full aspect-video bg-black group" 
-                 x-data="{ 
-                    lastPing: 0,
-                    currentTime: 0,
-                    duration: {{ $activeLesson->duration_seconds > 0 ? $activeLesson->duration_seconds : 1 }},
-                    formatTime(seconds) {
-                        if (isNaN(seconds)) return '00:00';
-                        const m = Math.floor(seconds / 60);
-                        const s = Math.floor(seconds % 60);
-                        return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
-                    },
-                    track(el) {
-                        this.currentTime = el.currentTime;
-                        const now = el.currentTime;
-                        if (now - this.lastPing >= 10 || el.ended) {
-                            this.lastPing = now;
-                            $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now));
+                @php 
+                    $watched = ($activeLesson && $activeLesson->pivot) ? $activeLesson->pivot->watched_seconds : 0;
+                @endphp
+                <div class="relative w-full aspect-video bg-black group" 
+                     x-data="{ 
+                        lastPing: {{ $watched }},
+                        currentTime: {{ $watched }},
+                        duration: {{ $activeLesson->duration_seconds > 0 ? $activeLesson->duration_seconds : 1 }},
+                        formatTime(seconds) {
+                            if (isNaN(seconds)) return '00:00';
+                            const m = Math.floor(seconds / 60);
+                            const s = Math.floor(seconds % 60);
+                            return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+                        },
+                        track(el) {
+                            this.currentTime = el.currentTime;
+                            const now = el.currentTime;
+                            if (now - this.lastPing >= 10 || el.ended) {
+                                this.lastPing = now;
+                                $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now));
+                            }
                         }
-                    }
-                 }">
-                <video 
-                    src="{{ $activeLesson->video_url }}" 
-                    class="w-full h-full" 
-                    controls 
-                    autoplay
-                    x-on:timeupdate="track($el)"
-                    x-on:ended="track($el)"
-                ></video>
+                     }">
+                    <video 
+                        src="{{ $activeLesson->video_url }}#t={{ $watched }}" 
+                        class="w-full h-full" 
+                        controls 
+                        autoplay
+                        x-on:timeupdate="track($el)"
+                        x-on:ended="track($el)"
+                    ></video>
 
-                <!-- Modal Header Overlay -->
-                <div class="absolute top-0 left-0 right-0 p-8 flex justify-between items-start pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div class="bg-zinc-950/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-zinc-800 flex items-center gap-6 shadow-2xl pointer-events-auto">
-                        <div class="space-y-1">
-                            <h3 class="text-white font-black uppercase tracking-tight text-sm">{{ $activeLesson->title }}</h3>
-                            <div class="flex items-center gap-4 text-[10px] font-mono font-black uppercase tracking-widest text-zinc-500">
-                                <span class="flex items-center gap-1.5"><flux:icon.clock class="w-3 h-3" /> <span x-text="formatTime(currentTime)"></span> / <span x-text="formatTime(duration)"></span></span>
-                                <span class="w-1 h-1 rounded-full bg-zinc-800"></span>
-                                <span class="text-violet-400" x-text="Math.floor((currentTime / duration) * 100) + '%'"></span>
+                    <!-- Modal Header Overlay -->
+                    <div class="absolute top-0 left-0 right-0 p-8 flex justify-between items-start pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="bg-zinc-950/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-zinc-800 flex items-center gap-6 shadow-2xl pointer-events-auto">
+                            <div class="space-y-1">
+                                <h3 class="text-white font-black uppercase tracking-tight text-sm">{{ $activeLesson->title }}</h3>
+                                <div class="flex items-center gap-4 text-[10px] font-mono font-black uppercase tracking-widest text-zinc-500">
+                                    <span class="flex items-center gap-1.5"><flux:icon.clock class="w-3 h-3" /> <span x-text="formatTime(currentTime)"></span> / <span x-text="formatTime(duration)"></span></span>
+                                    <span class="w-1 h-1 rounded-full bg-zinc-800"></span>
+                                    <span class="text-violet-400" x-text="Math.floor((currentTime / duration) * 100) + '%'"></span>
+                                </div>
+                            </div>
+                            <div class="h-8 w-px bg-zinc-800"></div>
+                            <div class="text-center">
+                                <div class="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-0.5">{{ __('Points Earned') }}</div>
+                                <div class="text-lg font-black text-emerald-500 tracking-tighter" x-text="'+' + Math.floor((currentTime / duration) * 5) + ' XP'"></div>
                             </div>
                         </div>
-                        <div class="h-8 w-px bg-zinc-800"></div>
-                        <div class="text-center">
-                            <div class="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-0.5">{{ __('Points Earned') }}</div>
-                            <div class="text-lg font-black text-emerald-500 tracking-tighter" x-text="'+' + Math.floor((currentTime / duration) * 5) + ' XP'"></div>
-                        </div>
+                        <flux:modal.close class="pointer-events-auto">
+                            <flux:button variant="ghost" icon="x-mark" class="!bg-zinc-950/80 !backdrop-blur-md !border-zinc-800 !text-white !rounded-2xl" />
+                        </flux:modal.close>
                     </div>
-                    <flux:modal.close class="pointer-events-auto">
-                        <flux:button variant="ghost" icon="x-mark" class="!bg-zinc-950/80 !backdrop-blur-md !border-zinc-800 !text-white !rounded-2xl" />
-                    </flux:modal.close>
-                </div>
 
-                <!-- Bottom Progress Bar Overlay -->
-                <div class="absolute bottom-0 left-0 right-0 h-1 bg-zinc-900 pointer-events-none">
-                    <div class="h-full bg-violet-600 shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300" x-bind:style="'width: ' + (currentTime / duration * 100) + '%'"></div>
+                    <!-- Bottom Progress Bar Overlay -->
+                    <div class="absolute bottom-0 left-0 right-0 h-1 bg-zinc-900 pointer-events-none">
+                        <div class="h-full bg-violet-600 shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all duration-300" x-bind:style="'width: ' + (currentTime / duration * 100) + '%'"></div>
+                    </div>
                 </div>
-            </div>
         @endif
     </flux:modal>
