@@ -25,12 +25,19 @@ new class extends Component
     {
         $this->validate();
 
-        User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'role' => 'instructor',
-        ]);
+        $user = \Illuminate\Support\Facades\DB::transaction(function () {
+            $user = User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => Hash::make($this->password),
+                'role' => 'instructor',
+            ]);
+
+            $createTeam = resolve(\App\Actions\Teams\CreateTeam::class);
+            $createTeam->handle($user, $user->name."'s Team", isPersonal: true);
+
+            return $user;
+        });
 
         return $this->redirect(route('admin.playlists.index'), navigate: true);
     }
