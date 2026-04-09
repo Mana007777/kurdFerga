@@ -76,25 +76,25 @@
                     </div>
 
                     {{-- Instructor Attribution // Bottom Right --}}
-                    <div class="absolute bottom-6 right-6 z-30 group/instructor flex flex-row-reverse items-center gap-3">
+                    <div class="absolute bottom-6 right-6 z-30 group/instructor flex flex-row-reverse items-center gap-4">
                         <div class="relative">
-                            <div class="w-10 h-10 rounded-full p-0.5 bg-zinc-900 border border-zinc-800 shadow-xl group-hover/instructor:border-violet-500/50 transition-all duration-500 overflow-hidden">
+                            <div class="w-14 h-14 rounded-full p-1 bg-zinc-900 border border-zinc-800 shadow-xl group-hover/instructor:border-violet-500/50 transition-all duration-500 overflow-hidden">
                                 @if($playlist->user && $playlist->user->profile_photo_path)
                                     <img src="{{ asset('storage/' . $playlist->user->profile_photo_path) }}" class="w-full h-full rounded-full object-cover" alt="{{ $playlist->user->name }}" />
                                 @else
-                                    <div class="w-full h-full rounded-full bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center text-[10px] font-black text-white uppercase tracking-tighter shadow-inner">
+                                    <div class="w-full h-full rounded-full bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center text-xs font-black text-white uppercase tracking-tighter shadow-inner">
                                         {{ $playlist->user ? $playlist->user->initials() : '??' }}
                                     </div>
                                 @endif
                             </div>
                             {{-- Instructor Orbital Glow --}}
-                            <div class="absolute inset-[-2px] rounded-full border border-violet-500/20 opacity-0 group-hover/instructor:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute inset-[-4px] rounded-full border border-violet-500/20 opacity-0 group-hover/instructor:opacity-100 transition-opacity duration-500"></div>
                         </div>
 
                         {{-- Hover Reveal Name --}}
                         <div class="flex flex-col items-end opacity-0 group-hover/instructor:opacity-100 translate-x-2 group-hover/instructor:translate-x-0 transition-all duration-500 pointer-events-none">
-                            <span class="text-[8px] font-mono text-violet-500 uppercase tracking-[0.2em] leading-none mb-0.5">{{ __('Instructor') }}</span>
-                            <span class="text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">{{ $playlist->user->name ?? __('Unknown') }}</span>
+                            <span class="text-[10px] font-mono text-violet-500 uppercase tracking-[0.2em] leading-none mb-0.5">{{ __('Instructor') }}</span>
+                            <span class="text-xs font-black text-white uppercase tracking-widest whitespace-nowrap">{{ $playlist->user->name ?? __('Unknown') }}</span>
                         </div>
                     </div>
 
