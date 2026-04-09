@@ -130,17 +130,19 @@
                                         <div class="flex items-center gap-4">
                                             @if($isDone)
                                                 @php
+                                                    $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
                                                     $watched = $lessonProgress[$lesson->id] ?? 0;
-                                                    $earnedXP = ($lesson->duration_seconds > 0) ? (int) floor(($watched / $lesson->duration_seconds) * 5) : 0;
+                                                    $earnedXP = (int) floor(($watched / $duration) * 5);
                                                 @endphp
                                                 <span class="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
                                                     <flux:icon.sparkles class="w-3 h-3" />
                                                     {{ __('Completed') }} · +{{ $earnedXP }} XP
                                                 </span>
-                                            @elseif(($lessonProgress[$lesson->id] ?? 0) > 0 && $lesson->duration_seconds > 0)
+                                            @elseif(($lessonProgress[$lesson->id] ?? 0) > 0)
                                                 @php
-                                                    $percent = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 100);
-                                                    $currentXP = (int) floor(($lessonProgress[$lesson->id] / $lesson->duration_seconds) * 5);
+                                                    $duration = $lesson->duration_seconds > 0 ? $lesson->duration_seconds : 1;
+                                                    $percent = (int) floor(($lessonProgress[$lesson->id] / $duration) * 100);
+                                                    $currentXP = (int) floor(($lessonProgress[$lesson->id] / $duration) * 5);
                                                 @endphp
                                                 <span class="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-1">
                                                     <flux:icon.bolt class="w-3 h-3" />
@@ -248,7 +250,7 @@
     @endif
 
     <!-- Video Signal Modal -->
-    <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden">
+    <flux:modal name="video-modal" class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" @close="$wire.set('activeLesson', null)">
         @if($activeLesson)
                 @php 
                     $watched = ($activeLesson && $activeLesson->pivot) ? $activeLesson->pivot->watched_seconds : 0;
