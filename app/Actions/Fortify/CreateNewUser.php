@@ -6,6 +6,7 @@ use App\Actions\Teams\CreateTeam;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Models\User;
+use App\Rules\DoesNotContainIdentifiableInformation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -28,7 +29,10 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
-            'password' => $this->passwordRules(),
+            'password' => [
+                ...$this->passwordRules(),
+                new DoesNotContainIdentifiableInformation([$input['name'] ?? '', $input['email'] ?? '']),
+            ],
         ])->validate();
 
         return DB::transaction(function () use ($input) {

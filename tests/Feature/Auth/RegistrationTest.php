@@ -12,8 +12,8 @@ test('new users can register', function () {
     $response = $this->post(route('register.store'), [
         'name' => 'John Doe',
         'email' => 'test@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
+        'password' => 'FergaSecurePass2026!',
+        'password_confirmation' => 'FergaSecurePass2026!',
     ]);
 
     $user = User::where('email', 'test@example.com')->first();
@@ -22,4 +22,24 @@ test('new users can register', function () {
         ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();
+});
+
+test('password cannot contain name or email', function () {
+    $response = $this->post(route('register.store'), [
+        'name' => 'John Doe',
+        'email' => 'johndoe@example.com',
+        'password' => 'JohnDoeSecurePass2026!',
+        'password_confirmation' => 'JohnDoeSecurePass2026!',
+    ]);
+
+    $response->assertSessionHasErrors(['password']);
+
+    $response = $this->post(route('register.store'), [
+        'name' => 'John Doe',
+        'email' => 'johndoe@example.com',
+        'password' => 'johndoe12345!',
+        'password_confirmation' => 'johndoe12345!',
+    ]);
+
+    $response->assertSessionHasErrors(['password']);
 });
