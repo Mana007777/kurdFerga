@@ -30,8 +30,15 @@ new class extends Component
 
     public function mount(Playlist $playlist)
     {
-        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
-        $this->playlist = $playlist;
+        $user = auth()->user();
+        abort_if(! $user || ! $user->isAdminOrInstructor(), 403);
+        
+        // Instructors can only manage their own
+        if ($user->isInstructor()) {
+            abort_if($playlist->user_id !== $user->id, 403);
+        }
+
+        $this->playlist = $playlist->load(['sections.lessons']);
     }
 
     public function addSection()

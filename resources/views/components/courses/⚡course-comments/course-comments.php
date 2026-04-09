@@ -54,8 +54,14 @@ new class extends Component
     public function deleteComment(int $commentId): void
     {
         $comment = Comment::findOrFail($commentId);
+        $user = Auth::user();
 
-        if ($comment->user_id !== Auth::id()) {
+        if (! $user) {
+            return;
+        }
+
+        // Admins can delete any comment. Others can only delete their own.
+        if (! $user->isAdmin() && $comment->user_id !== $user->id) {
             return;
         }
 

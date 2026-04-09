@@ -40,6 +40,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin/courses')->name('admin.courses.')->group(function () {
         Route::livewire('/{course}/playlist', 'admin.courses.playlist')->name('playlist');
     });
+
+    // Admin User Management routes
+    Route::prefix('admin/users')->name('admin.users.')->group(function () {
+        Route::livewire('/', 'admin.users.index')->name('index');
+        Route::livewire('/create', 'admin.users.create')->name('create');
+    });
 });
 
 Route::get('lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');

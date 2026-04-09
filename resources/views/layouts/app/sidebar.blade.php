@@ -102,7 +102,7 @@
                             </flux:sidebar.group>
                         </div>
 
-                        @if(auth()->user()->isAdmin())
+                        @if(auth()->user()->isAdminOrInstructor())
                              <div class="mb-4">
                                 <div class="flex items-center gap-2 px-3 mb-2 mt-6">
                                     <span class="text-[9px] font-mono text-zinc-600">CMD // 02</span>
@@ -116,6 +116,24 @@
                                             <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ROOT]</span>
                                         </span>
                                     </flux:sidebar.item>
+
+                                    @if(auth()->user()->isAdmin())
+                                        <flux:sidebar.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.index')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                            <span class="flex items-center justify-between w-full">
+                                                {{ __('Instructors') }}
+                                                <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[TEAM]</span>
+                                            </span>
+                                        </flux:sidebar.item>
+
+                                        <flux:sidebar.item icon="user-plus" :href="route('admin.users.create')" :current="request()->routeIs('admin.users.create')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                            <span class="flex items-center justify-between w-full">
+                                                {{ __('Create Instructor') }}
+                                                <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[AUTH]</span>
+                                            </span>
+                                        </flux:sidebar.item>
+                                    @endif
                                 </flux:sidebar.group>
                             </div>
                         @endif

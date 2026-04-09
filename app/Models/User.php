@@ -27,9 +27,19 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function isInstructor(): bool
+    {
+        return $this->role === 'instructor';
+    }
+
+    public function isAdminOrInstructor(): bool
+    {
+        return in_array($this->role, ['admin', 'instructor']);
+    }
+
     public function isStudent(): bool
     {
-        return $this->role === 'student';
+        return $this->role === 'student' || $this->role === 'user';
     }
 
     /**
@@ -141,5 +151,10 @@ class User extends Authenticatable
                 $this->increment('pts', $finalPts);
             }
         }
+    }
+
+    public function playlists(): HasMany
+    {
+        return $this->hasMany(Playlist::class);
     }
 }

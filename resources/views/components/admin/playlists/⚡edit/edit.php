@@ -11,6 +11,9 @@ new class extends Component
     use WithFileUploads;
 
     public Playlist $playlist;
+    
+    #[Validate('required|min:3')]
+    public $title = '';
 
     #[Validate('nullable|string|max:255')]
     public string $author_name = '';
@@ -33,7 +36,14 @@ new class extends Component
 
     public function mount(Playlist $playlist)
     {
-        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
+        $user = auth()->user();
+        abort_if(! $user || ! $user->isAdminOrInstructor(), 403);
+        
+        // Instructors can only edit their own
+        if ($user->isInstructor()) {
+            abort_if($playlist->user_id !== $user->id, 403);
+        }
+
         $this->playlist = $playlist;
         $this->title = $playlist->title;
         $this->author_name = $playlist->author_name ?? '';

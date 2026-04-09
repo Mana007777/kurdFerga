@@ -32,7 +32,8 @@ new class extends Component
 
     public function mount()
     {
-        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
+        abort_if(! auth()->check() || ! auth()->user()->isAdminOrInstructor(), 403);
+        $this->author_name = auth()->user()->name;
     }
 
     public function save()
@@ -44,6 +45,7 @@ new class extends Component
             : null;
 
         Playlist::create([
+            'user_id' => auth()->id(),
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'description' => $this->description,

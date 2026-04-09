@@ -29,7 +29,14 @@ new class extends Component
 
     public function mount(Course $course)
     {
-        abort_if(! auth()->check() || ! auth()->user()->isAdmin(), 403);
+        $user = auth()->user();
+        abort_if(! $user || ! $user->isAdminOrInstructor(), 403);
+        
+        // Instructors can only manage courses in their own playlists
+        if ($user->isInstructor()) {
+            abort_if($course->playlist->user_id !== $user->id, 403);
+        }
+
         $this->course = $course;
     }
 

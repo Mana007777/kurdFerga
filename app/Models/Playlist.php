@@ -13,6 +13,7 @@ class Playlist extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'title',
         'slug',
         'description',
@@ -22,6 +23,11 @@ class Playlist extends Model
         'category',
         'is_published',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function courses(): HasMany
     {
