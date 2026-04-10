@@ -167,4 +167,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function enrolledPlaylists(): BelongsToMany
+    {
+        return $this->belongsToMany(Playlist::class, 'playlist_user')->withTimestamps();
+    }
 }

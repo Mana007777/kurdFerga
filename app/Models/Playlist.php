@@ -51,6 +51,11 @@ class Playlist extends Model
             ->withPivot('order');
     }
 
+    public function enrolledUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'playlist_user')->withTimestamps();
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

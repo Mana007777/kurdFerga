@@ -18,12 +18,47 @@ new #[Layout('layouts.app.sidebar')] class extends Component
 
     public ?Lesson $activeLesson = null;
 
+    public bool $isEnrolled = false;
+
     public function mount(Playlist $playlist): void
     {
         abort_if(! $playlist->is_published, 404);
         $playlist->load('user');
         $this->playlist = $playlist;
+        
+        $this->checkEnrollment();
         $this->loadCompletedLessons();
+    }
+
+    public function checkEnrollment(): void
+    {
+        $user = Auth::user();
+        
+        if ($user) {
+            $this->isEnrolled = $user->enrolledPlaylists()
+                ->where('playlist_id', $this->playlist->id)
+                ->exists();
+        } else {
+            $this->isEnrolled = false;
+        }
+    }
+
+    public function enroll(): void
+    {
+        $user = Auth::user();
+        
+        if (! $user) {
+            $this->redirect(route('login'));
+            return;
+        }
+
+        if (! $this->isEnrolled) {
+            $user->enrolledPlaylists()->attach($this->playlist->id);
+            $this->isEnrolled = true;
+            
+            // Re-render to show content
+            $this->dispatch('enrolled');
+        }
     }
 
     public function loadCompletedLessons(): void
@@ -45,6 +80,14 @@ new #[Layout('layouts.app.sidebar')] class extends Component
 
     public function openLesson(int $lessonId): void
     {
+        // Only allow opening lessons if enrolled or if it's a preview
+        if (! $this->isEnrolled) {
+            $lesson = Lesson::findOrFail($lessonId);
+            if (! $lesson->is_preview) {
+                return;
+            }
+        }
+
         $user = Auth::user();
         
         if ($user) {
@@ -59,7 +102,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     public function updateProgress(int $lessonId, int $seconds, ?int $duration = null): void
     {
         $user = Auth::user();
-        if (! $user) return;
+        if (! $user || ! $this->isEnrolled) return;
 
         $lesson = Lesson::findOrFail($lessonId);
         
@@ -76,7 +119,7 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     {
         $user = Auth::user();
 
-        if (! $user) {
+        if (! $user || ! $this->isEnrolled) {
             return;
         }
 
