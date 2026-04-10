@@ -12,12 +12,80 @@ new #[Layout('layouts.app.sidebar')] #[Title('Post Question')] class extends Com
     public $language = 'php';
 
     public $languages = [
-        ['label' => 'PHP', 'value' => 'php'],
-        ['label' => 'JavaScript', 'value' => 'javascript'],
-        ['label' => 'Blade', 'value' => 'blade'],
-        ['label' => 'CSS', 'value' => 'css'],
-        ['label' => 'HTML', 'value' => 'html'],
-        ['label' => 'SQL', 'value' => 'sql'],
+        'Core' => [
+            ['label' => 'Python', 'value' => 'python'],
+            ['label' => 'Java', 'value' => 'java'],
+            ['label' => 'C', 'value' => 'c'],
+            ['label' => 'C++', 'value' => 'cpp'],
+            ['label' => 'C#', 'value' => 'csharp'],
+            ['label' => 'JavaScript', 'value' => 'javascript'],
+            ['label' => 'TypeScript', 'value' => 'typescript'],
+            ['label' => 'Go', 'value' => 'go'],
+            ['label' => 'Rust', 'value' => 'rust'],
+            ['label' => 'Kotlin', 'value' => 'kotlin'],
+            ['label' => 'Swift', 'value' => 'swift'],
+            ['label' => 'Dart', 'value' => 'dart'],
+        ],
+        'Web / Scripting' => [
+            ['label' => 'PHP', 'value' => 'php'],
+            ['label' => 'Ruby', 'value' => 'ruby'],
+            ['label' => 'Perl', 'value' => 'perl'],
+            ['label' => 'Lua', 'value' => 'lua'],
+            ['label' => 'Groovy', 'value' => 'groovy'],
+            ['label' => 'Hack', 'value' => 'hack'],
+        ],
+        'Functional' => [
+            ['label' => 'Haskell', 'value' => 'haskell'],
+            ['label' => 'Elixir', 'value' => 'elixir'],
+            ['label' => 'Erlang', 'value' => 'erlang'],
+            ['label' => 'F#', 'value' => 'fsharp'],
+            ['label' => 'OCaml', 'value' => 'ocaml'],
+            ['label' => 'Scheme', 'value' => 'scheme'],
+            ['label' => 'Racket', 'value' => 'racket'],
+        ],
+        'Low-Level / Systems' => [
+            ['label' => 'Assembly', 'value' => 'asm'],
+            ['label' => 'Zig', 'value' => 'zig'],
+            ['label' => 'Nim', 'value' => 'nim'],
+            ['label' => 'V', 'value' => 'v'],
+        ],
+        'Data / Scientific' => [
+            ['label' => 'R', 'value' => 'r'],
+            ['label' => 'MATLAB', 'value' => 'matlab'],
+            ['label' => 'Julia', 'value' => 'julia'],
+            ['label' => 'SAS', 'value' => 'sas'],
+        ],
+        'Database / Query' => [
+            ['label' => 'SQL', 'value' => 'sql'],
+            ['label' => 'PL/SQL', 'value' => 'plsql'],
+            ['label' => 'T-SQL', 'value' => 'tsql'],
+        ],
+        'Mobile Development' => [
+            ['label' => 'Objective-C', 'value' => 'objectivec'],
+            ['label' => 'Flutter (Dart)', 'value' => 'dart'],
+            ['label' => 'React Native', 'value' => 'javascript'],
+        ],
+        'Game Development' => [
+            ['label' => 'GDScript', 'value' => 'gdscript'],
+            ['label' => 'Haxe', 'value' => 'haxe'],
+        ],
+        'Legacy / Classic' => [
+            ['label' => 'COBOL', 'value' => 'cobol'],
+            ['label' => 'Fortran', 'value' => 'fortran'],
+            ['label' => 'Pascal', 'value' => 'pascal'],
+            ['label' => 'Ada', 'value' => 'ada'],
+            ['label' => 'BASIC', 'value' => 'basic'],
+        ],
+        'Other / Niche' => [
+            ['label' => 'Crystal', 'value' => 'crystal'],
+            ['label' => 'Red', 'value' => 'red'],
+            ['label' => 'Pony', 'value' => 'pony'],
+            ['label' => 'Chapel', 'value' => 'chapel'],
+            ['label' => 'PureScript', 'value' => 'purescript'],
+            ['label' => 'ReasonML', 'value' => 'reason'],
+            ['label' => 'Idris', 'value' => 'idris'],
+            ['label' => 'Agda', 'value' => 'agda'],
+        ],
     ];
 
     public function save()
@@ -89,8 +157,12 @@ new #[Layout('layouts.app.sidebar')] #[Title('Post Question')] class extends Com
                 <div class="flex items-center gap-2">
                     <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-tighter">{{ __('Syntax:') }}</span>
                     <select wire:model="language" class="bg-zinc-900 border border-zinc-800 rounded-lg py-1 px-3 text-[10px] font-black text-violet-400 uppercase tracking-widest outline-none cursor-pointer">
-                        @foreach($languages as $lang)
-                            <option value="{{ $lang['value'] }}">{{ $lang['label'] }}</option>
+                        @foreach($languages as $category => $options)
+                            <optgroup label="{{ $category }}" class="bg-zinc-950 text-zinc-500 font-black text-[9px] uppercase tracking-widest">
+                                @foreach($options as $lang)
+                                    <option value="{{ $lang['value'] }}" class="text-zinc-300">{{ $lang['label'] }}</option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                 </div>
@@ -122,7 +194,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Post Question')] class extends Com
 
         <!-- Submit -->
         <div class="flex justify-end pt-4">
-            <flux:button type="submit" variant="primary" size="lg" class="px-12 rounded-2xl">
+            <flux:button type="submit" variant="primary" size="base" class="px-12 rounded-2xl">
                 {{ __('Transmit Sequence') }}
             </flux:button>
         </div>
