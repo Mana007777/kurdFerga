@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('playlist_user', function (Blueprint $table) {
-            //
+        Schema::create('playlist_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('playlist_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+
+            $table->unique(['playlist_id', 'user_id']);
         });
     }
 
