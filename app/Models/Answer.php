@@ -15,16 +15,27 @@ class Answer extends Model
     protected $fillable = [
         'question_id',
         'user_id',
+        'parent_id',
         'body',
     ];
+
+    public function question(): BelongsTo
+    {
+        return $this->belongsTo(Question::class);
+    }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function question(): BelongsTo
+    public function parent(): BelongsTo
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(Answer::class, 'parent_id');
+    }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Answer::class, 'parent_id');
     }
 }

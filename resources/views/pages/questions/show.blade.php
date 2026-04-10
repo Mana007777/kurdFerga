@@ -9,10 +9,14 @@ use Livewire\Component;
 new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends Component {
     public Question $question;
     public $answer_body = '';
+    public $reply_to_id = null;
+    public $reply_body = '';
 
     public function mount(Question $question)
     {
-        $this->question = $question->load(['user', 'answers.user']);
+        $this->question = $question->load(['user', 'answers' => function ($query) {
+            $query->whereNull('parent_id')->with(['user', 'replies.user'])->latest();
+        }]);
     }
 
     public function postAnswer()
@@ -28,9 +32,47 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
         ]);
 
         $this->answer_body = '';
-        $this->question->load('answers.user');
+        $this->refreshAnswers();
         
         $this->dispatch('answer-posted');
+    }
+
+    public function setReplyTo($id)
+    {
+        if ($this->reply_to_id === $id) {
+            $this->reply_to_id = null;
+            $this->reply_body = '';
+        } else {
+            $this->reply_to_id = $id;
+            $this->reply_body = '';
+        }
+    }
+
+    public function postReply()
+    {
+        $this->validate([
+            'reply_body' => 'required|string|min:2',
+        ]);
+
+        Answer::create([
+            'question_id' => $this->question->id,
+            'user_id' => auth()->id(),
+            'parent_id' => $this->reply_to_id,
+            'body' => $this->reply_body,
+        ]);
+
+        $this->reply_to_id = null;
+        $this->reply_body = '';
+        $this->refreshAnswers();
+
+        $this->dispatch('reply-posted');
+    }
+
+    protected function refreshAnswers()
+    {
+        $this->question->load(['answers' => function ($query) {
+            $query->whereNull('parent_id')->with(['user', 'replies.user'])->latest();
+        }]);
     }
 };
 ?>
@@ -135,10 +177,61 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
                                 <span class="text-sm font-black text-white uppercase">{{ $answer->user->name }}</span>
                                 <span class="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[8px] font-mono text-zinc-500 uppercase">{{ $answer->created_at->diffForHumans() }}</span>
                             </div>
+                            <button 
+                                wire:click="setReplyTo({{ $answer->id }})"
+                                class="text-[9px] font-black text-zinc-600 hover:text-violet-400 uppercase tracking-widest transition-colors flex items-center gap-1.5"
+                            >
+                                <flux:icon.arrow-uturn-left class="w-3 h-3" />
+                                {{ __('Reply') }}
+                            </button>
                         </div>
                         <div class="text-zinc-400 text-sm leading-relaxed sm:text-base">
                             {!! nl2br(e($answer->body)) !!}
                         </div>
+
+                        <!-- Reply Form (Conditional) -->
+                        @if($reply_to_id === $answer->id)
+                            <div class="mt-4 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-4 space-y-4 animate-in fade-in slide-in-from-top-2">
+                                <textarea 
+                                    wire:model="reply_body"
+                                    rows="3"
+                                    placeholder="{{ __('Draft your target response...') }}"
+                                    class="w-full bg-transparent text-zinc-300 text-xs outline-none resize-none placeholder:text-zinc-700 border-none focus:ring-0 p-0"
+                                ></textarea>
+                                <div class="flex items-center justify-between pt-2 border-t border-zinc-800/50">
+                                    <span class="text-[8px] font-mono text-zinc-700 uppercase tracking-tighter">{{ __('Replying to ' . $answer->user->name) }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <button wire:click="setReplyTo(null)" class="px-3 py-1 text-[8px] font-black text-zinc-600 uppercase tracking-widest hover:text-white transition-colors">{{ __('Cancel') }}</button>
+                                        <button 
+                                            wire:click="postReply"
+                                            class="px-4 py-1.5 bg-violet-600 hover:bg-violet-500 text-white text-[9px] font-black uppercase tracking-widest rounded-lg transition-all"
+                                        >
+                                            {{ __('Transmit') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Nested Replies -->
+                        @if($answer->replies->isNotEmpty())
+                            <div class="mt-6 space-y-6 pl-4 md:pl-8 border-l border-zinc-900">
+                                @foreach($answer->replies as $reply)
+                                    <div class="flex gap-4 group/reply">
+                                        <img src="{{ $reply->user->profilePhotoUrl() }}" class="w-8 h-8 rounded-lg object-cover border border-zinc-800 group-hover/reply:border-violet-500/30 transition-all" alt="{{ $reply->user->name }}">
+                                        <div class="flex-1 space-y-2">
+                                            <div class="flex items-center gap-3">
+                                                <span class="text-[10px] font-black text-zinc-300 uppercase tracking-tight">{{ $reply->user->name }}</span>
+                                                <span class="text-[7px] font-mono text-zinc-600 uppercase tracking-tighter">{{ $reply->created_at->diffForHumans() }}</span>
+                                            </div>
+                                            <div class="text-zinc-500 text-xs leading-relaxed">
+                                                {!! nl2br(e($reply->body)) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
