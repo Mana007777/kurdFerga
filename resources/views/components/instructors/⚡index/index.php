@@ -10,7 +10,6 @@ new #[Layout('layouts.app.sidebar')] class extends Component
     {
         return [
             'instructors' => User::whereIn('role', ['instructor', 'admin'])
-                ->whereHas('playlists', fn($q) => $q->where('is_published', true))
                 ->withCount(['playlists' => fn($q) => $q->where('is_published', true)])
                 ->latest()
                 ->get(),
