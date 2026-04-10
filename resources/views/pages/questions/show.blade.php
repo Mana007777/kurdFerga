@@ -14,9 +14,18 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
 
     public function mount(Question $question)
     {
-        $this->question = $question->load(['user', 'answers' => function ($query) {
-            $query->whereNull('parent_id')->with(['user', 'replies.user'])->latest();
-        }]);
+        $this->question = $question;
+    }
+
+    public function with(): array
+    {
+        return [
+            'answers' => $this->question->answers()
+                ->whereNull('parent_id')
+                ->with(['user', 'replies.user'])
+                ->latest()
+                ->get()
+        ];
     }
 
     public function postAnswer()
@@ -32,7 +41,6 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
         ]);
 
         $this->answer_body = '';
-        $this->refreshAnswers();
         
         $this->dispatch('answer-posted');
     }
@@ -63,16 +71,8 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
 
         $this->reply_to_id = null;
         $this->reply_body = '';
-        $this->refreshAnswers();
 
         $this->dispatch('reply-posted');
-    }
-
-    protected function refreshAnswers()
-    {
-        $this->question->load(['answers' => function ($query) {
-            $query->whereNull('parent_id')->with(['user', 'replies.user'])->latest();
-        }]);
     }
 };
 ?>
@@ -165,7 +165,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
 
         <!-- Answer List -->
         <div class="space-y-6">
-            @foreach($question->answers as $answer)
+            @foreach($answers as $answer)
                 <div class="flex gap-4 md:gap-6 group">
                     <div class="shrink-0 flex flex-col items-center gap-4">
                         <img src="{{ $answer->user->profilePhotoUrl() }}" class="w-12 h-12 rounded-2xl object-cover border-2 border-zinc-900 group-hover:border-violet-500/30 transition-all shadow-lg" alt="{{ $answer->user->name }}">
@@ -236,7 +236,7 @@ new #[Layout('layouts.app.sidebar')] #[Title('Question Analysis')] class extends
                 </div>
             @endforeach
             
-            @if($question->answers->isEmpty())
+            @if($answers->isEmpty())
                 <div class="py-12 px-8 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-3xl flex flex-col items-center justify-center text-center space-y-4">
                     <flux:icon.chat-bubble-bottom-center-text class="w-10 h-10 text-zinc-700" />
                     <p class="text-xs font-mono text-zinc-600 uppercase tracking-widest">{{ __('Awaiting Transmission...') }}</p>
