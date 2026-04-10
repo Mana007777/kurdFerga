@@ -158,11 +158,15 @@ new #[Layout('layouts.app.sidebar')] #[Title('Post Question')] class extends Com
                     <span class="text-[10px] font-mono text-zinc-600 uppercase tracking-tighter">{{ __('Syntax:') }}</span>
                     <select wire:model="language" class="bg-zinc-900 border border-zinc-800 rounded-lg py-1 px-3 text-[10px] font-black text-violet-400 uppercase tracking-widest outline-none cursor-pointer">
                         @foreach($languages as $category => $options)
-                            <optgroup label="{{ $category }}" class="bg-zinc-950 text-zinc-500 font-black text-[9px] uppercase tracking-widest">
-                                @foreach($options as $lang)
-                                    <option value="{{ $lang['value'] }}" class="text-zinc-300">{{ $lang['label'] }}</option>
-                                @endforeach
-                            </optgroup>
+                            @if(is_array($options))
+                                <optgroup label="{{ $category }}" class="bg-zinc-950 text-zinc-500 font-black text-[9px] uppercase tracking-widest">
+                                    @foreach($options as $lang)
+                                        @if(is_array($lang) && isset($lang['value']))
+                                            <option value="{{ $lang['value'] }}" class="text-zinc-300">{{ $lang['label'] ?? $lang['value'] }}</option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                            @endif
                         @endforeach
                     </select>
                 </div>
