@@ -31,6 +31,11 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('/stars', 'pages::stars')->name('stars.index');
     Route::livewire('/leaderboard', 'pages::leaderboard')->name('leaderboard');
 
+    // Questions Routes
+    Route::livewire('/questions', 'pages::questions.index')->name('questions.index');
+    Route::livewire('/questions/create', 'pages::questions.create')->name('questions.create');
+    Route::livewire('/questions/{question}', 'pages::questions.show')->name('questions.show');
+
     // Admin Playlist Management routes
     Route::prefix('admin/playlists')->name('admin.playlists.')->group(function () {
         Route::livewire('/', 'admin.playlists.index')->name('index');

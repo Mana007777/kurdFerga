@@ -151,6 +151,13 @@
                                         <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[RANK]</span>
                                     </span>
                                 </flux:sidebar.item>
+                                <flux:sidebar.item icon="question-mark-circle" :href="route('questions.index')" :current="request()->routeIs('questions.*')" wire:navigate class="!text-zinc-400 hover:!text-white group/item relative overflow-hidden transition-all duration-300">
+                                    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-violet-600 group-hover/item:h-4 transition-all"></div>
+                                    <span class="flex items-center justify-between w-full">
+                                        {{ __('Questions') }}
+                                        <span class="text-[8px] font-mono opacity-0 group-hover/item:opacity-50 tracking-tighter">[ASK]</span>
+                                    </span>
+                                </flux:sidebar.item>
                             </flux:sidebar.group>
                         </div>
                     @endauth
