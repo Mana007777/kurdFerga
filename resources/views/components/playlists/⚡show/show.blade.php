@@ -314,9 +314,11 @@
                 class="!bg-zinc-950 !border-zinc-800 rounded-[3rem] p-0 w-full max-w-5xl overflow-hidden" 
                 x-data="{ 
                     lastBoundTime: 0,
+                    maxTimeReached: 0,
                     trackClosing() {
-                        if (this.lastBoundTime > 0) {
-                            $wire.updateProgress($wire.activeLesson.id, Math.floor(this.lastBoundTime), Math.floor(this.duration));
+                        const finalTime = Math.max(this.lastBoundTime, this.maxTimeReached);
+                        if (finalTime > 0) {
+                            $wire.updateProgress($wire.activeLesson.id, Math.floor(finalTime), Math.floor(this.duration));
                         }
                     }
                 }"
@@ -329,6 +331,7 @@
                      x-data="{ 
                         lastPing: {{ $watched }},
                         currentTime: {{ $watched }},
+                        historicalMax: {{ $watched }},
                         duration: {{ $activeLesson->duration_seconds > 0 ? $activeLesson->duration_seconds : 1 }},
                         formatTime(seconds) {
                             if (isNaN(seconds)) return '00:00';
@@ -338,15 +341,28 @@
                         },
                         track(el) {
                             this.currentTime = el.currentTime;
-                            $data.lastBoundTime = el.currentTime;
+                            
+                            // Update maxTimeReached and ensure lastBoundTime in parent doesn't decrease
+                            if (el.currentTime > $data.maxTimeReached) {
+                                $data.maxTimeReached = el.currentTime;
+                                $data.lastBoundTime = el.currentTime;
+                            }
+
                             const now = el.currentTime;
+                            // Only ping if we've moved forward significantly or finished
                             if (now - this.lastPing >= 5 || el.ended) {
-                                this.lastPing = now;
-                                $wire.updateProgress({{ $activeLesson->id }}, Math.floor(now), Math.floor(this.duration));
+                                // If we finished, ensure we send the actual duration if it's close
+                                const sendTime = el.ended ? this.duration : now;
+                                
+                                // Only update if we are moving forward
+                                if (sendTime > this.lastPing) {
+                                    this.lastPing = sendTime;
+                                    $wire.updateProgress({{ $activeLesson->id }}, Math.floor(sendTime), Math.floor(this.duration));
+                                }
                             }
                         }
                      }"
-                     x-init="$data.lastBoundTime = {{ $watched }}">
+                     x-init="$data.maxTimeReached = {{ $watched }}; $data.lastBoundTime = {{ $watched }}">
                     <video 
                         src="{{ $activeLesson->video_url }}#t={{ $watched }}" 
                         class="w-full h-full" 
@@ -365,13 +381,13 @@
                                 <div class="flex items-center gap-4 text-[10px] font-mono font-black uppercase tracking-widest text-zinc-500">
                                     <span class="flex items-center gap-1.5"><flux:icon.clock class="w-3 h-3" /> <span x-text="formatTime(currentTime)"></span> / <span x-text="formatTime(duration)"></span></span>
                                     <span class="w-1 h-1 rounded-full bg-zinc-800"></span>
-                                    <span class="text-violet-400" x-text="Math.floor((currentTime / duration) * 100) + '%'"></span>
+                                    <span class="text-violet-400" x-text="Math.floor((Math.max(currentTime, $data.maxTimeReached) / duration) * 100) + '%'"></span>
                                 </div>
                             </div>
                             <div class="h-8 w-px bg-zinc-800"></div>
                             <div class="text-center">
                                 <div class="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-0.5">{{ __('Points Earned') }}</div>
-                                <div class="text-lg font-black text-emerald-500 tracking-tighter" x-text="'+' + Math.floor((currentTime / duration) * 5) + ' XP'"></div>
+                                <div class="text-lg font-black text-emerald-500 tracking-tighter" x-text="'+' + Math.floor((Math.max(currentTime, $data.maxTimeReached) / duration) * 5) + ' XP'"></div>
                             </div>
                         </div>
                         <flux:modal.close class="pointer-events-auto">

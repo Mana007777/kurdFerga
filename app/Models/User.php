@@ -127,7 +127,8 @@ class User extends Authenticatable
 
         if ($existing) {
             $prevPts = (int) floor(($existing->pivot->watched_seconds / $duration) * 5);
-            $newPts = min(5, $ptsToAward) - min(5, $prevPts);
+            $currentPts = (int) floor(($watched / $duration) * 5);
+            $newPts = min(5, $currentPts) - min(5, $prevPts);
 
             if ($newPts > 0) {
                 $this->increment('pts', $newPts);
