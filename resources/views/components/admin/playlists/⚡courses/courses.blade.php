@@ -120,7 +120,26 @@
                 <flux:subheading class="!text-zinc-500 font-mono text-xs uppercase tracking-tight">{{ __('Upload high-fidelity data to specific module.') }}</flux:subheading>
             </div>
 
-            <div class="space-y-6 relative" x-data="{ uploading: false, progress: 0 }"
+            <div class="space-y-6 relative" x-data="{ 
+                     uploading: false, 
+                     progress: 0,
+                     handleFileSelect(event) {
+                         const file = event.target.files[0];
+                         if (!file) return;
+
+                         const video = document.createElement('video');
+                         video.preload = 'metadata';
+                         video.onloadedmetadata = () => {
+                             window.URL.revokeObjectURL(video.src);
+                             const durationSeconds = video.duration;
+                             const durationMinutes = (durationSeconds / 60).toFixed(1);
+                             
+                             // Update the Livewire property
+                             @this.set('newLessonDurationMinutes', durationMinutes);
+                         };
+                         video.src = URL.createObjectURL(file);
+                     }
+                 }"
                  x-on:livewire-upload-start="uploading = true"
                  x-on:livewire-upload-finish="uploading = false; progress = 0"
                  x-on:livewire-upload-error="uploading = false"
@@ -131,7 +150,7 @@
                 <div class="space-y-3">
                     <flux:label class="!text-zinc-400 font-black text-[9px] uppercase tracking-[0.2em]">{{ __('Data Payload') }}</flux:label>
                     <div class="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/60">
-                        <flux:input wire:model="newLessonVideo" type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime" required class="!bg-transparent !border-0 !text-zinc-400 !font-mono text-xs" />
+                        <flux:input wire:model="newLessonVideo" type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime" required class="!bg-transparent !border-0 !text-zinc-400 !font-mono text-xs" @change="handleFileSelect($event)" />
                     </div>
                 </div>
 
