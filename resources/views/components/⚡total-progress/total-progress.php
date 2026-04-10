@@ -12,7 +12,16 @@ new class extends Component
 
     public function mount(): void
     {
-        $this->selectedPlaylistId = Playlist::where('is_published', true)->first()?->id;
+        $user = Auth::user();
+
+        if ($user) {
+            $this->selectedPlaylistId = $user->enrolledPlaylists()
+                ->where('is_published', true)
+                ->first()?->id;
+        } else {
+            $this->selectedPlaylistId = Playlist::where('is_published', true)->first()?->id;
+        }
+
         $this->updatePercentage();
     }
 
@@ -52,8 +61,12 @@ new class extends Component
 
     public function with(): array
     {
+        $user = Auth::user();
+
         return [
-            'playlists' => Playlist::where('is_published', true)->get(),
+            'playlists' => $user 
+                ? $user->enrolledPlaylists()->where('is_published', true)->get()
+                : Playlist::where('is_published', true)->get(),
         ];
     }
 };
